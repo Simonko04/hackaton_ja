@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { Field, FormFieldType } from './FormBuilder';
+import React, { useState } from 'react';
+import type { Field, FormFieldType } from '../App';
 import {
   DndContext,
   closestCenter,
@@ -16,9 +16,11 @@ export type FormCanvasProps = {
   onChange: (id: string, patch: Partial<Field>) => void;
   onRemove: (id: string) => void;
   onReorder: (list: Field[]) => void;
+  onAddField: (type: FormFieldType) => void;
+  onSelect: (id: string) => void;
 };
 
-export default function FormCanvas({ fields, onChange, onRemove, onReorder }: FormCanvasProps) {
+export default function FormCanvas({ fields, onChange, onRemove, onReorder, onAddField, onSelect }: FormCanvasProps) {
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
   const [values, setValues] = useState<Record<string, string | boolean>>({});
 
@@ -38,6 +40,12 @@ export default function FormCanvas({ fields, onChange, onRemove, onReorder }: Fo
     }
   }
 
+  function handleCanvasDrop(event: React.DragEvent<HTMLElement>) {
+    event.preventDefault();
+    const fieldType = event.dataTransfer.getData('application/form-field') as FormFieldType;
+    if (fieldType) onAddField(fieldType);
+  }
+
   async function submitPreview() {
     try {
       const res = await fetch('/api/submissions', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ templateId: null, data: values }) });
@@ -47,21 +55,21 @@ export default function FormCanvas({ fields, onChange, onRemove, onReorder }: Fo
   }
 
   return (
-    <section aria-label="Editor formulára">
+    <section aria-label="Editor formulára" onDragOver={(event) => event.preventDefault()} onDrop={handleCanvasDrop}>
       <div className="canvas-header">
         <h2>Editor formulára</h2>
         <span className="badge">{fields.length} položiek</span>
       </div>
 
       {fields.length === 0 ? (
-        <div className="empty-state">Žiadne polia. Pridajte z palety vľavo.</div>
+        <div className="empty-state">Žiadne polia. Potiahnite z palety do tejto plochy.</div>
       ) : (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={fields.map((field) => field.id)} strategy={verticalListSortingStrategy}>
             <div className="field-list" role="list">
               {fields.map((field) => (
                 <SortableItem key={field.id} id={field.id}>
-                  <article className="field-card" role="listitem" aria-labelledby={`label-${field.id}`}>
+                  <article className="field-card" role="listitem" aria-labelledby={`label-${field.id}`} onClick={() => onSelect(field.id)}>
                     <div className="field-card-header">
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span className="drag-handle" aria-hidden>⋮⋮</span>
@@ -128,12 +136,24 @@ export default function FormCanvas({ fields, onChange, onRemove, onReorder }: Fo
                       ))}
                     </select>
                   )}
+
+                  {field.type === 'number' && (
+                    <input id={`input-preview-${field.id}`} className="form-input" type="number" value={typeof values[field.id] === 'string' ? (values[field.id] as string) : ''} onChange={(e) => setValue(field.id, e.target.value)} />
+                  )}
+
+                  {field.type === 'date' && (
+                    <input id={`input-preview-${field.id}`} className="form-input" type="date" value={typeof values[field.id] === 'string' ? (values[field.id] as string) : ''} onChange={(e) => setValue(field.id, e.target.value)} />
+                  )}
+
+                  {field.type === 'email' && (
+                    <input id={`input-preview-${field.id}`} className="form-input" type="email" value={typeof values[field.id] === 'string' ? (values[field.id] as string) : ''} onChange={(e) => setValue(field.id, e.target.value)} />
+                  )}
                 </div>
               ))}
 
               <div style={{ display: 'flex', gap: 8 }}>
                 <button className="btn btn-primary" type="submit">Odoslať náhľad</button>
-                <button className="btn btn-ghost btn-small" type="button" onClick={() => { const blob = new Blob([JSON.stringify(values, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `submission_${Date.now()}.json`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }}>Export JSON</button>
+                <button className="btn btn-ghost btn-small" type="button" onClick={() => { const blob = new Blob([JSON.stringify(values, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'preview.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }}>Export JSON</button>
               </div>
             </form>
           )}

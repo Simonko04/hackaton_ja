@@ -1,5 +1,5 @@
 import React from 'react';
-import type { FormFieldType } from './FormBuilder';
+import type { FormFieldType } from '../App';
 
 export type FieldPaletteProps = {
   onAdd: (type: FormFieldType) => void;
@@ -10,9 +10,17 @@ const options: Array<{ type: FormFieldType; label: string; icon: string }> = [
   { type: 'textarea', label: 'Textové okno', icon: '▭' },
   { type: 'checkbox', label: 'Zaškrtávacie', icon: '✓' },
   { type: 'select', label: 'Výber (select)', icon: '▣' },
+  { type: 'number', label: 'Číslo', icon: '123' },
+  { type: 'date', label: 'Dátum', icon: '📅' },
+  { type: 'email', label: 'E-mail', icon: '@' },
 ];
 
 export default function FieldPalette({ onAdd }: FieldPaletteProps) {
+  const handleDragStart = (event: React.DragEvent<HTMLButtonElement>, type: FormFieldType) => {
+    event.dataTransfer.setData('application/form-field', type);
+    event.dataTransfer.effectAllowed = 'copy';
+  };
+
   return (
     <section className="sidebar-section" aria-label="Palette polí">
       <span className="small-label">Typy položiek</span>
@@ -22,6 +30,8 @@ export default function FieldPalette({ onAdd }: FieldPaletteProps) {
             key={option.type}
             className="palette-item"
             type="button"
+            draggable
+            onDragStart={(event) => handleDragStart(event, option.type)}
             onClick={() => onAdd(option.type)}
             title={`Pridať ${option.label}`}
             aria-label={`Pridať ${option.label}`}

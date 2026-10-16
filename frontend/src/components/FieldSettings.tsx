@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Field } from './FormBuilder';
+import type { Field } from '../App';
 
 export type FieldSettingsProps = {
   field: Field;

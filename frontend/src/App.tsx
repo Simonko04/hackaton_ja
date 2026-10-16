@@ -15,7 +15,15 @@ export default function FormBuilder() {
   React.useEffect(() => { fetchTemplates(); }, []);
 
   function addField(fieldType: FormFieldType) {
-    const f: Field = { id: String(Date.now()) + Math.random().toString(16).slice(2), type: fieldType, label: fieldType === 'text' ? 'Textový riadok' : fieldType, placeholder: '' };
+    const f: Field = {
+      id: String(Date.now()) + Math.random().toString(16).slice(2),
+      type: fieldType,
+      label: fieldType === 'text' ? 'Textový riadok' : fieldType,
+      placeholder: '',
+      required: false,
+      help: '',
+      pattern: '',
+    };
     if (fieldType === 'select') f.options = ['Možnosť 1', 'Možnosť 2'];
     setFields((prev) => [...prev, f]);
     setSelectedId(f.id);
@@ -90,7 +98,14 @@ export default function FormBuilder() {
             </div>
           </div>
 
-          <FormCanvas fields={fields} onChange={updateField} onRemove={removeField} onReorder={reorderFields} onSelect={(id: string) => setSelectedId(id)} />
+          <FormCanvas
+            fields={fields}
+            onChange={updateField}
+            onRemove={removeField}
+            onReorder={reorderFields}
+            onAddField={addField}
+            onSelect={(id: string) => setSelectedId(id)}
+          />
 
         </main>
 
