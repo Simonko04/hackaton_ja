@@ -10,109 +10,77 @@ export type Field = {
   required?: boolean;
   help?: string;
   pattern?: string;
+  internalName?: string;
 };
 
-const sectionStructure = [
+const initialSections = [
   {
+    id: 's1',
     title: 'Informácie o organizácii',
-    children: [
-      'IČO',
-      'E-mail',
-      'Názov',
-      'Verejná správa',
-      'IBAN',
-      'Údaje o oprávnenej osobe',
-      'Číslo',
-      'Činost',
-      'Počet žiadateľov',
-      'Dátum zápisu',
-      'Zmluva č.',
-    ],
+    children: [],
   },
   {
+    id: 's2',
     title: 'Súhrn informácie o projekte',
-    children: [
-      'Príjem',
-      'Prihádzanie',
-      'Náklady projektu',
-      'Zostavenie',
-      'Doplňujúce informácie',
-      'Rozpočet',
-      'Prihody',
-      'Čestné prehlásenie',
-    ],
+    children: [],
   },
   {
+    id: 's3',
     title: 'Rozpočet',
-    children: ['Rozpočet', 'Rozpočet', 'Podsekcia'],
+    children: [],
   },
 ];
 
-const defaultFields: Field[] = [
-  { id: 'f1', type: 'text', label: 'Textový riadok', placeholder: 'Zadajte text', required: false },
-  { id: 'f2', type: 'text', label: 'Názov organizácie', placeholder: 'Názov organizácie', required: false },
-  { id: 'f3', type: 'email', label: 'E-mail', placeholder: 'vas@email.sk', required: true },
-  { id: 'f4', type: 'text', label: 'IČO', placeholder: 'Zadajte IČO', required: true },
-  { id: 'f5', type: 'select', label: 'Výber', options: ['Možnosť 1', 'Možnosť 2'], placeholder: 'Vyberte', required: false },
-];
-
-const paletteGroups = [
-  {
-    key: 'basic',
-    title: 'Základné',
-    items: ['Textový riadok', 'Textové okno', 'Číslo', 'Mena', 'Hľadanie IČO', 'Rozbaľovacia ponuka', 'Editovateľný výber'],
-  },
-  {
-    key: 'calc',
-    title: 'Výpočty',
-    items: ['Sčítac', 'Násobič', 'Percento'],
-  },
-  {
-    key: 'budget',
-    title: 'Rozpočet',
-    items: ['Podsekcia', 'Rozpočtová tabuľka', 'Opakovanie rozpočtovej tabuľky'],
-  },
-  {
-    key: 'sections',
-    title: 'Sekcie',
-    items: ['Sekcia', 'Podsekcia', 'Opakovacia podsekcia', 'Popup sekcia'],
-  },
-  {
-    key: 'files',
-    title: 'Súbory',
-    items: ['Zoznam súborov', 'Obrázky'],
-  },
-  {
-    key: 'calendar',
-    title: 'Kalendár',
-    items: ['Dátum', 'Rozmedzie dátumov', 'Mesiac'],
-  },
-  {
-    key: 'tables',
-    title: 'Tabuľka',
-    items: ['Tabuľka', 'Výpočty', 'Kalendár', 'Iné'],
-  },
-  {
-    key: 'indicators',
-    title: 'Indikátory',
-    items: ['Plnenie indikátorov', 'Vlastné indikátory', 'Súhrn indikátorov'],
-  },
+const initialFields: Field[] = [
+  { id: 'f1', type: 'text', label: 'Textový riadok', placeholder: 'Zadajte text', required: false, internalName: 'textovy_riadok' },
+  { id: 'f2', type: 'text', label: 'Názov organizácie', placeholder: 'Názov organizácie', required: false, internalName: 'nazov_organizacie' },
+  { id: 'f3', type: 'email', label: 'E-mail', placeholder: 'vas@email.sk', required: true, internalName: 'email' },
+  { id: 'f4', type: 'text', label: 'IČO', placeholder: 'Zadajte IČO', required: true, internalName: 'ico' },
+  { id: 'f5', type: 'select', label: 'Výber', options: ['Možnosť 1', 'Možnosť 2'], placeholder: 'Vyberte', required: false, internalName: 'vyber' },
 ];
 
 export default function App() {
-  const [selectedFieldId, setSelectedFieldId] = React.useState<string>('f4');
-  const [sectionsOpen, setSectionsOpen] = React.useState<Record<string, boolean>>({
-    basic: true,
-    calc: true,
-    budget: true,
-    sections: true,
-    files: true,
-    calendar: true,
-    tables: true,
-    indicators: true,
-  });
+  const [fields, setFields] = React.useState<Field[]>(initialFields);
+  const [sections, setSections] = React.useState(initialSections);
+  const [selectedFieldId, setSelectedFieldId] = React.useState<string>(fields[0].id);
+  const [values, setValues] = React.useState<Record<string, string | boolean>>({});
 
-  const selectedField = defaultFields.find((f) => f.id === selectedFieldId) ?? defaultFields[0];
+  React.useEffect(() => {
+    // ensure each section has some children mapped to field ids for demo
+    setSections((prev) => prev.map((s, i) => ({ ...s, children: fields.slice(i, i + 2).map((f) => f.id) })));
+  }, [fields]);
+
+  function updateField(id: string, patch: Partial<Field>) {
+    setFields((prev) => prev.map((f) => (f.id === id ? { ...f, ...patch } : f)));
+  }
+
+  function setValue(id: string, val: string | boolean) {
+    setValues((prev) => ({ ...prev, [id]: val }));
+  }
+
+  function addFieldOfType(type: FormFieldType) {
+    const f: Field = {
+      id: String(Date.now()) + Math.random().toString(16).slice(2),
+      type,
+      label: type === 'text' ? 'Textový riadok' : type,
+      placeholder: '',
+      internalName: `${type}_${Date.now()}`,
+    };
+    setFields((prev) => [...prev, f]);
+    setSelectedFieldId(f.id);
+  }
+
+  function removeField(id: string) {
+    setFields((prev) => prev.filter((f) => f.id !== id));
+    setValues((prev) => {
+      const copy = { ...prev };
+      delete copy[id];
+      return copy;
+    });
+    if (selectedFieldId === id) setSelectedFieldId(fields[0]?.id ?? null as any);
+  }
+
+  const selectedField = fields.find((f) => f.id === selectedFieldId) ?? fields[0];
 
   return (
     <div className="formbuilder-app">
@@ -149,26 +117,29 @@ export default function App() {
           </div>
 
           <div className="tree-root">
-            {sectionStructure.map((section) => (
-              <div key={section.title} className="tree-section">
+            {sections.map((section) => (
+              <div key={section.id} className="tree-section">
                 <div className="tree-section-header">{section.title}</div>
                 <div className="tree-leafs">
-                  {section.children.map((child, idx) => (
-                    <button
-                      key={`${section.title}-${idx}`}
-                      className={`tree-leaf ${selectedField.label === child ? 'selected' : ''}`}
-                      onClick={() => setSelectedFieldId(defaultFields[idx % defaultFields.length].id)}
-                    >
-                      <span className="leaf-dot" />
-                      {child}
-                    </button>
-                  ))}
+                  {section.children.map((childId) => {
+                    const f = fields.find((x) => x.id === childId)!;
+                    return (
+                      <button
+                        key={childId}
+                        className={`tree-leaf ${selectedFieldId === childId ? 'selected' : ''}`}
+                        onClick={() => setSelectedFieldId(childId)}
+                      >
+                        <span className="leaf-dot" />
+                        {f?.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             ))}
           </div>
 
-          <button className="add-field-btn" type="button">+ Pridať prvok</button>
+          <button className="add-field-btn" type="button" onClick={() => addFieldOfType('text')}>+ Pridať prvok</button>
         </aside>
 
         <main className="main-panel">
@@ -184,12 +155,12 @@ export default function App() {
           <div className="panel-card editor-surface">
             <div className="field-header-row">
               <div className="field-title-wrap">
-                <div className="field-chip">Textový riadok</div>
-                <span className="field-type">Text</span>
+                <div className="field-chip">{selectedField?.label ?? ''}</div>
+                <span className="field-type">{selectedField?.type}</span>
               </div>
               <div className="mini-tools">
-                <button className="ghost-btn tiny">Duplikovať</button>
-                <button className="ghost-btn tiny danger">⋯</button>
+                <button className="ghost-btn tiny" onClick={() => { if (selectedField) { addFieldOfType(selectedField.type); } }}>Duplikovať</button>
+                <button className="ghost-btn tiny danger" onClick={() => selectedField && removeField(selectedField.id)}>Odstrániť</button>
               </div>
             </div>
 
@@ -204,16 +175,18 @@ export default function App() {
               <div className="editor-column left-editor">
                 <div className="field-form-group">
                   <label>Typ poľa</label>
-                  <select value="Textový riadok">
-                    <option>Textový riadok</option>
-                    <option>Textové okno</option>
-                    <option>Číslo</option>
+                  <select value={selectedField?.type} onChange={(e) => selectedField && updateField(selectedField.id, { type: e.target.value as FormFieldType })}>
+                    <option value="text">Textový riadok</option>
+                    <option value="textarea">Textové okno</option>
+                    <option value="number">Číslo</option>
+                    <option value="email">E-mail</option>
+                    <option value="select">Výber</option>
                   </select>
                 </div>
 
                 <div className="field-form-group">
                   <label>Interný názov</label>
-                  <input value="textovy_riadok" readOnly />
+                  <input value={selectedField?.internalName ?? ''} onChange={(e) => selectedField && updateField(selectedField.id, { internalName: e.target.value })} />
                 </div>
 
                 <div className="field-form-group">
@@ -226,57 +199,57 @@ export default function App() {
                     <button type="button">≡</button>
                     <button type="button">⌘</button>
                   </div>
-                  <textarea value="Textový riadok" readOnly />
+                  <textarea value={selectedField?.label ?? ''} onChange={(e) => selectedField && updateField(selectedField.id, { label: e.target.value })} />
                 </div>
 
                 <div className="tag-row">
                   <div className="tag-box">Tag</div>
-                  <input value="" placeholder="Pridať tag" readOnly />
+                  <input value={selectedField?.placeholder ?? ''} onChange={(e) => selectedField && updateField(selectedField.id, { placeholder: e.target.value })} placeholder="Pridať tag" />
                   <button className="tiny-badge">+</button>
                 </div>
 
                 <div className="checkbox-row">
-                  <label><input type="checkbox" checked readOnly /> Povinné pole</label>
-                  <label><input type="checkbox" checked readOnly /> Editovateľné</label>
-                  <label><input type="checkbox" readOnly /> Skrytý názov</label>
+                  <label><input type="checkbox" checked={Boolean(selectedField?.required)} onChange={(e) => selectedField && updateField(selectedField.id, { required: e.target.checked })} /> Povinné pole</label>
+                  <label><input type="checkbox" checked={false} onChange={() => {}} /> Editovateľné</label>
+                  <label><input type="checkbox" checked={false} onChange={() => {}} /> Skrytý názov</label>
                 </div>
 
                 <div className="field-form-group compact">
                   <label>Predvolená hodnota</label>
-                  <input value="" placeholder="Predvolená hodnota" readOnly />
+                  <input value={String(values[selectedField?.id ?? ''] ?? '')} onChange={(e) => selectedField && setValue(selectedField.id, e.target.value)} placeholder="Predvolená hodnota" />
                 </div>
 
                 <div className="field-form-group compact">
                   <label>Validácia</label>
-                  <select value="Nie je nastavená">
-                    <option>Nie je nastavená</option>
-                    <option>Nutné vyplniť</option>
-                    <option>Email</option>
+                  <select value={selectedField?.pattern ?? ''} onChange={(e) => selectedField && updateField(selectedField.id, { pattern: e.target.value })}>
+                    <option value="">Nie je nastavená</option>
+                    <option value="required">Nutné vyplniť</option>
+                    <option value="email">Email</option>
                   </select>
                 </div>
               </div>
 
               <aside className="right-editor">
-                <div className="section-label">Sekcia 1 z 8</div>
+                <div className="section-label">Sekcia 1 z {sections.length}</div>
                 <div className="section-box">
                   <div className="mini-heading">Informácie o organizácii</div>
                   <div className="label-row">
                     <span>IČO</span>
-                    <input value="" placeholder="Zadajte IČO" readOnly />
+                    <input value={values['f4'] ?? ''} onChange={(e) => setValue('f4', e.target.value)} placeholder="Zadajte IČO" />
                   </div>
                   <div className="label-row">
                     <span>E-mail</span>
-                    <input value="vas@email.sk" readOnly />
+                    <input value={values['f3'] ?? ''} onChange={(e) => setValue('f3', e.target.value)} />
                   </div>
                   <div className="label-row">
                     <span>Názov</span>
-                    <input value="Názov organizácie" readOnly />
+                    <input value={values['f2'] ?? ''} onChange={(e) => setValue('f2', e.target.value)} />
                   </div>
                 </div>
 
                 <div className="selected-field-card">
-                  <div className="selected-header">Textový riadok</div>
-                  <input value="Zadajte text" readOnly />
+                  <div className="selected-header">{selectedField?.label}</div>
+                  <input value={String(values[selectedField?.id ?? ''] ?? '')} onChange={(e) => selectedField && setValue(selectedField.id, e.target.value)} placeholder={selectedField?.placeholder ?? ''} />
                 </div>
 
                 <div className="setting-list">
@@ -300,39 +273,29 @@ export default function App() {
         </main>
 
         <aside className="sidebar right-sidebar">
-          <div className="right-panel-header">Sekcia</div>
+          <div className="right-panel-header">Paleta polí</div>
           <div className="field-stack">
-            {paletteGroups.map((group, index) => (
-              <div key={group.key} className={`palette-group ${sectionsOpen[group.key] ? 'open' : ''}`}>
-                <button
-                  type="button"
-                  className="palette-group-header"
-                  onClick={() => setSectionsOpen((prev) => ({ ...prev, [group.key]: !prev[group.key] }))}
-                >
-                  <span>{group.title}</span>
-                  <span>{sectionsOpen[group.key] ? '▾' : '▸'}</span>
-                </button>
-
-                {sectionsOpen[group.key] && (
-                  <div className="palette-group-items">
-                    {group.items.map((item, idx) => (
-                      <button
-                        key={`${group.key}-${idx}`}
-                        type="button"
-                        className={`small-field-item ${index === 0 && idx === 0 ? 'selected' : ''}`}
-                        onClick={() => setSelectedFieldId(defaultFields[(idx + index) % defaultFields.length].id)}
-                      >
-                        {item}
-                      </button>
-                    ))}
-                  </div>
-                )}
+            <div className="palette-group">
+              <button className="palette-group-header">Základné <span>▾</span></button>
+              <div className="palette-group-items">
+                <button className="small-field-item" onClick={() => addFieldOfType('text')}>TEXTOVÝ RIADOK</button>
+                <button className="small-field-item" onClick={() => addFieldOfType('textarea')}>TEXTOVÉ OKNO</button>
+                <button className="small-field-item" onClick={() => addFieldOfType('number')}>ČÍSLO</button>
+                <button className="small-field-item" onClick={() => addFieldOfType('email')}>E-MAIL</button>
               </div>
-            ))}
+            </div>
+
+            <div className="palette-group">
+              <button className="palette-group-header">Výpočty <span>▾</span></button>
+              <div className="palette-group-items">
+                <button className="small-field-item" onClick={() => addFieldOfType('number')}>SČÍTAC</button>
+                <button className="small-field-item" onClick={() => addFieldOfType('number')}>NÁSOBIČ</button>
+                <button className="small-field-item" onClick={() => addFieldOfType('number')}>PERCENTO</button>
+              </div>
+            </div>
           </div>
         </aside>
       </div>
     </div>
   );
 }
-
