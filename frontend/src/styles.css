@@ -146,15 +146,14 @@ button { cursor: pointer; }
 }
 
 /* PDF section */
-.pdf-section {
-  margin-bottom: 28px;
+.pdf-section { margin-bottom: 18px;
   cursor: pointer;
   border-radius: 2px;
   transition: outline 0.1s;
   outline: 2px solid transparent;
 }
 .pdf-section:hover { outline: 2px solid rgba(124,106,245,0.4); }
-.pdf-section.pdf-sel { outline: 2px solid #8B1A2F; }
+.pdf-section.pdf-sel { outline: 2px solid #555; }
 .pdf-section-title {
   font-size: 13pt;
   font-weight: 700;
@@ -208,7 +207,7 @@ button { cursor: pointer; }
   color: #999;
   min-height: 22px;
 }
-.pdf-req { color: #cc0000; }
+.pdf-req { color: #000; }
 
 /* PDF textarea field */
 .pdf-field-tall .pdf-field-value { min-height: 60px; }
@@ -372,10 +371,13 @@ button { cursor: pointer; }
   width: 100%; display: flex; align-items: center; gap: 5px;
   border: 0; background: transparent; text-align: left;
   padding: 4px 8px; cursor: pointer; font-size: 0.78rem; color: #8a97b2;
+  box-sizing: border-box;
+  border-left: 2px solid transparent;
+  transition: border-color 0.1s;
 }
-.ltree-item:hover { background: rgba(139,26,47,0.08); color: #f0a0b0; }
-.ltree-sel { background: rgba(139,26,47,0.15) !important; color: #f0a0b0 !important; }
-.ltree-active-parent { border-left: 2px solid #8B1A2F; }
+.ltree-item:hover { background: rgba(139,26,47,0.08); color: #f0a0b0; border-left-color: rgba(139,26,47,0.4); }
+.ltree-sel { background: rgba(139,26,47,0.15) !important; color: #f0a0b0 !important; border-left-color: #8B1A2F !important; }
+.ltree-active-parent { border-left-color: #8B1A2F !important; background: rgba(139,26,47,0.08) !important; }
 .ltree-exp { font-size: 0.6rem; color: #5a6480; flex-shrink: 0; width: 10px; }
 .ltree-icon { flex-shrink: 0; font-size: 0.85rem; }
 .ltree-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -560,7 +562,7 @@ button { cursor: pointer; }
 }
 
 /* Section title - tučný nadpis s čiarou */
-.pdf-section { margin-bottom: 22px; }
+.pdf-section { margin-bottom: 16px; }
 .pdf-section-title {
   font-size: 11pt;
   font-weight: 700;
@@ -570,7 +572,7 @@ button { cursor: pointer; }
   margin-bottom: 8px;
   letter-spacing: 0.04em;
 }
-.pdf-section.pdf-sel > .pdf-section-title { color: #8B1A2F; }
+.pdf-section.pdf-sel > .pdf-section-title { color: #000; }
 
 /* Subsection - inverted header */
 .pdf-subsection { margin-bottom: 10px; }
@@ -583,7 +585,7 @@ button { cursor: pointer; }
   padding: 3px 8px;
   margin-bottom: 0;
 }
-.pdf-subsection.pdf-sel > .pdf-subsection-title { background: #8B1A2F; }
+.pdf-subsection.pdf-sel > .pdf-subsection-title { background: #333; }
 
 /* Fields group container - obaluje vsetky polia sekcie */
 .pdf-fields-group {
@@ -699,7 +701,7 @@ button { cursor: pointer; }
   margin-top: 1px;
   display: inline-block;
 }
-.pdf-req { color: #cc0000; }
+.pdf-req { color: #000; }
 
 /* Add section button */
 .pdf-add-sec {
@@ -943,26 +945,25 @@ html, body, #root {
   color: #888;
 }
 
-/* Unsaved - červený okraj */
+/* Unsaved - bez okraja */
 .pdf-unsaved {
-  outline: 2px solid #cc2233 !important;
-  outline-offset: -2px;
+  outline: none !important;
 }
 .pdf-unsaved .pdf-section-title {
-  color: #cc2233 !important;
-  border-bottom-color: #cc2233 !important;
+  color: #000 !important;
+  border-bottom-color: #000 !important;
 }
 
-/* PDF selected - burgundy namiesto fialovej */
+/* PDF selected - jemne sive, bez farebneho okraja */
 .pdf-row.pdf-sel {
-  background: rgba(139,26,47,0.06) !important;
-  outline: 2px solid #8B1A2F !important;
+  background: rgba(0,0,0,0.04) !important;
+  outline: 2px solid #555 !important;
   outline-offset: -2px;
 }
-.pdf-section.pdf-sel > .pdf-section-title { color: #8B1A2F !important; }
-.pdf-block.pdf-sel { outline: 2px solid #8B1A2F !important; outline-offset: -2px; }
-.pdf-file-box.pdf-sel, .pdf-agree.pdf-sel { outline: 2px solid #8B1A2F !important; }
-.pdf-subsection.pdf-sel > .pdf-subsection-title { background: #8B1A2F !important; }
+.pdf-section.pdf-sel > .pdf-section-title { color: #000 !important; }
+.pdf-block.pdf-sel { outline: 2px solid #555 !important; outline-offset: -2px; }
+.pdf-file-box.pdf-sel, .pdf-agree.pdf-sel { outline: 2px solid #555 !important; }
+.pdf-subsection.pdf-sel > .pdf-subsection-title { background: #333 !important; }
 
 /* Drop line burgundy */
 .drop-line { background: #8B1A2F !important; }
@@ -1027,7 +1028,7 @@ html, body, #root {
 .json-modal-foot .btn-primary { background: #8B1A2F; color: white; }
 .json-modal-foot .btn-secondary { background: #2a3045; color: #8a97b2; }
 
-/* ===== PEVNA A4 STRANA - nesmie rast ===== */
+/* ===== A4 STRANA - fixna vyska, obsah sa distribuuje cez estimaciu ===== */
 .pdf-page {
   height: 1123px !important;
   min-height: unset !important;
