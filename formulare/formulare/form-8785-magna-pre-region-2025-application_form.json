@@ -1,0 +1,1449 @@
+{
+    "type": "root",
+    "view_custom_template": null,
+    "diff_custom_template": null,
+    "diff_style": "default",
+    "children": [
+        {
+            "type": "SECTION",
+            "name": "Predkladateľ",
+            "tag": "predkladatel",
+            "heading": "Žiadateľ",
+            "source_tag": "predkladatel.nazov",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Právnická osoba",
+                    "tag": "pravnicka_osoba",
+                    "heading": "O grant sa uchádzam ako organizácia",
+                    "view_condition": "if(eq(predkladatel.forma,\"pravnicka\"),1,0)",
+                    "validate_condition": "eq(predkladatel.forma,\"pravnicka\")",
+                    "children": [
+                        {
+                            "type": "COMPANY_SEARCH",
+                            "name": "IČO",
+                            "tag": "ico",
+                            "description": "(Vypíšte IČO, údaje sa načítajú automaticky z centrálneho registra.)",
+                            "heading": "IČO",
+                            "config": {
+                                "country": "sk",
+                                "visible_ico": 0,
+                                "editable_ico": 0,
+                                "visible_name": 1,
+                                "editable_name": 1,
+                                "visible_street": 0,
+                                "editable_street": 0,
+                                "visible_street_number": 0,
+                                "editable_street_number": 0,
+                                "visible_formatted_street": 1,
+                                "editable_formatted_street": 1,
+                                "visible_reg_number": 0,
+                                "editable_reg_number": 0,
+                                "visible_building_number": 0,
+                                "editable_building_number": 0,
+                                "visible_municipality": 1,
+                                "editable_municipality": 0,
+                                "visible_postal_code": 1,
+                                "editable_postal_code": 0,
+                                "visible_district": 0,
+                                "editable_district": 0,
+                                "visible_region": 0,
+                                "editable_region": 0,
+                                "visible_country": 1,
+                                "editable_country": 0,
+                                "visible_formatted_address": 1,
+                                "editable_formatted_address": 0,
+                                "visible_cin": 1,
+                                "editable_cin": 0,
+                                "visible_vatin": 1,
+                                "editable_vatin": 0,
+                                "visible_tin": 1,
+                                "editable_tin": 0,
+                                "visible_legal_form": 1,
+                                "editable_legal_form": 0,
+                                "visible_registration_number": 1,
+                                "editable_registration_number": 0,
+                                "visible_registration_office": 1,
+                                "editable_registration_office": 0,
+                                "visible_established_on": 1,
+                                "editable_established_on": 0,
+                                "visible_statutory_first_name": 0,
+                                "editable_statutory_first_name": 0,
+                                "visible_statutory_last_name": 0,
+                                "editable_statutory_last_name": 0,
+                                "visible_statutory_full_name": 1,
+                                "editable_statutory_full_name": 1,
+                                "visible_statutory_street": 0,
+                                "editable_statutory_street": 0,
+                                "visible_statutory_building_number": 0,
+                                "editable_statutory_building_number": 0,
+                                "visible_statutory_reg_number": 0,
+                                "editable_statutory_reg_number": 0,
+                                "visible_statutory_postal_code": 0,
+                                "editable_statutory_postal_code": 0,
+                                "visible_statutory_municipality": 0,
+                                "editable_statutory_municipality": 0,
+                                "visible_statutory_type": 1,
+                                "editable_statutory_type": 1,
+                                "force_search_on_load": 0,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_LIST",
+                            "name": "Štatutár/i",
+                            "tag": "statutar",
+                            "mandatory": true,
+                            "heading": "Štatutárny orgán žiadateľa - kontakty",
+                            "config": {
+                                "initial_rows": 1,
+                                "add_rows": 1,
+                                "hide_header": 0,
+                                "separate_rows": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Meno a priezvisko",
+                                    "tag": "meno",
+                                    "description": "(titul pred menom a za menom)&nbsp;",
+                                    "heading": "Meno a priezvisko",
+                                    "config": {
+                                        "size": 60,
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Telefón/mobil",
+                                    "tag": "telefstat",
+                                    "heading": "Telefón/mobil",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Email",
+                                    "tag": "email",
+                                    "heading": "Email",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "TABLE_LIST",
+                            "name": "Kontaktná osoba",
+                            "tag": "kontaktna",
+                            "mandatory": true,
+                            "heading": "Kontaktná osoba zodpovedná za realizáciu projektu",
+                            "config": {
+                                "initial_rows": 1,
+                                "add_rows": 1,
+                                "hide_header": 0,
+                                "separate_rows": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Meno a priezvisko",
+                                    "tag": "meno",
+                                    "description": "<p>(titul pred menom a za menom)&nbsp;<br />\n&nbsp;</p>",
+                                    "placeholder": "Nemusí to byť osoba štatutára",
+                                    "heading": "Meno a priezvisko",
+                                    "config": {
+                                        "size": 60,
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Telefón/mobil",
+                                    "tag": "telefstat",
+                                    "heading": "Telefón/mobil",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Email",
+                                    "tag": "email",
+                                    "heading": "Email",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "TEXT",
+                            "name": "História Organizácie",
+                            "tag": "priklad_projektu1",
+                            "mandatory": true,
+                            "description": "Stručne opíšte Vaše aktivity, na ktoré týmto projektom nadväzujete, najmä zameranie organizácie a rok vzniku, dokončené projekty a dosiahnuté výsledky, zoznam projektov, na<br />\nktoré ste v minulosti získali podporu od Karpatskej nadácie aj s uvedením roku realizácie, zoznam projektov alebo aktivít, za ktoré ste získali rôzne ocenenia.",
+                            "heading": "História organizácie a výsledky predchádzajúcich projektov",
+                            "config": {
+                                "max_chars": 800,
+                                "rows": 17,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "bankové údaje",
+                    "tag": "bankove_udaje",
+                    "heading": "Bankové údaje",
+                    "children": [
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Adresa banky",
+                            "tag": "adresa_banky",
+                            "mandatory": true,
+                            "heading": "Adresa banky",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Názov účtu",
+                            "tag": "nazov_uctu",
+                            "mandatory": true,
+                            "heading": "Názov účtu",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "IBAN",
+                            "name": "IBAN",
+                            "tag": "iban",
+                            "mandatory": true,
+                            "placeholder": "(v tvare IBAN SKxx xxxx)",
+                            "heading": "Číslo účtu žiadateľa",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SELECT",
+                            "name": "Názov banky",
+                            "tag": "swift_kod_banky",
+                            "mandatory": true,
+                            "heading": "Názov banky",
+                            "config": {
+                                "values": {
+                                    "výber": "--------výber--------",
+                                    "BKS BANK AG, pobočka zahr. banky": "BFKKSKBB - BKS BANK AG, pobočka zahr. banky",
+                                    "Citibank Europe plc, pobočka zahr. banky": "CITISKBA - Citibank Europe plc, pobočka zahr. banky",
+                                    "COMMERZBANK Aktiengesellschaft, pobočka zahr. banky": "COBASKBX - COMMERZBANK Aktiengesellschaft, pobočka zahr. banky",
+                                    "Československá obchodná banka, a.s.": "CEKOSKBX - Československá obchodná banka, a.s.",
+                                    "KOMASK2X - Prima banka Slovensko, a.s.": "KOMASK2X - Prima banka Slovensko, a.s.",
+                                    "LUBASKBX- Prima banka Slovensko, a.s. (bývalá Sberbank)": "LUBASKBX- Prima banka Slovensko, a.s. (bývalá Sberbank)",
+                                    "EXIMBANKA SR": "EXSKSKBX - EXIMBANKA SR",
+                                    "Fio banka, a.s., pobočka zahr. banky": "FIOZSKBA - Fio banka, a.s., pobočka zahr. banky",
+                                    "ING Bank N.V., pobočka zahr. banky": " INGBSKBX - ING Bank N.V., pobočka zahr. banky",
+                                    "J&T BANKA, a.s., pobočka zahr. banky": "JTBPSKBA - J&T BANKA, a.s., pobočka zahr. banky",
+                                    "Komerční banka, a.s., pobočka zahr. banky": " KOMBSKBA - Komerční banka, a.s., pobočka zahr. banky",
+                                    "mBank S.A., pobočka zahr. banky": " BREXSKBX - mBank S.A., pobočka zahr. banky",
+                                    "Národná banka Slovenska": " NBSBSKBX - Národná banka Slovenska",
+                                    "Oberbank AG, pobočka zahr. banky v SR": " OBKLSKBA - Oberbank AG, pobočka zahr. banky v SR",
+                                    "OTP banka Slovensko, a.s.": " OTPVSKBX - OTP banka Slovensko, a.s.",
+                                    "Poštová banka, a.s.": " POBNSKBA - Poštová banka, a.s.",
+                                    "Privatbanka, a.s.": "BSLOSK22 - Privatbanka, a.s.",
+                                    "Prvá stavebná sporiteľňa, a.s.": " PRVASKBA - Prvá stavebná sporiteľňa, a.s.",
+                                    "Slovenská sporiteľňa, a.s.": " GIBASKBX - Slovenská sporiteľňa, a.s.",
+                                    "Slovenská záručná a rozvojová banka, a.s.": " SLZBSKBA - Slovenská záručná a rozvojová banka, a.s.",
+                                    "Štátna pokladnica": " SPSRSKBA - Štátna pokladnica",
+                                    "Tatra banka, a.s.": " TATRSKBX - Tatra banka, a.s.",
+                                    "UniCredit Bank Slovakia, a.s.": " UNCRSKBX - UniCredit Bank Slovakia, a.s.",
+                                    "VÚB banka, a.s.": "SUBASKBX - VÚB banka, a.s.",
+                                    "Wűstenrot stavebná sporiteľňa, a.s.": " WUSTSKBA - Wűstenrot stavebná sporiteľňa, a.s.",
+                                    "ZUNO BANK AG, pobočka zahr. banky": " RIDBSKBX - ZUNO BANK AG, pobočka zahr. banky",
+                                    "Raiffeisen BANK (Tatra banka a.s., odštepný závod)": "TATRSKBX - Raiffeisen BANK (Tatra banka a.s., odštepný závod)",
+                                    "KDB Bank Europe Ltd, pobočka zahran. banky": "KODBSKBX - KDB Bank Europe Ltd, pobočka zahran. banky"
+                                },
+                                "values_connected": {
+                                    "výber": "",
+                                    "BKS BANK AG, pobočka zahr. banky": "",
+                                    "Citibank Europe plc, pobočka zahr. banky": "",
+                                    "COMMERZBANK Aktiengesellschaft, pobočka zahr. banky": "",
+                                    "Československá obchodná banka, a.s.": "",
+                                    "KOMASK2X - Prima banka Slovensko, a.s.": "",
+                                    "LUBASKBX- Prima banka Slovensko, a.s. (bývalá Sberbank)": "",
+                                    "EXIMBANKA SR": "",
+                                    "Fio banka, a.s., pobočka zahr. banky": "",
+                                    "ING Bank N.V., pobočka zahr. banky": "",
+                                    "J&T BANKA, a.s., pobočka zahr. banky": "",
+                                    "Komerční banka, a.s., pobočka zahr. banky": "",
+                                    "mBank S.A., pobočka zahr. banky": "",
+                                    "Národná banka Slovenska": "",
+                                    "Oberbank AG, pobočka zahr. banky v SR": "",
+                                    "OTP banka Slovensko, a.s.": "",
+                                    "Poštová banka, a.s.": "",
+                                    "Privatbanka, a.s.": "",
+                                    "Prvá stavebná sporiteľňa, a.s.": "",
+                                    "Slovenská sporiteľňa, a.s.": "",
+                                    "Slovenská záručná a rozvojová banka, a.s.": "",
+                                    "Štátna pokladnica": "",
+                                    "Tatra banka, a.s.": "",
+                                    "UniCredit Bank Slovakia, a.s.": "",
+                                    "VÚB banka, a.s.": "",
+                                    "Wűstenrot stavebná sporiteľňa, a.s.": "",
+                                    "ZUNO BANK AG, pobočka zahr. banky": "",
+                                    "Raiffeisen BANK (Tatra banka a.s., odštepný závod)": "",
+                                    "KDB Bank Europe Ltd, pobočka zahran. banky": ""
+                                },
+                                "roller_source": "",
+                                "add_roller_code": 0,
+                                "add_empty_option": 0,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Projekt",
+            "tag": "projekt",
+            "mandatory": true,
+            "heading": "Projekt",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Nazov projektu",
+                    "tag": "nazov",
+                    "mandatory": true,
+                    "description": "Názov projektu odporúčame krátky, jasný a výstižný.",
+                    "heading": "Názov projektu",
+                    "config": {
+                        "size": 77,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "DATE_RANGE",
+                    "name": "Trvanie projektu ",
+                    "tag": "trvanie_projektu",
+                    "mandatory": true,
+                    "description": "<p>Začiatok realizácie projektu možný najskôr od 21.4.2026<br />\nKoniec realizácie projektu možný najneskôr do 31.10.2026</p>",
+                    "heading": "Trvanie projektu&nbsp;",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "MULTIVALUE_SINGLE",
+                    "name": "Zameranie projektu",
+                    "tag": "zameranie",
+                    "mandatory": true,
+                    "heading": "Zameranie projektu",
+                    "config": {
+                        "values": {
+                            "Scitlivovanie a osveta": "Scitlivovanie a osveta",
+                            "Posilňovanie postavenia a inklúzia": "Posilňovanie postavenia a inklúzia",
+                            "Advokačné aktivity": "Advokačné aktivity"
+                        },
+                        "display_as_row": 0,
+                        "roller_source": "",
+                        "add_roller_code": 0
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Zhrnutie projektu",
+                    "tag": "zhrnutie",
+                    "mandatory": true,
+                    "description": "Stručne opíšte Váš projekt.",
+                    "heading": "Zhrnutie projektu",
+                    "hint": "Odporúčame vypísať na záver po vyplnení ostatných informácií o projekte",
+                    "config": {
+                        "max_chars": 600,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Opis východiskovej situácie",
+                    "tag": "vychodisko",
+                    "mandatory": true,
+                    "description": "Opíšte stav pred začatím projektu. Prečo ste sa rozhodli projekt realizovať? S akými problémami sa minoritná či zraniteľná skupina, na ktorú je projekt zameraný, stretáva. Ako<br />\nuvedené problémy váš projekt rieši a akú zmenu má priniesť?",
+                    "heading": "<p>Opis východiskovej situácie</p>",
+                    "config": {
+                        "max_chars": 1000,
+                        "rows": 10,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Lokalizácia projektu",
+                    "tag": "lokalizace",
+                    "mandatory": true,
+                    "description": "Opíšte miesto (priestor, obec/mesto alebo región), kde budete realizovať váš projekt. Kde sa nachádza? Aké je veľké? Prečo ste si vybrali práve toto miesto? Aké sú silné a slabé<br />\nstránky tohto miesta?",
+                    "heading": "Lokalizácia projektu",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Cieľ projektu",
+                    "tag": "ciele",
+                    "mandatory": true,
+                    "description": "Jasne definujte cieľ projektu, ktorým prispejete k posilneniu hodnôt diverzity a inklúzie a ktorý je v súlade so zameraním projektu. Cieľ projektu musí byť SMART (špecifický, merateľný,<br />\nrealistický, dosiahnuteľný a časovo ohraničený). Projekt môže dosahovať aj viac ako jeden cieľ.",
+                    "heading": "Cieľ projektu",
+                    "config": {
+                        "max_chars": 500,
+                        "rows": 3,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Aktivity projektu",
+                    "tag": "aktivity",
+                    "mandatory": true,
+                    "description": "Uveďte aktivity, ktorými dosiahnete cieľ (ciele) projektu. Ku každej aktivite priraďte čiastkový cieľ, ktorý realizovaním aktivity dosiahnete. Dosiahnutím čiastkových cieľov musíte<br />\ndosiahnuť celkový cieľ (ciele) projektu. Uveďte predpokladaný termín realizácie aktivity. Aktivity majú na seba logicky, vecne a časovo nadväzovať.",
+                    "heading": "<p>Aktivity projektu</p>",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_ROW_NUMBER",
+                            "name": "Číslo riadku",
+                            "tag": "cislo_riadku",
+                            "mandatory": true,
+                            "config": {
+                                "size": 10
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Predpokladaný termín realizácie",
+                            "tag": "termin_realizacie",
+                            "mandatory": true,
+                            "heading": "Predpokladaný termín realizácie",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Aktivita projektu",
+                            "tag": "aktivita",
+                            "mandatory": true,
+                            "heading": "Názov aktivity",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Čiastkový cieľ",
+                            "tag": "ciastkovy_ciel",
+                            "mandatory": true,
+                            "heading": "Čiastkový cieľ",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Opis aktivity",
+                            "tag": "opis_aktivity",
+                            "mandatory": true,
+                            "heading": "Opis aktivity",
+                            "hint": "Opis aktivity, ktorou dosiahnete stanovený čiastkový cieľ projektu",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Cieľová skupina projektu ",
+                    "tag": "cielovka",
+                    "mandatory": true,
+                    "description": "Opíšte cieľovú skupinu, na ktorú je projekt zameraný a odhadnite počet osôb, ktorí budú mať z projektu úžitok. Prečo ste sa zamerali na túto skupinu ľudí a aké sú ich potreby? Aký<br />\núžitok prinesie Váš projekt týmto ľuďom?",
+                    "heading": "Cieľová skupina projektu&nbsp;",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_ROW_NUMBER",
+                            "name": "Číslo riadku",
+                            "tag": "c_riadku",
+                            "mandatory": true,
+                            "config": {
+                                "size": 10
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Názov skupiny ",
+                            "tag": "nazov_skupiny",
+                            "mandatory": true,
+                            "heading": "Názov skupiny&nbsp;",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_NUMBER",
+                            "name": "Počet osôb",
+                            "tag": "pocet",
+                            "mandatory": true,
+                            "heading": "Počet zapojených osôb",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ],
+                                "show_summary": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Prečo ste sa zamerali",
+                            "tag": "dovod",
+                            "mandatory": true,
+                            "heading": "Prečo ste sa zamerali na túto skupinu<br />\nľudí a aké sú ich potreby?",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Úžitok ľuďom",
+                            "tag": "uzitok",
+                            "mandatory": true,
+                            "heading": "Aký úžitok prinesie Váš projekt týmto ľuďom?",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Výsledky projektu",
+                    "tag": "meratelnost",
+                    "mandatory": true,
+                    "description": "Výsledky projektu a očakávaný dopad musia byť jasne, realisticky,<br />\nkvantitatívne a kvalitatívne definované.",
+                    "heading": "Výsledky projektu",
+                    "config": {
+                        "max_chars": 800,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Partnerská organizácia",
+                    "tag": "partnery",
+                    "mandatory": true,
+                    "description": "Uveďte názov partnera a adresu partnera zapojeného do projektu a stručne napíšte akým spôsobom sa partner zúčastní na realizácii projektu. Do projektu sa musí zapojiť aspoň 1<br />\npartnerská organizácia (mimovládne organizácie, školy, samospráva, súkromný sektor a pod.).",
+                    "heading": "Partnerská organizácia",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Názov partnera",
+                            "tag": "nazov_partnera",
+                            "mandatory": true,
+                            "heading": "Názov partnera",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Adresa partnerskej org.",
+                            "tag": "adresa_partnera",
+                            "mandatory": true,
+                            "heading": "Adresa partnerskej organizácie",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Opis participácie partnerskej organizácie",
+                            "tag": "opis_particip_partner",
+                            "mandatory": true,
+                            "heading": "Opis participácie partnerskej organizácie",
+                            "hint": "Stručne napíšte akým spôsobom sa partner zúčastní na realizácii projektu. Do projektu sa musí zapojiť aspoň 1<br />\npartnerská organizácia (mimovládne organizácie, školy, samospráva, súkromný sektor a pod.).",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Použitie nefinančných zdrojov",
+                    "tag": "nefinancne_zdroje",
+                    "mandatory": true,
+                    "description": "Prehľadne zaznamenajte koľko, ako a aké nefinančné zdroje plánujete použiť pri jednotlivých aktivitách a opíšte ako ich zabezpečíte (napr. dobrovoľnícka práca, zapožičanie stojov,<br />\npríprava domáceho občerstvenia, a pod.)",
+                    "heading": "Plánované použitie nefinančných zdrojov na realizáciu projektu",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Názov",
+                            "tag": "nazov_nefinanc",
+                            "mandatory": true,
+                            "heading": "Názov&nbsp;",
+                            "hint": "(napr. dobrovoľnícka práca, zapožičanie stojov,<br />\npríprava domáceho občerstvenia, a pod.)",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_NUMBER",
+                            "name": "Počet",
+                            "tag": "pocet",
+                            "heading": "Počet",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ],
+                                "show_summary": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Spôsob zabezpečenia",
+                            "tag": "zabezpecenie_nefinanc_zdroj",
+                            "mandatory": true,
+                            "heading": "Spôsob zabezpečenia nefinančných zdrojov",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Udržatelnosť výsledkov projektu",
+                    "tag": "udrzatelnost_vysledkov",
+                    "mandatory": true,
+                    "heading": "Udržatelnosť výsledkov projektu",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Zabezpećenie udržatelnosti",
+                            "tag": "zabezpecenie_udrzatelnosti",
+                            "mandatory": true,
+                            "heading": "Popíšte ako zabezpečíte udržateľnosť výsledkov<br />\nvášho projektu a ich využitie po ukončení financovania projektu.",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Aktivity po skončení projektu",
+                            "tag": "akcie_po_projekte",
+                            "mandatory": true,
+                            "heading": "Opíšte, aké ďalšie aktivity plánujete po ukončení realizácie projektu.",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Nejasnosti a riziká súvisiace s projektom",
+                    "tag": "nejasnosti_a_rizika",
+                    "mandatory": true,
+                    "description": "Stručne opíšte nejasnosti a riziká, ktoré súvisia s projektom a môžu viesť k nesplneniu vašich projektových cieľov. Uveďte tiež akým spôsobom ich budete riešiť.",
+                    "heading": "Nejasnosti a riziká súvisiace s projektom",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Nejasnosť/ riziko",
+                            "tag": "riziko",
+                            "mandatory": true,
+                            "heading": "Nejasnosť/ riziko",
+                            "hint": "Stručne opíšte nejasnosti a riziká, ktoré súvisia s projektom a môžu viesť k nesplneniu vašich projektových cieľov.",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Riešenie",
+                            "tag": "riesenie",
+                            "mandatory": true,
+                            "heading": "Spôsob riešenia",
+                            "hint": "Uveďte akým spôsobom ich budete riešiť.",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Enviromentálne vplyvy",
+                    "tag": "enviro",
+                    "mandatory": true,
+                    "heading": "Realizácia projektu - environmentálny vplyv",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_SELECT",
+                            "name": "Environmentally vplyv",
+                            "tag": "enviro_vplyv",
+                            "mandatory": true,
+                            "heading": "Aký environmentálny vplyv<br />\nbude mať projekt?",
+                            "config": {
+                                "values": {
+                                    "pozitívny": "pozitívny",
+                                    "negatívny": "negatívny",
+                                    "žiadny": "žiadny"
+                                },
+                                "values_connected": {
+                                    "pozitívny": "",
+                                    "negatívny": "",
+                                    "žiadny": ""
+                                },
+                                "roller_source": "",
+                                "add_roller_code": 0,
+                                "select_width": "300",
+                                "add_empty_option": 1,
+                                "is_readonly": 0,
+                                "allow_only_unique_values": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Vysvetlenie",
+                            "tag": "vysvetlenie",
+                            "mandatory": true,
+                            "heading": "Ak je to relevantné, uveďte prosím, ako<br />\nprojekt konkrétne zohľadňuje environmentálne aspekty<br />\na akým spôsobom podporuje udržateľnosť a ochranu prírody.",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Rozpočet projektu",
+            "tag": "rozpocet",
+            "mandatory": true,
+            "heading": "Rozpočet&nbsp;",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "BUDGET",
+                    "name": "Rozpocet",
+                    "tag": "naklady",
+                    "mandatory": true,
+                    "description": "<p>&nbsp;</p>\n\n<p>&nbsp;</p>",
+                    "heading": "<p>Rozpočet projektu</p>\n\n<p>&nbsp;</p>",
+                    "config": {
+                        "item_label": "NÁKLADY",
+                        "requested_sum_label": "Požadované od KNBJ",
+                        "own_sum_label": "Iné zdroje (vlastné a ostatné)",
+                        "total_heading_label": "SUMARIZÁCIA",
+                        "currency": "€",
+                        "minimum_own_percent": 10,
+                        "hide_own_sum": 0,
+                        "hide_total_sum": 0,
+                        "hide_requested_sum": 0,
+                        "hide_own_sum_only_budget": 0,
+                        "hide_total_sum_only_budget": 0,
+                        "hide_requested_sum_only_budget": 0,
+                        "hide_subsection_label": 0,
+                        "hide_subsection_sum_labels": 0,
+                        "max_requested": 3000
+                    },
+                    "children": [
+                        {
+                            "type": "BUDGET_SECTION",
+                            "name": "Náklady",
+                            "tag": "naklady_polozka",
+                            "description": "drobné rozpočtové položky (papiere, ceruzky, skrutky,...) uvádzajte ako sady (napr. kancelárske potreby, stavebný materiál) a detailne tieto sady rozpíšte v komentári k rozpočtu",
+                            "config": {
+                                "total_sum_tag": "spolu",
+                                "requested_sum_tag": "pozadovana_suma_naklady",
+                                "hide_section_header": 0,
+                                "add_rows": 1,
+                                "disable_remove_on_resubmit": 1,
+                                "add_label": "Pridať nový riadok",
+                                "hide_header": 0,
+                                "separate_rows": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Názov rozpočtovej položky",
+                                    "tag": "polozka",
+                                    "mandatory": true,
+                                    "heading": "Názov rozpočtovej položky",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Jednotka",
+                                    "tag": "jednotka_naklady",
+                                    "mandatory": true,
+                                    "placeholder": "(ks, kg, sada,...)",
+                                    "heading": "Jednotka",
+                                    "hint": "(ks, kg, sada,...)",
+                                    "config": {
+                                        "size": 25,
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_NUMBER",
+                                    "name": "Počet jednotiek",
+                                    "tag": "pocet",
+                                    "mandatory": true,
+                                    "heading": "Počet jednotiek",
+                                    "config": {
+                                        "size": 15,
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ],
+                                        "show_summary": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_CURRENCY",
+                                    "name": "Cena za jednotku",
+                                    "tag": "cena_za_jednitku",
+                                    "mandatory": true,
+                                    "heading": "<p>Cena za<br />\njednotku</p>",
+                                    "config": {
+                                        "size": 15,
+                                        "currency": "EUR",
+                                        "is_readonly": 0,
+                                        "show_summary": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_PRODUCT",
+                                    "name": "Celkové výdavky za položku",
+                                    "tag": "celkove_vydavky_za_polozku",
+                                    "mandatory": true,
+                                    "heading": "Celkové výdavky<br />\nza položku",
+                                    "config": {
+                                        "tag1": "pocet",
+                                        "tag2": "cena_za_jednitku",
+                                        "no_currency": 0,
+                                        "currency": "EUR",
+                                        "show_summary": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_CURRENCY",
+                                    "name": "Žiadané od KN",
+                                    "tag": "pozadovana_suma_naklady",
+                                    "mandatory": true,
+                                    "heading": "Žiadané od KN",
+                                    "hint": "Zaokrúhlite na celé číslo.",
+                                    "config": {
+                                        "size": 15,
+                                        "currency": "EUR",
+                                        "is_readonly": 0,
+                                        "show_summary": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_CURRENCY",
+                                    "name": "Vlastný vklad",
+                                    "tag": "vlastne_naklady",
+                                    "mandatory": true,
+                                    "heading": "Vlastný vklad",
+                                    "config": {
+                                        "size": 15,
+                                        "currency": "EUR",
+                                        "is_readonly": 0,
+                                        "show_summary": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Zdroj vlastného vkladu",
+                                    "tag": "zdroj_vlastneho_vkladu",
+                                    "mandatory": true,
+                                    "heading": "Zdroj vlastného vkladu",
+                                    "hint": "Uveďte odkiaľ je vlastný vklad (partner, žiadateľ a pod.)",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_TEXT",
+                                    "name": "Komentár k rozpočtovej položke",
+                                    "tag": "momentarily",
+                                    "mandatory": true,
+                                    "heading": "Komentár k rozpočtovej položke",
+                                    "hint": "Detailne opíšte potrebu rozpočtovej položky a akým spôsobom ste určili výšku nákladov za rozpočtovú položku. Ak je to možné, menšie rozpočtové položky spájajte<br />\ndo logických celkov, ktoré bližšie opíšete v komentári. Napríklad, ak potrebujete zakúpiť perá, ceruzky, farbičky, uveďte ich ako rozpočtovú položku Písacie potreby a v<br />\nkomentári uveďte podrobne o aké písacie potreby sa jedná, v akom počte, v akej sume, prečo a pre koho ich potrebujete.",
+                                    "config": {
+                                        "rows": 4,
+                                        "is_readonly": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Doplňujúce informácie",
+            "tag": "additional_info",
+            "mandatory": true,
+            "heading": "Doplňujúce informácie",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "MULTIVALUE_CHECKBOX",
+                    "name": "Odkiaľ ste sa dozvedeli o výzve?",
+                    "tag": "zdroj_info",
+                    "mandatory": true,
+                    "heading": "Odkiaľ ste sa dozvedeli o tejto výzve?",
+                    "config": {
+                        "values": {
+                            "web Karpatskej nadácie": "web Karpatskej nadácie",
+                            "Facebook Karpatskej nadácie": "Facebook Karpatskej nadácie",
+                            "Instagram Karpatskej nadácie": "Instagram Karpatskej nadácie",
+                            "email od Karpatskej nadácie": "email od Karpatskej nadácie",
+                            "Newsletter Karpatskej nadácie": "Newsletter Karpatskej nadácie",
+                            "z internetového zdroja": "z internetového zdroja",
+                            "iné": "iné"
+                        },
+                        "display_as_row": 0,
+                        "roller_source": "",
+                        "add_roller_code": 0
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Konzultácie projektu",
+                    "tag": "konzultacie",
+                    "mandatory": true,
+                    "heading": "Konzultovali ste váš projekt pred podaním žiadosti o grant?",
+                    "config": {
+                        "values": [],
+                        "values_connected": [],
+                        "roller_source": "",
+                        "add_roller_code": 0,
+                        "add_empty_option": 1,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Granty v minulosti",
+                    "tag": "minule_granty",
+                    "mandatory": true,
+                    "description": "Ak ste získali v predchádzajúcich 3 rokoch grant od Karpatskej nadácie, napíšte kedy a v akom programe a stručne opíšte čo bolo cieľom podporeného projektu.",
+                    "heading": "Získali ste niekedy v predchádzajúcich 3 rokoch grant od Karpatskej nadácie?",
+                    "config": {
+                        "values": [],
+                        "values_connected": [],
+                        "roller_source": "",
+                        "add_roller_code": 0,
+                        "add_empty_option": 1,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Zapojenie zamestnancov partnera",
+                    "tag": "zapojenie",
+                    "mandatory": true,
+                    "heading": "Zapojenie zamestnancov partnera projektu Magna",
+                    "children": [
+                        {
+                            "type": "MULTIVALUE_CHECKBOX",
+                            "name": "Spôsob zapojenia zamestnanca",
+                            "tag": "zapojenie_moznosti",
+                            "mandatory": true,
+                            "description": "V súlade s podmienkami výzvy vyberte, akým spôsobom plánujete zapojiť minimálne jedného zamestnanca spoločnosti Magna do projektu: Zamestnanec/zamestnanci<br />\nspoločnosti Magna sa podieľal/podieľali na príprave projektu (ako dobrovoľník, člen organizácie a pod.) a/alebo sme vytvorili príležitosť na dobrovoľnícku účasť pre zamestnancov<br />\n(dobrovoľníci budú zabezpečení pre relevantnú dobrovoľnícku príležitosť spoločnosťou Magna po udelení grantu).<br />\n&nbsp;",
+                            "heading": "Spôsob zapojenia zamestnanca",
+                            "config": {
+                                "values": {
+                                    "podieľanie sa zamestnancov spoločnosti Magna na príprave projektu": "podieľanie sa zamestnancov spoločnosti Magna na príprave projektu",
+                                    "dobrovoľnícka účasť zamestnancov spoločnosti Magna priamo na aktivitách projektu": "dobrovoľnícka účasť zamestnancov spoločnosti Magna priamo na aktivitách projektu"
+                                },
+                                "display_as_row": 0,
+                                "roller_source": "",
+                                "add_roller_code": 0
+                            }
+                        },
+                        {
+                            "type": "NUMBER",
+                            "name": "Počet zamestnancov",
+                            "tag": "pocket_zamastnancov",
+                            "mandatory": true,
+                            "description": "Uveďte celkový počet zamestnancov spoločnosti Magna podieľajúcich sa na príprave projektu a/alebo budú zapojených do projektu.",
+                            "heading": "Celkový počet zamestnancov partnera programu podieľajúcich sa na príprave a realizácii projektu",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TEXT",
+                            "name": "Opis zapojenia",
+                            "tag": "opis_zapojenia",
+                            "mandatory": true,
+                            "description": "Opíšte konkrétne úlohy a zodpovednosti zapojených zamestnancov spoločnosti Magna počas prípravy a/alebo plánovanej realizácie projektu.",
+                            "heading": "Opis úloh zapojeného zamestnanca/zamestnancov:",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_LIST",
+                            "name": "Zoznam zamestnancov a kontaktné údaje",
+                            "tag": "zoznam_zamestnancov",
+                            "mandatory": true,
+                            "heading": "Zoznam zamestnancov a kontaktné údaje",
+                            "config": {
+                                "add_rows": 1,
+                                "disable_remove_on_resubmit": 1,
+                                "hide_header": 0,
+                                "separate_rows": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Meno a Priezvisko",
+                                    "tag": "meno",
+                                    "mandatory": true,
+                                    "heading": "Meno a Priezvisko",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "email",
+                                    "tag": "email",
+                                    "mandatory": true,
+                                    "heading": "E-mail zamestnanca",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Propagácia projektu",
+                    "tag": "propagacia",
+                    "mandatory": true,
+                    "heading": "Spôsoby informovania o projekte v tlači, televízii, na internete, atď.",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Typ propagačního materiálu",
+                            "tag": "typ_materialu",
+                            "mandatory": true,
+                            "placeholder": "príspevok/ video/ článok..",
+                            "heading": "Typ propagačného materiálu",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Spôsob zverejnenia",
+                            "tag": "mist_zverejnenia",
+                            "mandatory": true,
+                            "placeholder": "TV/ Facebook/ Rozhlas/ Tlač",
+                            "heading": "Miesto zverejnenia propagačného materiálu",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Cieľová skupina",
+                            "tag": "cielovka",
+                            "mandatory": true,
+                            "heading": "Cieľová skupina",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Prílohy",
+            "tag": "prilohy",
+            "heading": "Prílohy a Prehlásenia",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "Čestné Prehlásenie",
+                    "tag": "cestne_prehlasenie",
+                    "mandatory": true,
+                    "heading": "Čestné Prehlásenie",
+                    "config": {
+                        "value": "Čestne prehlasujem, že všetky údaje uvedené v tejto žiadosti sú správne a pravdivé."
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Čestné vyhlásenie o partnerstve",
+                    "tag": "ceste_vyhlasenie",
+                    "mandatory": true,
+                    "heading": "Čestné vyhlásenie o partnerstve",
+                    "config": {
+                        "min_files": 1,
+                        "max_files": 1,
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Preukázanie vzťahu k pozemku ",
+                    "tag": "vztah_k_pozemku",
+                    "heading": "Preukázanie vzťahu k pozemku (ak je to relevantné)",
+                    "config": {
+                        "min_files": 1,
+                        "max_files": 1,
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Vizuály",
+                    "tag": "vizualy",
+                    "heading": "Vizuál, fotografia, iný podklad (ak je to relevatné)",
+                    "config": {
+                        "max_files": 4,
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Newsletter",
+                    "tag": "newsletter",
+                    "mandatory": true,
+                    "description": "O zaslanie newsletter-a Karpatskej nadácie je možné požiadať priamo tu zaškrtnutím voľby \"mám záujem\" alebo prostredníctvom web-u Karpatskej nadácie www.karpatskanadacia.sk. V newsletter-i sa okrem zaujímavých informácii dozviete o aktuálnych grantových programoch, možnostiach finančnej podpory, vzdelávacích príležitostiach, ale aj o otvorených pracovných pozíciách.",
+                    "heading": "Mám záujem o zasielanie newsletter-a Karpatskej nadácie *<br />\n&nbsp;",
+                    "config": {
+                        "values": {
+                            "áno": "áno",
+                            "nie": "nie"
+                        },
+                        "values_connected": {
+                            "áno": "",
+                            "nie": ""
+                        },
+                        "roller_source": "",
+                        "add_roller_code": 0,
+                        "add_empty_option": 1,
+                        "is_readonly": 0
+                    }
+                }
+            ]
+        }
+    ]
+}

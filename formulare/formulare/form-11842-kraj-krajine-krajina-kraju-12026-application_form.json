@@ -1,0 +1,3196 @@
+{
+    "type": "root",
+    "view_custom_template": null,
+    "diff_custom_template": null,
+    "diff_style": "default",
+    "children": [
+        {
+            "type": "SECTION",
+            "name": "Základné údaje o projekte a financovanie",
+            "tag": "zakladne_udaje",
+            "heading": "Základné údaje o projekte a financovanie",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Názov projektu",
+                    "tag": "nazov_projektu",
+                    "mandatory": true,
+                    "heading": "Názov projektu&nbsp;",
+                    "config": {
+                        "size": 100,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Miesto realizácie – lokalita / obec / okres",
+                    "tag": "miesto_realizacie",
+                    "mandatory": true,
+                    "heading": "Miesto realizácie – lokalita / obec / okres",
+                    "config": {
+                        "size": 160,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "DATE",
+                    "name": "Začiatok realizácie projektu",
+                    "tag": "zaciatok_realizacie",
+                    "mandatory": true,
+                    "heading": "Začatie realizácie projektu",
+                    "hint": "Najskorší termín začatia realizácie projektu je 1.1.2027.",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "DATE",
+                    "name": "Koniec realizácie projektu",
+                    "tag": "koniec_realizacie",
+                    "mandatory": true,
+                    "heading": "Ukončenie realizácie projektu",
+                    "hint": "Najneskorší termín ukončenia realizácie projektu je 31.12.2029.",
+                    "config": {
+                        "max": "2028-12-30T23:00:00.000Z",
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "CURRENCY",
+                    "name": "Celkové oprávnené výdavky projektu (€)",
+                    "tag": "celkove_vydavky",
+                    "mandatory": true,
+                    "heading": "Celkové oprávnené výdavky projektu (€)",
+                    "hint": "Celkové oprávnené výdavky = požadovaná dotácia + spolufinancovanie.",
+                    "config": {
+                        "min": 0,
+                        "places": 2,
+                        "currency": "€",
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "CURRENCY",
+                    "name": "Požadovaná výška dotácie z KSK (€)",
+                    "tag": "pozadovana_dotacia",
+                    "mandatory": true,
+                    "heading": "Požadovaná výška dotácie z KSK (€)",
+                    "hint": "Minimálna výška dotácie je 50 000 €, maximálna výška dotácie je 300 000 €. Podpora je najviac 90 % celkových oprávnených výdavkov.",
+                    "config": {
+                        "min": 50000,
+                        "max": 300000,
+                        "places": 2,
+                        "currency": "€",
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SUM",
+                    "name": "Spolufinancovanie žiadateľa (€)",
+                    "tag": "spolufinancovanie",
+                    "heading": "Spolufinancovanie žiadateľa (€)",
+                    "hint": "Vypočíta sa automaticky (celkové oprávnené výdavky – požadovaná dotácia).",
+                    "config": {
+                        "currency": "€",
+                        "min": 0,
+                        "places": 2,
+                        "sub_tags": "zakladne_udaje.pozadovana_dotacia",
+                        "tags": "zakladne_udaje.celkove_vydavky"
+                    }
+                },
+                {
+                    "type": "PERCENT",
+                    "name": "Podiel dotácie",
+                    "tag": "podiel_dotacie",
+                    "heading": "Podiel dotácie",
+                    "hint": "Vypočíta sa automaticky. Podpora je najviac 90 %.",
+                    "config": {
+                        "base_tags": "zakladne_udaje.celkove_vydavky",
+                        "part_tags": "zakladne_udaje.pozadovana_dotacia",
+                        "max": 90,
+                        "places": 2
+                    }
+                },
+                {
+                    "type": "PERCENT",
+                    "name": "Podiel spolufinancovania",
+                    "tag": "podiel_spolufinancovania",
+                    "heading": "Podiel spolufinancovania",
+                    "hint": "Vypočíta sa automaticky. Spolufinancovanie je najmenej 10 %.",
+                    "config": {
+                        "base_tags": "zakladne_udaje.celkove_vydavky",
+                        "part_tags": "zakladne_udaje.spolufinancovanie",
+                        "places": 2
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Zdroj spolufinancovania",
+                    "tag": "zdroj_spolufinancovania",
+                    "mandatory": true,
+                    "heading": "Zdroj spolufinancovania",
+                    "config": {
+                        "size": 110,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "VALIDATION_ITEM",
+                    "name": "Kontrola základných finančných limitov",
+                    "tag": "kontrola_limitov",
+                    "description": "Celkové oprávnené výdavky = požadovaná dotácia + spolufinancovanie. Orientačne sa kontroluje minimálna dotácia 50 000 €, maximálna dotácia 300 000 €, podpora najviac 90 % a spolufinancovanie najmenej 10 %. Záväzné sú podmienky výzvy.",
+                    "heading": "Kontrola základných finančných limitov",
+                    "config": {
+                        "additional_validation_code": "javascript:var celkove = Number(tag('zakladne_udaje.celkove_vydavky')) || 0;\nvar dotacia = Number(tag('zakladne_udaje.pozadovana_dotacia')) || 0;\nif (!celkove || !dotacia) { return true; }\nvar spolu = celkove - dotacia;\nif (spolu < 0) { return 'Požadovaná výška dotácie nemôže byť vyššia ako celkové oprávnené výdavky projektu.'; }\nif (dotacia < 50000) { return 'Požadovaná výška dotácie je nižšia ako minimálna výška dotácie 50 000 €.'; }\nif (dotacia > 300000) { return 'Požadovaná výška dotácie presahuje maximálnu výšku dotácie 300 000 €.'; }\nif (dotacia / celkove > 0.9) { return 'Podiel dotácie presahuje 90 % celkových oprávnených výdavkov (spolufinancovanie žiadateľa musí byť najmenej 10 %).'; }\nreturn true;",
+                        "error_text": "Skontrolujte finančné údaje projektu.",
+                        "evaluate_error_text_dynamically": 1,
+                        "execute_validation_only_on_backend": 0,
+                        "show_error_text_also_in_original_location": 1,
+                        "tags": "zakladne_udaje.celkove_vydavky,zakladne_udaje.pozadovana_dotacia",
+                        "use_blur_event": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Údaje o žiadateľovi a kontaktné údaje",
+            "tag": "ziadatel",
+            "heading": "Údaje o žiadateľovi a kontaktné údaje",
+            "config": {
+                "add_print_pagebreak": 1
+            },
+            "children": [
+                {
+                    "type": "COMPANY_SEARCH",
+                    "name": "Údaje žiadateľa podľa IČO",
+                    "tag": "ico",
+                    "mandatory": true,
+                    "heading": "IČO",
+                    "hint": "Po zadaní IČO sa údaje žiadateľa (názov / obchodné meno, právna forma, sídlo, okres, DIČ, IČ DPH) predvyplnia z verejných registrov. Skontrolujte ich správnosť; DIČ, IČ DPH a právnu formu je možné doplniť ručne.",
+                    "config": {
+                        "country": "sk",
+                        "visible_ico": 0,
+                        "editable_ico": 0,
+                        "visible_name": 1,
+                        "editable_name": 0,
+                        "visible_street": 0,
+                        "editable_street": 0,
+                        "visible_street_number": 0,
+                        "editable_street_number": 0,
+                        "visible_formatted_street": 0,
+                        "editable_formatted_street": 0,
+                        "visible_reg_number": 0,
+                        "editable_reg_number": 0,
+                        "visible_building_number": 0,
+                        "editable_building_number": 0,
+                        "visible_municipality": 0,
+                        "editable_municipality": 0,
+                        "visible_postal_code": 0,
+                        "editable_postal_code": 0,
+                        "visible_district": 1,
+                        "editable_district": 0,
+                        "visible_region": 0,
+                        "editable_region": 0,
+                        "visible_country": 0,
+                        "editable_country": 0,
+                        "visible_formatted_address": 1,
+                        "editable_formatted_address": 0,
+                        "visible_cin": 1,
+                        "editable_cin": 0,
+                        "visible_vatin": 1,
+                        "editable_vatin": 1,
+                        "visible_tin": 1,
+                        "editable_tin": 1,
+                        "visible_legal_form": 1,
+                        "editable_legal_form": 1,
+                        "visible_registration_number": 0,
+                        "editable_registration_number": 0,
+                        "visible_registration_office": 0,
+                        "editable_registration_office": 0,
+                        "visible_established_on": 0,
+                        "editable_established_on": 0,
+                        "visible_statutory_first_name": 0,
+                        "editable_statutory_first_name": 0,
+                        "visible_statutory_last_name": 0,
+                        "editable_statutory_last_name": 0,
+                        "visible_statutory_full_name": 0,
+                        "editable_statutory_full_name": 0,
+                        "visible_statutory_street": 0,
+                        "editable_statutory_street": 0,
+                        "visible_statutory_building_number": 0,
+                        "editable_statutory_building_number": 0,
+                        "visible_statutory_reg_number": 0,
+                        "editable_statutory_reg_number": 0,
+                        "visible_statutory_postal_code": 0,
+                        "editable_statutory_postal_code": 0,
+                        "visible_statutory_municipality": 0,
+                        "editable_statutory_municipality": 0,
+                        "visible_statutory_type": 0,
+                        "editable_statutory_type": 0,
+                        "force_search_on_load": 0,
+                        "show_search_button": 1,
+                        "use_input_ico": 0,
+                        "is_readonly": 0,
+                        "custom_companies": [
+                            {
+                                "ico": null,
+                                "name": null,
+                                "street": null,
+                                "street_number": null,
+                                "formatted_street": null,
+                                "reg_number": null,
+                                "building_number": null,
+                                "municipality": null,
+                                "postal_code": null,
+                                "district": null,
+                                "region": null,
+                                "country": null,
+                                "formatted_address": null,
+                                "cin": null,
+                                "vatin": null,
+                                "tin": null,
+                                "legal_form": null,
+                                "registration_number": null,
+                                "registration_office": null,
+                                "established_on": null,
+                                "statutory_first_name": null,
+                                "statutory_last_name": null,
+                                "statutory_full_name": null,
+                                "statutory_street": null,
+                                "statutory_building_number": null,
+                                "statutory_reg_number": null,
+                                "statutory_postal_code": null,
+                                "statutory_municipality": null,
+                                "statutory_type": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Platca DPH",
+                    "tag": "platca_dph",
+                    "mandatory": true,
+                    "heading": "Platca DPH",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Má žiadateľ pri výdavkoch projektu nárok na odpočítanie DPH?",
+                    "tag": "narok_odpocet_dph",
+                    "heading": "Má žiadateľ pri výdavkoch projektu nárok na odpočítanie DPH?",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nerelevantne": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Webové sídlo (ak existuje)",
+                    "tag": "web",
+                    "heading": "Webové sídlo (ak existuje)",
+                    "config": {
+                        "is_readonly": 0,
+                        "size": 100
+                    }
+                },
+                {
+                    "type": "IBAN",
+                    "name": "Bankové spojenie (IBAN)",
+                    "tag": "iban",
+                    "mandatory": true,
+                    "heading": "Bankové spojenie – IBAN",
+                    "hint": "Uveďte IBAN účtu žiadateľa, na ktorý má byť poukázaná dotácia.",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Štatutárny zástupca žiadateľa",
+                    "tag": "statutar",
+                    "heading": "Štatutárny zástupca žiadateľa",
+                    "children": [
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Meno a priezvisko",
+                            "tag": "meno",
+                            "mandatory": true,
+                            "heading": "Meno a priezvisko",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 100
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Telefón",
+                            "tag": "telefon",
+                            "mandatory": true,
+                            "heading": "Telefón",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 30
+                            }
+                        },
+                        {
+                            "type": "EMAIL",
+                            "name": "E-mail",
+                            "tag": "email",
+                            "mandatory": true,
+                            "heading": "E-mail",
+                            "config": {
+                                "is_readonly": 0,
+                                "notification_email": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Osoba zodpovedná za komunikáciu vo veci žiadosti",
+                    "tag": "kontaktna_osoba",
+                    "heading": "Osoba zodpovedná za projekt",
+                    "children": [
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Meno a priezvisko",
+                            "tag": "meno",
+                            "mandatory": true,
+                            "heading": "Meno a priezvisko",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 100
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Telefón",
+                            "tag": "telefon",
+                            "mandatory": true,
+                            "heading": "Telefón",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 30
+                            }
+                        },
+                        {
+                            "type": "EMAIL",
+                            "name": "E-mail",
+                            "tag": "email",
+                            "mandatory": true,
+                            "heading": "E-mail",
+                            "config": {
+                                "is_readonly": 0,
+                                "notification_email": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Skúsenosti žiadateľa s prípravou a realizáciou obdobných projektov za posledných 5 rokov (max. 1000 znakov)",
+                    "tag": "skusenosti",
+                    "mandatory": true,
+                    "heading": "Skúsenosti žiadateľa s prípravou a realizáciou obdobných projektov za posledných 5 rokov&nbsp;",
+                    "hint": "Uveďte projekty, aktivity a skúsenosti relevantné pre posúdenie schopnosti žiadateľa projekt úspešne zrealizovať.",
+                    "config": {
+                        "max_chars": 1000,
+                        "rows": 5,
+                        "cols": 130,
+                        "is_readonly": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Opis",
+            "tag": "opis_projektu",
+            "heading": "Opis projektu",
+            "config": {
+                "add_print_pagebreak": 1,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "TEXT",
+                    "name": "Stručný opis projektu (max. 1500 znakov)",
+                    "tag": "strucny_opis",
+                    "mandatory": true,
+                    "heading": "Stručný opis projektu&nbsp;",
+                    "hint": "Zhrňte potrebu projektu, hlavný cieľ, kľúčové aktivity a očakávanú zmenu. Text môže byť použitý na základnú komunikáciu schváleného projektu.",
+                    "config": {
+                        "max_chars": 1500,
+                        "rows": 6,
+                        "cols": 110,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Charakteristika projektu (max. 4000 znakov)",
+                    "tag": "charakteristika",
+                    "mandatory": true,
+                    "heading": "Charakteristika projektu&nbsp;",
+                    "hint": "Podrobne opíšte zámer, ciele, hlavné a čiastkové aktivity, technické riešenie a väzbu na problém územia.",
+                    "config": {
+                        "max_chars": 4000,
+                        "rows": 18,
+                        "cols": 110,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Environmentálny problém, hlavná prioritná os, opatrenia a ukazovatele",
+                    "tag": "hlavny_prinos",
+                    "mandatory": true,
+                    "children": [
+                        {
+                            "type": "TEXT",
+                            "name": "Environmentálny problém a východiskový stav územia (max. 2000 znakov)",
+                            "tag": "problem",
+                            "mandatory": true,
+                            "heading": "Východiskový stav územia (identifikácia&nbsp;environmentálneho problému)&nbsp;",
+                            "hint": "Pomôcka pre žiadateľa: pri identifikácii environmentálneho problému a území so zvýšenou environmentálnou citlivosťou alebo záťažou môže žiadateľ ako podporný nástroj využiť dostupnú aplikáciu KSK [<a href=\"https://www.kosickazupa.sk/kraj-krajine\">KRAJ KRAJINE, KRAJINA KRAJU | Košický samosprávny kraj - Oficiálna stránka</a>]. Využitie aplikácie je podporné a nenahrádza ďalšie relevantné údaje, odborné podklady ani miestne poznanie územia.",
+                            "config": {
+                                "max_chars": 2000,
+                                "rows": 8,
+                                "cols": 130,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Zdroj a dátum údajov k východiskovému stavu",
+                            "tag": "zdroj_udajov",
+                            "mandatory": true,
+                            "heading": "Zdroj a dátum údajov k východiskovému stavu",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 160
+                            }
+                        },
+                        {
+                            "type": "SUB_SECTION",
+                            "name": "Hlavný environmentálny prínos ",
+                            "tag": "hlavny_prinos",
+                            "mandatory": true,
+                            "heading": "Hlavný environmentálny prínos&nbsp;",
+                            "children": [
+                                {
+                                    "type": "SELECT",
+                                    "name": "Hlavná prioritná os",
+                                    "tag": "hlavna_os",
+                                    "mandatory": true,
+                                    "heading": "Hlavná prioritná os",
+                                    "hint": "Najprv zvoľte hlavnú prioritnú os.&nbsp;V ponuke opatrení sa potom zobrazia iba opatrenia danej osi a po výbere opatrenia iba relevantné merateľné ukazovatele.&nbsp;Jednotka sa doplní automaticky.",
+                                    "config": {
+                                        "values": {
+                                            "os1": "Voda v krajine, sucho a povodňová odolnosť",
+                                            "os2": "Biodiverzita, ekosystémy a zelená infraštruktúra",
+                                            "os3": "Pôda a odolnosť poľnohospodárskej krajiny"
+                                        },
+                                        "values_hint": {
+                                            "os1": null,
+                                            "os2": null,
+                                            "os3": null
+                                        },
+                                        "values_connected": {
+                                            "os1": "",
+                                            "os2": "",
+                                            "os3": ""
+                                        },
+                                        "roller_source": "",
+                                        "add_roller_code": 0,
+                                        "load_connected_values_dynamically": 0,
+                                        "hide_when_no_connected_values": 0,
+                                        "add_empty_option": 1,
+                                        "is_readonly": 0
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "TABLE_LIST",
+                            "name": "Opatrenia a merateľné ukazovatele",
+                            "tag": "opatrenia",
+                            "mandatory": true,
+                            "config": {
+                                "min_rows": "1",
+                                "max_rows": "5",
+                                "initial_rows": "1",
+                                "add_rows": 0,
+                                "copy_rows": 0,
+                                "disable_remove_on_resubmit": 1,
+                                "add_label": "Pridať riadok",
+                                "hide_header": 0,
+                                "separate_rows": 0,
+                                "render_mode": "classic",
+                                "omit_unchanged_diff_rows": 0,
+                                "diff_row_order_matters": 0,
+                                "omit_unchanged_static_diff_rows": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_ITEM_ROW_NUMBER",
+                                    "name": "Č.",
+                                    "tag": "cislo",
+                                    "heading": "Č.",
+                                    "config": {
+                                        "prefix": "",
+                                        "size": 3,
+                                        "width": "40px"
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_SELECT",
+                                    "name": "Opatrenie",
+                                    "tag": "opatrenie",
+                                    "mandatory": true,
+                                    "heading": "Opatrenie",
+                                    "config": {
+                                        "values": {
+                                            "m1": "Zadržiavanie a infiltrácia vody",
+                                            "m2": "Obnova prirodzeného vodného režimu",
+                                            "m3": "Povodňová odolnosť a spomaľovanie odtoku",
+                                            "m4": "Obnova a tvorba biotopov",
+                                            "m5": "Zlepšenie ekologického stavu",
+                                            "m6": "Ekologická konektivita",
+                                            "m7": "Protierózna ochrana",
+                                            "m8": "Regeneratívne a pôdoochranné hospodárenie",
+                                            "m9": "Agrolesníctvo a krajinné prvky"
+                                        },
+                                        "values_hint": {
+                                            "m1": null,
+                                            "m2": null,
+                                            "m3": null,
+                                            "m4": null,
+                                            "m5": null,
+                                            "m6": null,
+                                            "m7": null,
+                                            "m8": null,
+                                            "m9": null
+                                        },
+                                        "values_connected": {
+                                            "m1": "",
+                                            "m2": "",
+                                            "m3": "",
+                                            "m4": "",
+                                            "m5": "",
+                                            "m6": "",
+                                            "m7": "",
+                                            "m8": "",
+                                            "m9": ""
+                                        },
+                                        "roller_source": "",
+                                        "add_roller_code": 0,
+                                        "load_connected_values_dynamically": 0,
+                                        "add_empty_option": 1,
+                                        "is_readonly": 0,
+                                        "dynamic_values_code": "javascript:var opatrenia = {\"m1\": [\"os1\", \"Zadržiavanie a infiltrácia vody\"], \"m2\": [\"os1\", \"Obnova prirodzeného vodného režimu\"], \"m3\": [\"os1\", \"Povodňová odolnosť a spomaľovanie odtoku\"], \"m4\": [\"os2\", \"Obnova a tvorba biotopov\"], \"m5\": [\"os2\", \"Zlepšenie ekologického stavu\"], \"m6\": [\"os2\", \"Ekologická konektivita\"], \"m7\": [\"os3\", \"Protierózna ochrana\"], \"m8\": [\"os3\", \"Regeneratívne a pôdoochranné hospodárenie\"], \"m9\": [\"os3\", \"Agrolesníctvo a krajinné prvky\"]};\nvar os = tag(\"opis_projektu.hlavny_prinos.hlavna_os\") || \"\";\nvar vysledok = {};\nfor (var k in opatrenia) { if (opatrenia[k][0] === os) { vysledok[k] = opatrenia[k][1]; } }\nreturn vysledok;",
+                                        "dynamic_values_code_trigger": "hlavny_prinos.hlavna_os",
+                                        "allow_only_unique_values": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_SELECT",
+                                    "name": "Merateľný ukazovateľ",
+                                    "tag": "ukazovatel",
+                                    "mandatory": true,
+                                    "heading": "Merateľný ukazovateľ",
+                                    "config": {
+                                        "add_empty_option": 1,
+                                        "allow_only_unique_values": 0,
+                                        "connected_tag": "hlavny_prinos.opatrenia[%INDEX%].opatrenie",
+                                        "is_readonly": 0,
+                                        "roller_source": "",
+                                        "values": {
+                                            "i01": "Vytvorená retenčná/detenčná kapacita",
+                                            "i02": "Plocha opatrení podporujúcich zadržanie alebo infiltráciu vody",
+                                            "i03": "Plocha nových alebo obnovených priepustných povrchov",
+                                            "i04": "Dĺžka vsakovacích pásov, priekop, rigolov a obdobných líniových opatrení",
+                                            "i05": "Počet vybudovaných/obnovených retenčných alebo infiltračných prvkov",
+                                            "i06": "Plocha obnovenej alebo vytvorenej mokrade, nivy alebo zamokreného územia",
+                                            "i07": "Plocha územia s obnoveným prirodzeným vodným režimom",
+                                            "i08": "Dĺžka revitalizovaného vodného toku alebo riečneho ramena",
+                                            "i09": "Počet obnovených hydrologických prepojení alebo prvkov",
+                                            "i10": "Retenčný/detenčný objem vytvorený opatrením",
+                                            "i11": "Dĺžka opatrení na spomalenie alebo rozptýlenie odtoku",
+                                            "i12": "Plocha územia ovplyvneného prírode blízkym protipovodňovým opatrením",
+                                            "i13": "Plocha vegetačného alebo polovegetačného opevnenia brehov",
+                                            "i14": "Plocha obnoveného degradovaného biotopu",
+                                            "i15": "Plocha novovytvoreného prírodného alebo prírode blízkeho biotopu",
+                                            "i16": "Plocha obnovenej mokrade, brehovej vegetácie, sadu, lesa a pod.",
+                                            "i17": "Počet vytvorených alebo obnovených hniezdnych, rozmnožovacích alebo mikrobiotopových prvkov",
+                                            "i18": "Počet vysadených pôvodných stromov",
+                                            "i19": "Počet vysadených pôvodných krov",
+                                            "i20": "Plocha novej výsadby alebo zalesnenia pôvodnými druhmi",
+                                            "i21": "Plocha, z ktorej boli odstránené invázne nepôvodné druhy",
+                                            "i22": "Zmena chovu – hustota hospodárskych zvierat pred a po realizácii",
+                                            "i23": "Dĺžka vytvoreného alebo obnoveného ekologického koridoru, vetrolamu, aleje alebo živého plota",
+                                            "i24": "Počet vysadených stromov a krov v krajinných prvkoch",
+                                            "i25": "Plocha vytvorenej alebo obnovenej zelenej infraštruktúry",
+                                            "i26": "Plocha vegetačných striech, stien alebo fasád",
+                                            "i27": "Plocha vytvorenej modro-zelenej infraštruktúry",
+                                            "i28": "Plocha zatrávnenej alebo inak protierózne chránenej pôdy",
+                                            "i29": "Dĺžka vytvorených protieróznych pásov, medzí, živých plotov, hrádzok alebo terás",
+                                            "i30": "Plocha pôdy s uplatneným vrstevnicovým opatrením",
+                                            "i31": "Plocha pôdy, na ktorej sa zmenil spôsob obrábania na pôdoochranný",
+                                            "i32": "Zníženie predpokladanej straty pôdy",
+                                            "i33": "Plocha pôdy s trvalým alebo sezónnym ochranným vegetačným krytom",
+                                            "i34": "Plocha pôdy obhospodarovanej regeneratívnym/pôdoochranným spôsobom",
+                                            "i35": "Podiel pôdy pokrytej vegetáciou v určenom období",
+                                            "i36": "Plocha nového alebo obnoveného agrolesníckeho systému",
+                                            "i37": "Dĺžka vetrolamov, medzí, živých plotov alebo iných líniových krajinných prvkov",
+                                            "i38": "Plocha vytvorených alebo obnovených remízok a iných plošných krajinných prvkov",
+                                            "i39": "Počet vysadených solitérnych stromov alebo drevín",
+                                            "i40": "Počet alebo plocha vytvorených/obnovených pôdoochranných krajinných prvkov"
+                                        },
+                                        "values_connected": {
+                                            "i01": "m1",
+                                            "i02": "m1",
+                                            "i03": "m1",
+                                            "i04": "m1",
+                                            "i05": "m1",
+                                            "i06": "m2",
+                                            "i07": "m2",
+                                            "i08": "m2",
+                                            "i09": "m2",
+                                            "i10": "m3",
+                                            "i11": "m3",
+                                            "i12": "m3",
+                                            "i13": "m3",
+                                            "i14": "m4",
+                                            "i15": "m4",
+                                            "i16": "m4",
+                                            "i17": "m4",
+                                            "i18": "m5",
+                                            "i19": "m5",
+                                            "i20": "m5",
+                                            "i21": "m5",
+                                            "i22": "m5",
+                                            "i23": "m6",
+                                            "i24": "m6",
+                                            "i25": "m6",
+                                            "i26": "m6",
+                                            "i27": "m6",
+                                            "i28": "m7",
+                                            "i29": "m7",
+                                            "i30": "m7",
+                                            "i31": "m7",
+                                            "i32": "m7",
+                                            "i33": "m8",
+                                            "i34": "m8",
+                                            "i35": "m8",
+                                            "i36": "m9",
+                                            "i37": "m9",
+                                            "i38": "m9",
+                                            "i39": "m9",
+                                            "i40": "m9"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_SELECT",
+                                    "name": "Jednotka",
+                                    "tag": "jednotka",
+                                    "mandatory": true,
+                                    "heading": "Jednotka",
+                                    "hint": "Jednotka sa dopĺňa automaticky podľa zvoleného ukazovateľa.",
+                                    "config": {
+                                        "add_empty_option": 1,
+                                        "allow_only_unique_values": 0,
+                                        "connected_tag": "hlavny_prinos.opatrenia[%INDEX%].ukazovatel",
+                                        "is_readonly": 0,
+                                        "roller_source": "",
+                                        "values": {
+                                            "j01": "m³",
+                                            "j02": "m² / ha",
+                                            "j03": "m²",
+                                            "j04": "m",
+                                            "j05": "ks",
+                                            "j06": "m² / ha",
+                                            "j07": "m² / ha",
+                                            "j08": "m / km",
+                                            "j09": "ks",
+                                            "j10": "m³",
+                                            "j11": "m / km",
+                                            "j12": "m² / ha",
+                                            "j13": "m²",
+                                            "j14": "m² / ha",
+                                            "j15": "m² / ha",
+                                            "j16": "m² / ha",
+                                            "j17": "ks",
+                                            "j18": "ks",
+                                            "j19": "ks",
+                                            "j20": "m² / ha",
+                                            "j21": "m² / ha",
+                                            "j22": "DJ/ha alebo ks/ha",
+                                            "j23": "m / km",
+                                            "j24": "ks",
+                                            "j25": "m² / ha",
+                                            "j26": "m²",
+                                            "j27": "m²",
+                                            "j28": "ha",
+                                            "j29": "m / km",
+                                            "j30": "ha",
+                                            "j31": "ha",
+                                            "j32": "t/ha/rok",
+                                            "j33": "ha",
+                                            "j34": "ha",
+                                            "j35": "%",
+                                            "j36": "ha",
+                                            "j37": "m / km",
+                                            "j38": "m² / ha",
+                                            "j39": "ks",
+                                            "j40": "ks / m² / ha"
+                                        },
+                                        "values_connected": {
+                                            "j01": "i01",
+                                            "j02": "i02",
+                                            "j03": "i03",
+                                            "j04": "i04",
+                                            "j05": "i05",
+                                            "j06": "i06",
+                                            "j07": "i07",
+                                            "j08": "i08",
+                                            "j09": "i09",
+                                            "j10": "i10",
+                                            "j11": "i11",
+                                            "j12": "i12",
+                                            "j13": "i13",
+                                            "j14": "i14",
+                                            "j15": "i15",
+                                            "j16": "i16",
+                                            "j17": "i17",
+                                            "j18": "i18",
+                                            "j19": "i19",
+                                            "j20": "i20",
+                                            "j21": "i21",
+                                            "j22": "i22",
+                                            "j23": "i23",
+                                            "j24": "i24",
+                                            "j25": "i25",
+                                            "j26": "i26",
+                                            "j27": "i27",
+                                            "j28": "i28",
+                                            "j29": "i29",
+                                            "j30": "i30",
+                                            "j31": "i31",
+                                            "j32": "i32",
+                                            "j33": "i33",
+                                            "j34": "i34",
+                                            "j35": "i35",
+                                            "j36": "i36",
+                                            "j37": "i37",
+                                            "j38": "i38",
+                                            "j39": "i39",
+                                            "j40": "i40"
+                                        },
+                                        "width": "90px"
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_NUMBER",
+                                    "name": "Východisková hodnota",
+                                    "tag": "vychodiskova_hodnota",
+                                    "mandatory": true,
+                                    "heading": "Východisková hodnota",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "places": 2,
+                                        "size": 10,
+                                        "width": "110px"
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_NUMBER",
+                                    "name": "Cieľová hodnota",
+                                    "tag": "cielova_hodnota",
+                                    "mandatory": true,
+                                    "heading": "Cieľová hodnota",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "places": 2,
+                                        "size": 10,
+                                        "width": "110px"
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Spôsob merania / zdroj údajov",
+                                    "tag": "sposob_merania",
+                                    "mandatory": true,
+                                    "heading": "Spôsob merania / zdroj údajov",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "size": 30
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Frekvencia merania",
+                                    "tag": "frekvencia_merania",
+                                    "mandatory": true,
+                                    "heading": "Frekvencia merania",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "size": 15
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Plocha / územie výsledku",
+                                    "tag": "plocha",
+                                    "mandatory": true,
+                                    "heading": "Plocha / územie, na ktoré sa výsledok vzťahuje",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "size": 20
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Požadované dôkazy",
+                                    "tag": "dokazy",
+                                    "mandatory": true,
+                                    "heading": "Požadované dôkazy / spôsob preukázania výsledku",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "size": 25
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Udržateľnosť výsledku",
+                                    "tag": "udrzatelnost_vysledku",
+                                    "mandatory": true,
+                                    "heading": "Predpokladaná udržateľnosť výsledku",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "size": 20
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "TEXT",
+                            "name": "Predpokladaný hlavný environmentálny prínos a očakávaná zmena oproti východiskovému stavu (max. 2000 znakov)",
+                            "tag": "prinos",
+                            "mandatory": true,
+                            "heading": "Predpokladaný hlavný environmentálny prínos a očakávaná zmena oproti východiskovému stavu&nbsp;",
+                            "hint": "Opíšte vecne, čo sa má po realizácii zmeniť a prečo sú zvolené ukazovatele vhodné na sledovanie a následné overenie výsledku.",
+                            "config": {
+                                "max_chars": 2000,
+                                "rows": 8,
+                                "cols": 130,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SUB_SECTION",
+                            "name": "Volitelný prínos",
+                            "tag": "volitelny_prinos",
+                            "heading": "Voliteľný vedľajší prínos",
+                            "children": [
+                                {
+                                    "type": "SELECT",
+                                    "name": "Vedľajšia prioritná os 1",
+                                    "tag": "vedlajsia_os_1",
+                                    "heading": "Vedľajšia prioritná os 1",
+                                    "hint": "Voliteľné. Ponuka obsahuje iba prioritné osi odlišné od hlavnej osi. Vedľajší prínos uvádzajte iba vtedy, ak je vecne preukázateľný. Ten istý fyzický účinok sa nesmie započítať opakovane.",
+                                    "config": {
+                                        "values": {
+                                            "os1": "Voda v krajine, sucho a povodňová odolnosť",
+                                            "os2": "Biodiverzita, ekosystémy a zelená infraštruktúra",
+                                            "os3": "Pôda a odolnosť poľnohospodárskej krajiny"
+                                        },
+                                        "values_hint": {
+                                            "os1": null,
+                                            "os2": null,
+                                            "os3": null
+                                        },
+                                        "values_connected": {
+                                            "os1": "",
+                                            "os2": "",
+                                            "os3": ""
+                                        },
+                                        "roller_source": "",
+                                        "add_roller_code": 0,
+                                        "load_connected_values_dynamically": 0,
+                                        "hide_when_no_connected_values": 0,
+                                        "add_empty_option": 1,
+                                        "is_readonly": 0,
+                                        "dynamic_values_code": "javascript:var osi = {\"os1\": \"Voda v krajine, sucho a povodňová odolnosť\", \"os2\": \"Biodiverzita, ekosystémy a zelená infraštruktúra\", \"os3\": \"Pôda a odolnosť poľnohospodárskej krajiny\"};\nvar hlavna = tag(\"opis_projektu.hlavny_prinos.hlavna_os\") || \"\";\nvar vysledok = {};\nfor (var k in osi) { if (k !== hlavna) { vysledok[k] = osi[k]; } }\nreturn vysledok;",
+                                        "dynamic_values_code_trigger": "hlavny_prinos.hlavna_os"
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_LIST",
+                                    "name": "Opatrenia a merateľné ukazovatele",
+                                    "tag": "opatrenia",
+                                    "heading": "Opatrenia a merateľné ukazovatele",
+                                    "config": {
+                                        "min_rows": "0",
+                                        "max_rows": "3",
+                                        "initial_rows": "1",
+                                        "add_rows": 0,
+                                        "copy_rows": 0,
+                                        "disable_remove_on_resubmit": 1,
+                                        "add_label": "Pridať riadok",
+                                        "hide_header": 0,
+                                        "separate_rows": 1,
+                                        "render_mode": "classic",
+                                        "omit_unchanged_diff_rows": 0,
+                                        "diff_row_order_matters": 0,
+                                        "omit_unchanged_static_diff_rows": 0
+                                    },
+                                    "view_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_1))",
+                                    "validate_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_1))",
+                                    "children": [
+                                        {
+                                            "type": "TABLE_ITEM_ROW_NUMBER",
+                                            "name": "Č.",
+                                            "tag": "cislo",
+                                            "heading": "Č.",
+                                            "config": {
+                                                "prefix": "",
+                                                "size": 3,
+                                                "width": "40px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_SELECT",
+                                            "name": "Opatrenie",
+                                            "tag": "opatrenie",
+                                            "heading": "Opatrenie",
+                                            "config": {
+                                                "values": {
+                                                    "m1": "Zadržiavanie a infiltrácia vody",
+                                                    "m2": "Obnova prirodzeného vodného režimu",
+                                                    "m3": "Povodňová odolnosť a spomaľovanie odtoku",
+                                                    "m4": "Obnova a tvorba biotopov",
+                                                    "m5": "Zlepšenie ekologického stavu",
+                                                    "m6": "Ekologická konektivita",
+                                                    "m7": "Protierózna ochrana",
+                                                    "m8": "Regeneratívne a pôdoochranné hospodárenie",
+                                                    "m9": "Agrolesníctvo a krajinné prvky"
+                                                },
+                                                "values_hint": {
+                                                    "m1": null,
+                                                    "m2": null,
+                                                    "m3": null,
+                                                    "m4": null,
+                                                    "m5": null,
+                                                    "m6": null,
+                                                    "m7": null,
+                                                    "m8": null,
+                                                    "m9": null
+                                                },
+                                                "values_connected": {
+                                                    "m1": "",
+                                                    "m2": "",
+                                                    "m3": "",
+                                                    "m4": "",
+                                                    "m5": "",
+                                                    "m6": "",
+                                                    "m7": "",
+                                                    "m8": "",
+                                                    "m9": ""
+                                                },
+                                                "roller_source": "",
+                                                "add_roller_code": 0,
+                                                "load_connected_values_dynamically": 0,
+                                                "add_empty_option": 1,
+                                                "is_readonly": 0,
+                                                "dynamic_values_code": "javascript:var opatrenia = {\"m1\": [\"os1\", \"Zadržiavanie a infiltrácia vody\"], \"m2\": [\"os1\", \"Obnova prirodzeného vodného režimu\"], \"m3\": [\"os1\", \"Povodňová odolnosť a spomaľovanie odtoku\"], \"m4\": [\"os2\", \"Obnova a tvorba biotopov\"], \"m5\": [\"os2\", \"Zlepšenie ekologického stavu\"], \"m6\": [\"os2\", \"Ekologická konektivita\"], \"m7\": [\"os3\", \"Protierózna ochrana\"], \"m8\": [\"os3\", \"Regeneratívne a pôdoochranné hospodárenie\"], \"m9\": [\"os3\", \"Agrolesníctvo a krajinné prvky\"]};\nvar os = tag(\"opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_1\") || \"\";\nvar vysledok = {};\nfor (var k in opatrenia) { if (opatrenia[k][0] === os) { vysledok[k] = opatrenia[k][1]; } }\nreturn vysledok;",
+                                                "dynamic_values_code_trigger": "hlavny_prinos.volitelny_prinos.vedlajsia_os_1",
+                                                "allow_only_unique_values": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_SELECT",
+                                            "name": "Merateľný ukazovateľ",
+                                            "tag": "ukazovatel",
+                                            "heading": "Merateľný ukazovateľ",
+                                            "config": {
+                                                "add_empty_option": 1,
+                                                "allow_only_unique_values": 0,
+                                                "connected_tag": "hlavny_prinos.volitelny_prinos.opatrenia[%INDEX%].opatrenie",
+                                                "is_readonly": 0,
+                                                "roller_source": "",
+                                                "values": {
+                                                    "i01": "Vytvorená retenčná/detenčná kapacita",
+                                                    "i02": "Plocha opatrení podporujúcich zadržanie alebo infiltráciu vody",
+                                                    "i03": "Plocha nových alebo obnovených priepustných povrchov",
+                                                    "i04": "Dĺžka vsakovacích pásov, priekop, rigolov a obdobných líniových opatrení",
+                                                    "i05": "Počet vybudovaných/obnovených retenčných alebo infiltračných prvkov",
+                                                    "i06": "Plocha obnovenej alebo vytvorenej mokrade, nivy alebo zamokreného územia",
+                                                    "i07": "Plocha územia s obnoveným prirodzeným vodným režimom",
+                                                    "i08": "Dĺžka revitalizovaného vodného toku alebo riečneho ramena",
+                                                    "i09": "Počet obnovených hydrologických prepojení alebo prvkov",
+                                                    "i10": "Retenčný/detenčný objem vytvorený opatrením",
+                                                    "i11": "Dĺžka opatrení na spomalenie alebo rozptýlenie odtoku",
+                                                    "i12": "Plocha územia ovplyvneného prírode blízkym protipovodňovým opatrením",
+                                                    "i13": "Plocha vegetačného alebo polovegetačného opevnenia brehov",
+                                                    "i14": "Plocha obnoveného degradovaného biotopu",
+                                                    "i15": "Plocha novovytvoreného prírodného alebo prírode blízkeho biotopu",
+                                                    "i16": "Plocha obnovenej mokrade, brehovej vegetácie, sadu, lesa a pod.",
+                                                    "i17": "Počet vytvorených alebo obnovených hniezdnych, rozmnožovacích alebo mikrobiotopových prvkov",
+                                                    "i18": "Počet vysadených pôvodných stromov",
+                                                    "i19": "Počet vysadených pôvodných krov",
+                                                    "i20": "Plocha novej výsadby alebo zalesnenia pôvodnými druhmi",
+                                                    "i21": "Plocha, z ktorej boli odstránené invázne nepôvodné druhy",
+                                                    "i22": "Zmena chovu – hustota hospodárskych zvierat pred a po realizácii",
+                                                    "i23": "Dĺžka vytvoreného alebo obnoveného ekologického koridoru, vetrolamu, aleje alebo živého plota",
+                                                    "i24": "Počet vysadených stromov a krov v krajinných prvkoch",
+                                                    "i25": "Plocha vytvorenej alebo obnovenej zelenej infraštruktúry",
+                                                    "i26": "Plocha vegetačných striech, stien alebo fasád",
+                                                    "i27": "Plocha vytvorenej modro-zelenej infraštruktúry",
+                                                    "i28": "Plocha zatrávnenej alebo inak protierózne chránenej pôdy",
+                                                    "i29": "Dĺžka vytvorených protieróznych pásov, medzí, živých plotov, hrádzok alebo terás",
+                                                    "i30": "Plocha pôdy s uplatneným vrstevnicovým opatrením",
+                                                    "i31": "Plocha pôdy, na ktorej sa zmenil spôsob obrábania na pôdoochranný",
+                                                    "i32": "Zníženie predpokladanej straty pôdy",
+                                                    "i33": "Plocha pôdy s trvalým alebo sezónnym ochranným vegetačným krytom",
+                                                    "i34": "Plocha pôdy obhospodarovanej regeneratívnym/pôdoochranným spôsobom",
+                                                    "i35": "Podiel pôdy pokrytej vegetáciou v určenom období",
+                                                    "i36": "Plocha nového alebo obnoveného agrolesníckeho systému",
+                                                    "i37": "Dĺžka vetrolamov, medzí, živých plotov alebo iných líniových krajinných prvkov",
+                                                    "i38": "Plocha vytvorených alebo obnovených remízok a iných plošných krajinných prvkov",
+                                                    "i39": "Počet vysadených solitérnych stromov alebo drevín",
+                                                    "i40": "Počet alebo plocha vytvorených/obnovených pôdoochranných krajinných prvkov"
+                                                },
+                                                "values_connected": {
+                                                    "i01": "m1",
+                                                    "i02": "m1",
+                                                    "i03": "m1",
+                                                    "i04": "m1",
+                                                    "i05": "m1",
+                                                    "i06": "m2",
+                                                    "i07": "m2",
+                                                    "i08": "m2",
+                                                    "i09": "m2",
+                                                    "i10": "m3",
+                                                    "i11": "m3",
+                                                    "i12": "m3",
+                                                    "i13": "m3",
+                                                    "i14": "m4",
+                                                    "i15": "m4",
+                                                    "i16": "m4",
+                                                    "i17": "m4",
+                                                    "i18": "m5",
+                                                    "i19": "m5",
+                                                    "i20": "m5",
+                                                    "i21": "m5",
+                                                    "i22": "m5",
+                                                    "i23": "m6",
+                                                    "i24": "m6",
+                                                    "i25": "m6",
+                                                    "i26": "m6",
+                                                    "i27": "m6",
+                                                    "i28": "m7",
+                                                    "i29": "m7",
+                                                    "i30": "m7",
+                                                    "i31": "m7",
+                                                    "i32": "m7",
+                                                    "i33": "m8",
+                                                    "i34": "m8",
+                                                    "i35": "m8",
+                                                    "i36": "m9",
+                                                    "i37": "m9",
+                                                    "i38": "m9",
+                                                    "i39": "m9",
+                                                    "i40": "m9"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_SELECT",
+                                            "name": "Jednotka",
+                                            "tag": "jednotka",
+                                            "heading": "Jednotka",
+                                            "hint": "Jednotka sa dopĺňa automaticky podľa zvoleného ukazovateľa.",
+                                            "config": {
+                                                "add_empty_option": 1,
+                                                "allow_only_unique_values": 0,
+                                                "connected_tag": "hlavny_prinos.volitelny_prinos.opatrenia[%INDEX%].ukazovatel",
+                                                "is_readonly": 0,
+                                                "roller_source": "",
+                                                "values": {
+                                                    "j01": "m³",
+                                                    "j02": "m² / ha",
+                                                    "j03": "m²",
+                                                    "j04": "m",
+                                                    "j05": "ks",
+                                                    "j06": "m² / ha",
+                                                    "j07": "m² / ha",
+                                                    "j08": "m / km",
+                                                    "j09": "ks",
+                                                    "j10": "m³",
+                                                    "j11": "m / km",
+                                                    "j12": "m² / ha",
+                                                    "j13": "m²",
+                                                    "j14": "m² / ha",
+                                                    "j15": "m² / ha",
+                                                    "j16": "m² / ha",
+                                                    "j17": "ks",
+                                                    "j18": "ks",
+                                                    "j19": "ks",
+                                                    "j20": "m² / ha",
+                                                    "j21": "m² / ha",
+                                                    "j22": "DJ/ha alebo ks/ha",
+                                                    "j23": "m / km",
+                                                    "j24": "ks",
+                                                    "j25": "m² / ha",
+                                                    "j26": "m²",
+                                                    "j27": "m²",
+                                                    "j28": "ha",
+                                                    "j29": "m / km",
+                                                    "j30": "ha",
+                                                    "j31": "ha",
+                                                    "j32": "t/ha/rok",
+                                                    "j33": "ha",
+                                                    "j34": "ha",
+                                                    "j35": "%",
+                                                    "j36": "ha",
+                                                    "j37": "m / km",
+                                                    "j38": "m² / ha",
+                                                    "j39": "ks",
+                                                    "j40": "ks / m² / ha"
+                                                },
+                                                "values_connected": {
+                                                    "j01": "i01",
+                                                    "j02": "i02",
+                                                    "j03": "i03",
+                                                    "j04": "i04",
+                                                    "j05": "i05",
+                                                    "j06": "i06",
+                                                    "j07": "i07",
+                                                    "j08": "i08",
+                                                    "j09": "i09",
+                                                    "j10": "i10",
+                                                    "j11": "i11",
+                                                    "j12": "i12",
+                                                    "j13": "i13",
+                                                    "j14": "i14",
+                                                    "j15": "i15",
+                                                    "j16": "i16",
+                                                    "j17": "i17",
+                                                    "j18": "i18",
+                                                    "j19": "i19",
+                                                    "j20": "i20",
+                                                    "j21": "i21",
+                                                    "j22": "i22",
+                                                    "j23": "i23",
+                                                    "j24": "i24",
+                                                    "j25": "i25",
+                                                    "j26": "i26",
+                                                    "j27": "i27",
+                                                    "j28": "i28",
+                                                    "j29": "i29",
+                                                    "j30": "i30",
+                                                    "j31": "i31",
+                                                    "j32": "i32",
+                                                    "j33": "i33",
+                                                    "j34": "i34",
+                                                    "j35": "i35",
+                                                    "j36": "i36",
+                                                    "j37": "i37",
+                                                    "j38": "i38",
+                                                    "j39": "i39",
+                                                    "j40": "i40"
+                                                },
+                                                "width": "90px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_NUMBER",
+                                            "name": "Východisková hodnota",
+                                            "tag": "vychodiskova_hodnota",
+                                            "heading": "Východisková hodnota",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "places": 2,
+                                                "size": 10,
+                                                "width": "110px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_NUMBER",
+                                            "name": "Cieľová hodnota",
+                                            "tag": "cielova_hodnota",
+                                            "heading": "Cieľová hodnota",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "places": 2,
+                                                "size": 10,
+                                                "width": "110px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Spôsob merania / zdroj údajov",
+                                            "tag": "sposob_merania",
+                                            "heading": "Spôsob merania / zdroj údajov",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 30
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Frekvencia merania",
+                                            "tag": "frekvencia_merania",
+                                            "heading": "Frekvencia merania",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 15
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Plocha / územie výsledku",
+                                            "tag": "plocha",
+                                            "heading": "Plocha / územie, na ktoré sa výsledok vzťahuje",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 20
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Požadované dôkazy",
+                                            "tag": "dokazy",
+                                            "heading": "Požadované dôkazy / spôsob preukázania výsledku",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 25
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Udržateľnosť výsledku",
+                                            "tag": "udrzatelnost_vysledku",
+                                            "heading": "Predpokladaná udržateľnosť výsledku",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 20
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "TEXT",
+                                    "name": "Opis vedľajšieho environmentálneho prínosu 1 (ak relevantné) (max. 1000 znakov)",
+                                    "tag": "opis",
+                                    "heading": "Opis vedľajšieho environmentálneho prínosu 1 (ak relevantné)&nbsp;",
+                                    "hint": "Pri vedľajšom prínose môže žiadateľ uviesť východiskovú a cieľovú hodnotu a spôsob monitorovania, ak nimi disponuje. Odborné vyčíslenie a zohľadnenie vedľajšieho prínosu vykoná hodnotiteľ podľa metodiky.",
+                                    "config": {
+                                        "max_chars": 1000,
+                                        "rows": 5,
+                                        "cols": 130,
+                                        "is_readonly": 0
+                                    },
+                                    "view_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_1))",
+                                    "validate_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_1))"
+                                },
+                                {
+                                    "type": "SELECT",
+                                    "name": "Vedľajšia prioritná os 2",
+                                    "tag": "vedlajsia_os_2",
+                                    "heading": "Vedľajšia prioritná os 2",
+                                    "hint": "Voliteľné. Vedľajšia prioritná os 2 sa sprístupní po výbere vedľajšej osi 1 a ponúkne iba tretiu zostávajúcu prioritnú os. Ak chcete uviesť iba jeden vedľajší prínos, vyplňte iba vedľajší prínos 1.",
+                                    "config": {
+                                        "values": {
+                                            "os1": "Voda v krajine, sucho a povodňová odolnosť",
+                                            "os2": "Biodiverzita, ekosystémy a zelená infraštruktúra",
+                                            "os3": "Pôda a odolnosť poľnohospodárskej krajiny"
+                                        },
+                                        "values_hint": {
+                                            "os1": null,
+                                            "os2": null,
+                                            "os3": null
+                                        },
+                                        "values_connected": {
+                                            "os1": "",
+                                            "os2": "",
+                                            "os3": ""
+                                        },
+                                        "roller_source": "",
+                                        "add_roller_code": 0,
+                                        "load_connected_values_dynamically": 0,
+                                        "hide_when_no_connected_values": 0,
+                                        "add_empty_option": 1,
+                                        "is_readonly": 0,
+                                        "dynamic_values_code": "javascript:var osi = {\"os1\": \"Voda v krajine, sucho a povodňová odolnosť\", \"os2\": \"Biodiverzita, ekosystémy a zelená infraštruktúra\", \"os3\": \"Pôda a odolnosť poľnohospodárskej krajiny\"};\nvar hlavna = tag(\"opis_projektu.hlavny_prinos.hlavna_os\") || \"\";\nvar vedlajsia1 = tag(\"opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_1\") || \"\";\nvar vysledok = {};\nif (!vedlajsia1) { return vysledok; }\nfor (var k in osi) { if (k !== hlavna && k !== vedlajsia1) { vysledok[k] = osi[k]; } }\nreturn vysledok;",
+                                        "dynamic_values_code_trigger": "hlavny_prinos.hlavna_os,hlavny_prinos.volitelny_prinos.vedlajsia_os_1"
+                                    },
+                                    "view_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_1))"
+                                },
+                                {
+                                    "type": "TABLE_LIST",
+                                    "name": "Opatrenia a merateľné ukazovatele",
+                                    "tag": "opatrenia_1",
+                                    "heading": "Opatrenia a merateľné ukazovatele",
+                                    "config": {
+                                        "min_rows": "0",
+                                        "max_rows": "3",
+                                        "initial_rows": "1",
+                                        "add_rows": 0,
+                                        "copy_rows": 0,
+                                        "disable_remove_on_resubmit": 1,
+                                        "add_label": "Pridať riadok",
+                                        "hide_header": 0,
+                                        "separate_rows": 0,
+                                        "render_mode": "classic",
+                                        "omit_unchanged_diff_rows": 0,
+                                        "diff_row_order_matters": 0,
+                                        "omit_unchanged_static_diff_rows": 0
+                                    },
+                                    "view_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_2))",
+                                    "validate_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_2))",
+                                    "children": [
+                                        {
+                                            "type": "TABLE_ITEM_ROW_NUMBER",
+                                            "name": "Č.",
+                                            "tag": "cislo",
+                                            "heading": "Č.",
+                                            "config": {
+                                                "prefix": "",
+                                                "size": 3,
+                                                "width": "40px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_SELECT",
+                                            "name": "Opatrenie",
+                                            "tag": "opatrenie",
+                                            "heading": "Opatrenie",
+                                            "config": {
+                                                "values": {
+                                                    "m1": "Zadržiavanie a infiltrácia vody",
+                                                    "m2": "Obnova prirodzeného vodného režimu",
+                                                    "m3": "Povodňová odolnosť a spomaľovanie odtoku",
+                                                    "m4": "Obnova a tvorba biotopov",
+                                                    "m5": "Zlepšenie ekologického stavu",
+                                                    "m6": "Ekologická konektivita",
+                                                    "m7": "Protierózna ochrana",
+                                                    "m8": "Regeneratívne a pôdoochranné hospodárenie",
+                                                    "m9": "Agrolesníctvo a krajinné prvky"
+                                                },
+                                                "values_hint": {
+                                                    "m1": null,
+                                                    "m2": null,
+                                                    "m3": null,
+                                                    "m4": null,
+                                                    "m5": null,
+                                                    "m6": null,
+                                                    "m7": null,
+                                                    "m8": null,
+                                                    "m9": null
+                                                },
+                                                "values_connected": {
+                                                    "m1": "",
+                                                    "m2": "",
+                                                    "m3": "",
+                                                    "m4": "",
+                                                    "m5": "",
+                                                    "m6": "",
+                                                    "m7": "",
+                                                    "m8": "",
+                                                    "m9": ""
+                                                },
+                                                "roller_source": "",
+                                                "add_roller_code": 0,
+                                                "load_connected_values_dynamically": 0,
+                                                "add_empty_option": 1,
+                                                "is_readonly": 0,
+                                                "dynamic_values_code": "javascript:var opatrenia = {\"m1\": [\"os1\", \"Zadržiavanie a infiltrácia vody\"], \"m2\": [\"os1\", \"Obnova prirodzeného vodného režimu\"], \"m3\": [\"os1\", \"Povodňová odolnosť a spomaľovanie odtoku\"], \"m4\": [\"os2\", \"Obnova a tvorba biotopov\"], \"m5\": [\"os2\", \"Zlepšenie ekologického stavu\"], \"m6\": [\"os2\", \"Ekologická konektivita\"], \"m7\": [\"os3\", \"Protierózna ochrana\"], \"m8\": [\"os3\", \"Regeneratívne a pôdoochranné hospodárenie\"], \"m9\": [\"os3\", \"Agrolesníctvo a krajinné prvky\"]};\nvar os = tag(\"opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_2\") || \"\";\nvar vysledok = {};\nfor (var k in opatrenia) { if (opatrenia[k][0] === os) { vysledok[k] = opatrenia[k][1]; } }\nreturn vysledok;",
+                                                "dynamic_values_code_trigger": "hlavny_prinos.volitelny_prinos.vedlajsia_os_2",
+                                                "allow_only_unique_values": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_SELECT",
+                                            "name": "Merateľný ukazovateľ",
+                                            "tag": "ukazovatel",
+                                            "heading": "Merateľný ukazovateľ",
+                                            "config": {
+                                                "add_empty_option": 1,
+                                                "allow_only_unique_values": 0,
+                                                "connected_tag": "hlavny_prinos.volitelny_prinos.opatrenia_1[%INDEX%].opatrenie",
+                                                "is_readonly": 0,
+                                                "roller_source": "",
+                                                "values": {
+                                                    "i01": "Vytvorená retenčná/detenčná kapacita",
+                                                    "i02": "Plocha opatrení podporujúcich zadržanie alebo infiltráciu vody",
+                                                    "i03": "Plocha nových alebo obnovených priepustných povrchov",
+                                                    "i04": "Dĺžka vsakovacích pásov, priekop, rigolov a obdobných líniových opatrení",
+                                                    "i05": "Počet vybudovaných/obnovených retenčných alebo infiltračných prvkov",
+                                                    "i06": "Plocha obnovenej alebo vytvorenej mokrade, nivy alebo zamokreného územia",
+                                                    "i07": "Plocha územia s obnoveným prirodzeným vodným režimom",
+                                                    "i08": "Dĺžka revitalizovaného vodného toku alebo riečneho ramena",
+                                                    "i09": "Počet obnovených hydrologických prepojení alebo prvkov",
+                                                    "i10": "Retenčný/detenčný objem vytvorený opatrením",
+                                                    "i11": "Dĺžka opatrení na spomalenie alebo rozptýlenie odtoku",
+                                                    "i12": "Plocha územia ovplyvneného prírode blízkym protipovodňovým opatrením",
+                                                    "i13": "Plocha vegetačného alebo polovegetačného opevnenia brehov",
+                                                    "i14": "Plocha obnoveného degradovaného biotopu",
+                                                    "i15": "Plocha novovytvoreného prírodného alebo prírode blízkeho biotopu",
+                                                    "i16": "Plocha obnovenej mokrade, brehovej vegetácie, sadu, lesa a pod.",
+                                                    "i17": "Počet vytvorených alebo obnovených hniezdnych, rozmnožovacích alebo mikrobiotopových prvkov",
+                                                    "i18": "Počet vysadených pôvodných stromov",
+                                                    "i19": "Počet vysadených pôvodných krov",
+                                                    "i20": "Plocha novej výsadby alebo zalesnenia pôvodnými druhmi",
+                                                    "i21": "Plocha, z ktorej boli odstránené invázne nepôvodné druhy",
+                                                    "i22": "Zmena chovu – hustota hospodárskych zvierat pred a po realizácii",
+                                                    "i23": "Dĺžka vytvoreného alebo obnoveného ekologického koridoru, vetrolamu, aleje alebo živého plota",
+                                                    "i24": "Počet vysadených stromov a krov v krajinných prvkoch",
+                                                    "i25": "Plocha vytvorenej alebo obnovenej zelenej infraštruktúry",
+                                                    "i26": "Plocha vegetačných striech, stien alebo fasád",
+                                                    "i27": "Plocha vytvorenej modro-zelenej infraštruktúry",
+                                                    "i28": "Plocha zatrávnenej alebo inak protierózne chránenej pôdy",
+                                                    "i29": "Dĺžka vytvorených protieróznych pásov, medzí, živých plotov, hrádzok alebo terás",
+                                                    "i30": "Plocha pôdy s uplatneným vrstevnicovým opatrením",
+                                                    "i31": "Plocha pôdy, na ktorej sa zmenil spôsob obrábania na pôdoochranný",
+                                                    "i32": "Zníženie predpokladanej straty pôdy",
+                                                    "i33": "Plocha pôdy s trvalým alebo sezónnym ochranným vegetačným krytom",
+                                                    "i34": "Plocha pôdy obhospodarovanej regeneratívnym/pôdoochranným spôsobom",
+                                                    "i35": "Podiel pôdy pokrytej vegetáciou v určenom období",
+                                                    "i36": "Plocha nového alebo obnoveného agrolesníckeho systému",
+                                                    "i37": "Dĺžka vetrolamov, medzí, živých plotov alebo iných líniových krajinných prvkov",
+                                                    "i38": "Plocha vytvorených alebo obnovených remízok a iných plošných krajinných prvkov",
+                                                    "i39": "Počet vysadených solitérnych stromov alebo drevín",
+                                                    "i40": "Počet alebo plocha vytvorených/obnovených pôdoochranných krajinných prvkov"
+                                                },
+                                                "values_connected": {
+                                                    "i01": "m1",
+                                                    "i02": "m1",
+                                                    "i03": "m1",
+                                                    "i04": "m1",
+                                                    "i05": "m1",
+                                                    "i06": "m2",
+                                                    "i07": "m2",
+                                                    "i08": "m2",
+                                                    "i09": "m2",
+                                                    "i10": "m3",
+                                                    "i11": "m3",
+                                                    "i12": "m3",
+                                                    "i13": "m3",
+                                                    "i14": "m4",
+                                                    "i15": "m4",
+                                                    "i16": "m4",
+                                                    "i17": "m4",
+                                                    "i18": "m5",
+                                                    "i19": "m5",
+                                                    "i20": "m5",
+                                                    "i21": "m5",
+                                                    "i22": "m5",
+                                                    "i23": "m6",
+                                                    "i24": "m6",
+                                                    "i25": "m6",
+                                                    "i26": "m6",
+                                                    "i27": "m6",
+                                                    "i28": "m7",
+                                                    "i29": "m7",
+                                                    "i30": "m7",
+                                                    "i31": "m7",
+                                                    "i32": "m7",
+                                                    "i33": "m8",
+                                                    "i34": "m8",
+                                                    "i35": "m8",
+                                                    "i36": "m9",
+                                                    "i37": "m9",
+                                                    "i38": "m9",
+                                                    "i39": "m9",
+                                                    "i40": "m9"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_SELECT",
+                                            "name": "Jednotka",
+                                            "tag": "jednotka",
+                                            "heading": "Jednotka",
+                                            "hint": "Jednotka sa dopĺňa automaticky podľa zvoleného ukazovateľa.",
+                                            "config": {
+                                                "add_empty_option": 1,
+                                                "allow_only_unique_values": 0,
+                                                "connected_tag": "hlavny_prinos.volitelny_prinos.opatrenia_1[%INDEX%].ukazovatel",
+                                                "is_readonly": 0,
+                                                "roller_source": "",
+                                                "values": {
+                                                    "j01": "m³",
+                                                    "j02": "m² / ha",
+                                                    "j03": "m²",
+                                                    "j04": "m",
+                                                    "j05": "ks",
+                                                    "j06": "m² / ha",
+                                                    "j07": "m² / ha",
+                                                    "j08": "m / km",
+                                                    "j09": "ks",
+                                                    "j10": "m³",
+                                                    "j11": "m / km",
+                                                    "j12": "m² / ha",
+                                                    "j13": "m²",
+                                                    "j14": "m² / ha",
+                                                    "j15": "m² / ha",
+                                                    "j16": "m² / ha",
+                                                    "j17": "ks",
+                                                    "j18": "ks",
+                                                    "j19": "ks",
+                                                    "j20": "m² / ha",
+                                                    "j21": "m² / ha",
+                                                    "j22": "DJ/ha alebo ks/ha",
+                                                    "j23": "m / km",
+                                                    "j24": "ks",
+                                                    "j25": "m² / ha",
+                                                    "j26": "m²",
+                                                    "j27": "m²",
+                                                    "j28": "ha",
+                                                    "j29": "m / km",
+                                                    "j30": "ha",
+                                                    "j31": "ha",
+                                                    "j32": "t/ha/rok",
+                                                    "j33": "ha",
+                                                    "j34": "ha",
+                                                    "j35": "%",
+                                                    "j36": "ha",
+                                                    "j37": "m / km",
+                                                    "j38": "m² / ha",
+                                                    "j39": "ks",
+                                                    "j40": "ks / m² / ha"
+                                                },
+                                                "values_connected": {
+                                                    "j01": "i01",
+                                                    "j02": "i02",
+                                                    "j03": "i03",
+                                                    "j04": "i04",
+                                                    "j05": "i05",
+                                                    "j06": "i06",
+                                                    "j07": "i07",
+                                                    "j08": "i08",
+                                                    "j09": "i09",
+                                                    "j10": "i10",
+                                                    "j11": "i11",
+                                                    "j12": "i12",
+                                                    "j13": "i13",
+                                                    "j14": "i14",
+                                                    "j15": "i15",
+                                                    "j16": "i16",
+                                                    "j17": "i17",
+                                                    "j18": "i18",
+                                                    "j19": "i19",
+                                                    "j20": "i20",
+                                                    "j21": "i21",
+                                                    "j22": "i22",
+                                                    "j23": "i23",
+                                                    "j24": "i24",
+                                                    "j25": "i25",
+                                                    "j26": "i26",
+                                                    "j27": "i27",
+                                                    "j28": "i28",
+                                                    "j29": "i29",
+                                                    "j30": "i30",
+                                                    "j31": "i31",
+                                                    "j32": "i32",
+                                                    "j33": "i33",
+                                                    "j34": "i34",
+                                                    "j35": "i35",
+                                                    "j36": "i36",
+                                                    "j37": "i37",
+                                                    "j38": "i38",
+                                                    "j39": "i39",
+                                                    "j40": "i40"
+                                                },
+                                                "width": "90px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_NUMBER",
+                                            "name": "Východisková hodnota",
+                                            "tag": "vychodiskova_hodnota",
+                                            "heading": "Východisková hodnota",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "places": 2,
+                                                "size": 10,
+                                                "width": "110px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_NUMBER",
+                                            "name": "Cieľová hodnota",
+                                            "tag": "cielova_hodnota",
+                                            "heading": "Cieľová hodnota",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "places": 2,
+                                                "size": 10,
+                                                "width": "110px"
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Spôsob merania / zdroj údajov",
+                                            "tag": "sposob_merania",
+                                            "heading": "Spôsob merania / zdroj údajov",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 30
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Frekvencia merania",
+                                            "tag": "frekvencia_merania",
+                                            "heading": "Frekvencia merania",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 15
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Plocha / územie výsledku",
+                                            "tag": "plocha",
+                                            "heading": "Plocha / územie, na ktoré sa výsledok vzťahuje",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 20
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Požadované dôkazy",
+                                            "tag": "dokazy",
+                                            "heading": "Požadované dôkazy / spôsob preukázania výsledku",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 25
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Udržateľnosť výsledku",
+                                            "tag": "udrzatelnost_vysledku",
+                                            "heading": "Predpokladaná udržateľnosť výsledku",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "size": 20
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "TEXT",
+                                    "name": "Opis vedľajšieho environmentálneho prínosu 2 (ak relevantné) (max. 1000 znakov)",
+                                    "tag": "opis_1",
+                                    "heading": "Opis vedľajšieho environmentálneho prínosu 2 (ak relevantné)&nbsp;",
+                                    "hint": "Platí rovnaký princíp ako pri vedľajšom prínose 1; nesmie dôjsť k dvojitému započítaniu toho istého environmentálneho účinku.",
+                                    "config": {
+                                        "max_chars": 1000,
+                                        "rows": 5,
+                                        "cols": 130,
+                                        "is_readonly": 0
+                                    },
+                                    "view_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_2))",
+                                    "validate_condition": "not(empty(opis_projektu.hlavny_prinos.volitelny_prinos.vedlajsia_os_2))"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Partnerstvá a zapojenie lokálnych aktérov (ak relevantné) (max. 1500 znakov)",
+                    "tag": "partnerstva",
+                    "heading": "Partnerstvá a zapojenie lokálnych aktérov (ak relevantné)&nbsp;",
+                    "hint": "Uveďte partnerov, miestnu komunitu alebo iné subjekty zapojené do prípravy, realizácie alebo udržateľnosti projektu a ich úlohu.",
+                    "config": {
+                        "max_chars": 1500,
+                        "rows": 6,
+                        "cols": 130,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Výstupy",
+                    "tag": "vystupy",
+                    "mandatory": true,
+                    "children": [
+                        {
+                            "type": "TEXT",
+                            "name": "Výstupy projektu (max. 1000 znakov)",
+                            "tag": "vystupy",
+                            "mandatory": true,
+                            "heading": "Výstupy projektu&nbsp;",
+                            "hint": "Uveďte priame fyzické alebo realizačné výstupy projektu.",
+                            "config": {
+                                "max_chars": 1000,
+                                "rows": 5,
+                                "cols": 130,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TEXT",
+                            "name": "Výsledky projektu (max. 1000 znakov)",
+                            "tag": "vysledky",
+                            "mandatory": true,
+                            "heading": "Výsledky projektu&nbsp;",
+                            "hint": "Popíšte stav alebo zmenu, ktorá vznikne po realizácii aktivít v porovnaní s východiskovým stavom.",
+                            "config": {
+                                "max_chars": 1000,
+                                "rows": 5,
+                                "cols": 130,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TEXT",
+                            "name": "Dotknuté / cieľové skupiny a prínos pre ne (ak relevantné) (max. 1000 znakov)",
+                            "tag": "cielove_skupiny",
+                            "heading": "Dotknuté / cieľové skupiny a prínos pre ne (ak relevantné)&nbsp;",
+                            "hint": "Uveďte subjekty alebo skupiny, ktoré budú priamo alebo nepriamo ovplyvnené realizáciou projektu a stručne popíšte prínos.",
+                            "config": {
+                                "max_chars": 1000,
+                                "rows": 5,
+                                "cols": 130,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Monitorovanie a udržateľnosť projektu",
+                    "tag": "podsekcia",
+                    "mandatory": true,
+                    "heading": "Monitorovanie a udržateľnosť&nbsp;",
+                    "children": [
+                        {
+                            "type": "TEXT",
+                            "name": "Udržateľnosť výstupov a výsledkov projektu (max. 1500 znakov)",
+                            "tag": "udrzatelnost",
+                            "mandatory": true,
+                            "heading": "Monitorovanie a udržateľnosť výstupov a výsledkov projektu&nbsp;",
+                            "hint": "<p style=\"text-align:justify\">Popíšte, ako zabezpečíte organizačnú, technickú a finančnú udržateľnosť výsledkov projektu najmenej počas obdobia určeného Výzvou a Zmluvou.&nbsp;</p>\n\n<p style=\"text-align:justify\">Súčasťou opisu musí byť aj<strong> jednoduchý monitorovací plán</strong>, v ktorom uvediete, čo, akým spôsobom, ako často a kým bude sledované a ako budete preukazovať zachovanie dosiahnutých environmentálnych prínosov. Monitorovací plán postačuje spracovať textovo priamo v tejto časti žiadosti.</p>",
+                            "config": {
+                                "max_chars": 4000,
+                                "rows": 6,
+                                "cols": 130,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Predpokladané náklady na starostlivosť / údržbu počas doby udržateľnosti",
+                            "tag": "zodpovedny_subjekt",
+                            "mandatory": true,
+                            "heading": "Predpokladané náklady na starostlivosť / údržbu počas doby udržateľnosti",
+                            "config": {
+                                "size": 160,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Predpokladaný zdroj financovania údržby / manažmentu počas udržateľnosti",
+                            "tag": "zdroj_financovania_udrzby",
+                            "mandatory": true,
+                            "heading": "Predpokladaný zdroj financovania údržby / manažmentu počas udržateľnosti",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 160
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Riziká",
+                    "tag": "podsekcia_rizika",
+                    "mandatory": true,
+                    "children": [
+                        {
+                            "type": "TABLE_LIST",
+                            "name": "Riziká projektu",
+                            "tag": "rizika",
+                            "mandatory": true,
+                            "heading": "Riziká&nbsp;",
+                            "hint": "Uveďte minimálne dve významné riziká, ktoré môžu ovplyvniť realizáciu alebo udržateľnosť projektu, a spôsob ich riadenia alebo eliminácie.",
+                            "config": {
+                                "min_rows": "2",
+                                "max_rows": "4",
+                                "initial_rows": "2",
+                                "add_rows": 1,
+                                "copy_rows": 0,
+                                "disable_remove_on_resubmit": 1,
+                                "add_label": "Pridať riadok",
+                                "hide_header": 0,
+                                "separate_rows": 0,
+                                "render_mode": "classic",
+                                "omit_unchanged_diff_rows": 0,
+                                "diff_row_order_matters": 0,
+                                "omit_unchanged_static_diff_rows": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_ITEM_ROW_NUMBER",
+                                    "name": "Č.",
+                                    "tag": "cislo",
+                                    "heading": "Č.",
+                                    "config": {
+                                        "prefix": "",
+                                        "size": 3,
+                                        "width": "40px"
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Názov rizika",
+                                    "tag": "nazov",
+                                    "mandatory": true,
+                                    "heading": "Názov rizika",
+                                    "config": {
+                                        "is_readonly": 0,
+                                        "size": 25
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_TEXT",
+                                    "name": "Popis / dopad rizika",
+                                    "tag": "popis",
+                                    "mandatory": true,
+                                    "heading": "Popis / dopad rizika",
+                                    "config": {
+                                        "cols": 40,
+                                        "is_readonly": 0,
+                                        "max_chars": 1000,
+                                        "rows": 3
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_TEXT",
+                                    "name": "Spôsob eliminácie / riadenia rizika",
+                                    "tag": "eliminacia",
+                                    "mandatory": true,
+                                    "heading": "Spôsob eliminácie / riadenia rizika",
+                                    "config": {
+                                        "cols": 40,
+                                        "is_readonly": 0,
+                                        "max_chars": 1000,
+                                        "rows": 3
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Miesto realizácie, pozemky / nehnuteľnosti a právny vzťah",
+            "tag": "miesto_realizacie",
+            "heading": "Miesto realizácie, pozemky / nehnuteľnosti a právny vzťah",
+            "config": {
+                "add_print_pagebreak": 1
+            },
+            "children": [
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Obec / mesto realizácie",
+                    "tag": "obec",
+                    "mandatory": true,
+                    "heading": "Obec / mesto realizácie projektu",
+                    "hint": "Ak sa projekt realizuje vo viacerých obciach, uveďte všetky.",
+                    "config": {
+                        "size": 100,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Pozemky / nehnuteľnosti dotknuté projektom",
+                    "tag": "pozemky",
+                    "heading": "Pozemky / nehnuteľnosti dotknuté projektom",
+                    "hint": "Uveďte všetky pozemky alebo nehnuteľnosti dotknuté realizáciou projektu. Žiadateľ musí mať právny vzťah umožňujúci realizáciu, prevádzku a zachovanie opatrenia počas celej doby udržateľnosti. Ak nie je vlastníkom, predkladá doklad o právnom vzťahu a podľa jeho povahy aj súhlas vlastníka.",
+                    "config": {
+                        "min_rows": "1",
+                        "max_rows": "8",
+                        "initial_rows": "1",
+                        "add_rows": 1,
+                        "copy_rows": 0,
+                        "disable_remove_on_resubmit": 1,
+                        "add_label": "Pridať riadok",
+                        "hide_header": 0,
+                        "separate_rows": 0,
+                        "render_mode": "classic",
+                        "omit_unchanged_diff_rows": 0,
+                        "diff_row_order_matters": 0,
+                        "omit_unchanged_static_diff_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_ROW_NUMBER",
+                            "name": "Č.",
+                            "tag": "cislo",
+                            "heading": "Č.",
+                            "config": {
+                                "prefix": "",
+                                "size": 3,
+                                "width": "40px"
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Katastrálne územie",
+                            "tag": "katastralne_uzemie",
+                            "mandatory": true,
+                            "heading": "Katastrálne územie",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 20
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Parcelné číslo",
+                            "tag": "parcelne_cislo",
+                            "mandatory": true,
+                            "heading": "Parcelné číslo",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 12
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_SELECT",
+                            "name": "Register",
+                            "tag": "register",
+                            "mandatory": true,
+                            "heading": "Register",
+                            "config": {
+                                "add_empty_option": 1,
+                                "allow_only_unique_values": 0,
+                                "is_readonly": 0,
+                                "roller_source": "",
+                                "values": {
+                                    "C": "C",
+                                    "E": "E"
+                                },
+                                "values_connected": {
+                                    "C": "",
+                                    "E": ""
+                                },
+                                "width": "60px"
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "LV",
+                            "tag": "lv",
+                            "mandatory": true,
+                            "heading": "LV",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 8
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_SELECT",
+                            "name": "Vzťah žiadateľa",
+                            "tag": "vztah",
+                            "mandatory": true,
+                            "heading": "Vzťah žiadateľa",
+                            "config": {
+                                "values": {
+                                    "iny": "Iný právny vzťah",
+                                    "najomca": "Nájomca / užívateľ",
+                                    "vlastnik": "Vlastník"
+                                },
+                                "values_hint": {
+                                    "iny": null,
+                                    "najomca": null,
+                                    "vlastnik": null
+                                },
+                                "values_connected": {
+                                    "iny": "",
+                                    "najomca": "",
+                                    "vlastnik": ""
+                                },
+                                "roller_source": "",
+                                "add_roller_code": 0,
+                                "load_connected_values_dynamically": 0,
+                                "add_empty_option": 1,
+                                "is_readonly": 0,
+                                "allow_only_unique_values": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Právny titul / číslo zmluvy / platnosť",
+                            "tag": "pravny_titul",
+                            "heading": "Právny titul / číslo zmluvy / platnosť",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 25
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_SELECT",
+                            "name": "Súhlas vlastníka",
+                            "tag": "suhlas_vlastnika",
+                            "mandatory": true,
+                            "heading": "Súhlas vlastníka",
+                            "config": {
+                                "add_empty_option": 1,
+                                "allow_only_unique_values": 0,
+                                "is_readonly": 0,
+                                "roller_source": "",
+                                "values": {
+                                    "ano": "Áno",
+                                    "nerelevantne": "Nie je relevantné",
+                                    "nie": "Nie"
+                                },
+                                "values_connected": {
+                                    "ano": "",
+                                    "nerelevantne": "",
+                                    "nie": ""
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Výmera dotknutého územia / súčet relevantných plôch",
+                    "tag": "vymera",
+                    "heading": "Výmera dotknutého územia / súčet relevantných plôch",
+                    "config": {
+                        "is_readonly": 0,
+                        "size": 100
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "GPS súradnice miesta realizácie",
+                    "tag": "gps",
+                    "heading": "GPS súradnice miesta realizácie",
+                    "hint": "Uveďte zemepisnú šírku a dĺžku (napr. 48.7164, 21.2611). Ak sa projekt realizuje na viacerých miestach, uveďte súradnice každého miesta.",
+                    "config": {
+                        "size": 100,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Súlad projektu s územným plánom obce/mesta (ak relevantné)",
+                    "tag": "uzemny_plan",
+                    "heading": "Súlad projektu s územným plánom obce/mesta (ak relevantné)",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nerelevantne": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "MAP_AREA",
+                    "name": "Mapa ",
+                    "tag": "mapa",
+                    "mandatory": true,
+                    "heading": "Mapa územia",
+                    "config": {
+                        "disable_point": 0,
+                        "disable_line": 0,
+                        "disable_polygon": 0,
+                        "line_width_optional": 0,
+                        "region_boundary": "{\"type\":\"Polygon\",\"coordinates\":[[[20.6,48.3],[22.6,48.3],[22.6,49.1],[20.6,49.1],[20.6,48.3]]]}",
+                        "outside_region_mode": "warning",
+                        "map_center": "48.72, 21.25",
+                        "map_zoom": 8
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Technická a povoľovacia pripravenosť projektu",
+            "tag": "pripravenost",
+            "description": "Ak projektová dokumentácia nie je z povahy projektu nevyhnutná, predkladá sa minimálne situačný nákres s vysvetlením navrhovaného riešenia. Ak je povolenie alebo iný doklad potrebný, ale žiadateľ ho pri podaní žiadosti ešte nemá, preukáže začatie príslušného procesu; právoplatný doklad musí byť predložený najneskôr pred podpisom zmluvy.",
+            "heading": "Technická a povoľovacia pripravenosť projektu",
+            "config": {
+                "add_print_pagebreak": 1
+            },
+            "children": [
+                {
+                    "type": "SELECT",
+                    "name": "Vyžaduje projekt projektovú alebo inú technickú dokumentáciu?",
+                    "tag": "dokumentacia_vyzaduje",
+                    "mandatory": true,
+                    "heading": "Vyžaduje projekt projektovú alebo inú technickú dokumentáciu?",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nerelevantne": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Má žiadateľ projektovú alebo inú relevantnú technickú dokumentáciu pripravenú?",
+                    "tag": "dokumentacia_pripravena",
+                    "mandatory": true,
+                    "heading": "Má žiadateľ projektovú alebo inú relevantnú technickú dokumentáciu pripravenú?",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ciastocne": "Čiastočne pripravená",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie",
+                            "pripravena": "Áno – pripravená"
+                        },
+                        "values_connected": {
+                            "ciastocne": "",
+                            "nerelevantne": "",
+                            "nie": "",
+                            "pripravena": ""
+                        }
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Typ / názov projektovej alebo technickej dokumentácie (ak relevantné)",
+                    "tag": "dokumentacia_typ",
+                    "heading": "Typ / názov projektovej alebo technickej dokumentácie (ak relevantné)",
+                    "hint": "Uveďte typ a názov dokumentácie, jej spracovateľa a stupeň (napr. projekt pre stavebné povolenie, realizačný projekt, situačný nákres). Vyplňte len v prípade, ak máte zvolené \"áno\" v otázke č.1.",
+                    "config": {
+                        "max_chars": 500,
+                        "rows": 3,
+                        "cols": 130,
+                        "is_readonly": 0
+                    },
+                    "view_condition": "eq(pripravenost.dokumentacia_vyzaduje,\"ano\")"
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Vyžaduje projekt povolenie, ohlásenie alebo iný doklad oprávňujúci na realizáciu?",
+                    "tag": "povolenie_vyzaduje",
+                    "mandatory": true,
+                    "heading": "Vyžaduje projekt povolenie, ohlásenie alebo iný doklad oprávňujúci na realizáciu?",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nerelevantne": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Stav povoľovacieho / oznamovacieho procesu",
+                    "tag": "povolenie_stav",
+                    "mandatory": true,
+                    "heading": "Stav povoľovacieho / oznamovacieho procesu",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "nevyzaduje": "Nevyžaduje sa / nie je relevantné",
+                            "nezacaty": "Zatiaľ nezačatý",
+                            "pravoplatne": "Právoplatné / zabezpečené",
+                            "zacaty": "Proces začatý"
+                        },
+                        "values_connected": {
+                            "nevyzaduje": "",
+                            "nezacaty": "",
+                            "pravoplatne": "",
+                            "zacaty": ""
+                        }
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Druh povolenia / ohlásenia a príslušný orgán (ak relevantné)",
+                    "tag": "povolenie_druh",
+                    "heading": "Druh povolenia / ohlásenia a príslušný orgán (ak relevantné)",
+                    "hint": "Uveďte druh povolenia alebo ohlásenia (napr. stavebné povolenie, ohlásenie drobnej stavby, vodoprávne povolenie, výrub drevín), príslušný orgán a číslo / dátum rozhodnutia, ak už existuje. Vyplňte len v prípade, ak máte zvolené \"áno\" pri otázke potrebe povolenia.",
+                    "config": {
+                        "max_chars": 500,
+                        "rows": 3,
+                        "cols": 130,
+                        "is_readonly": 0
+                    },
+                    "view_condition": "eq(pripravenost.povolenie_vyzaduje,\"ano\")"
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Sú potrebné stanoviská, vyjadrenia alebo súhlasy dotknutých orgánov / subjektov?",
+                    "tag": "stanoviska_potrebne",
+                    "heading": "Sú potrebné stanoviská, vyjadrenia alebo súhlasy dotknutých orgánov / subjektov?",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nerelevantne": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Stav stanovísk / vyjadrení / súhlasov – stručná poznámka",
+                    "tag": "stanoviska_stav",
+                    "heading": "Stav stanovísk / vyjadrení / súhlasov – stručná poznámka",
+                    "hint": "Uveďte, ktoré stanoviská, vyjadrenia alebo súhlasy sú potrebné, od koho a v akom stave sú (získané / požiadané / zatiaľ nepožiadané). Vyplňte len v prípade, ak máte zvolené \"áno\" pri otázke o potrebe stanoviska.",
+                    "config": {
+                        "max_chars": 500,
+                        "rows": 3,
+                        "cols": 130,
+                        "is_readonly": 0
+                    },
+                    "view_condition": "eq(pripravenost.stanoviska_potrebne,\"ano\")"
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Harmonogram",
+            "tag": "harmonogram",
+            "mandatory": true,
+            "heading": "Harmonogram",
+            "config": {
+                "add_print_pagebreak": 1,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Aktivity projektu",
+                    "tag": "aktivity",
+                    "mandatory": true,
+                    "heading": "Aktivity projektu",
+                    "hint": "Uveďte mesiac začatia a ukončenia aktivity v chronologickej postupnosti tak, aby bolo zrejmé, ako bude projekt realizovaný v stanovenom období.<br />\nV prípade, že váš projekt nevyžaduje danú aktivitu, uveďte do poznámky, že je \"irelevantná\".<br />\nSystém vám umožňuje doplniť neobmedzený počet „Iných aktivít“.",
+                    "config": {
+                        "min_rows": "8",
+                        "max_rows": "100",
+                        "initial_rows": "9",
+                        "add_rows": 1,
+                        "copy_rows": 0,
+                        "disable_remove_on_resubmit": 1,
+                        "add_label": "Pridať inú aktivitu",
+                        "hide_header": 0,
+                        "separate_rows": 1,
+                        "render_mode": "classic",
+                        "omit_unchanged_diff_rows": 0,
+                        "diff_row_order_matters": 0,
+                        "omit_unchanged_static_diff_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_ROW_NUMBER",
+                            "name": "Č.",
+                            "tag": "cislo",
+                            "heading": "Č.",
+                            "config": {
+                                "size": 4,
+                                "width": "40px"
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STATIC_MULTILINE_TEXT",
+                            "name": "Aktivity",
+                            "tag": "aktivity",
+                            "mandatory": true,
+                            "heading": "Názov aktivity",
+                            "config": {
+                                "values": [
+                                    "Projektová / technická príprava",
+                                    "Povoľovací / oznamovací proces a získanie stanovísk",
+                                    "Verejné obstarávanie / výber dodávateľa",
+                                    "Začatie realizácie opatrenia",
+                                    "Kľúčový realizačný míľnik",
+                                    "Priebežné vyhodnotenie / priebežná správa a vyúčtovanie",
+                                    "Dokončenie fyzickej realizácie / odovzdanie výsledku",
+                                    "Ukončenie realizácie projektu",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita",
+                                    "Iná aktivita"
+                                ],
+                                "mark_text_with_tags": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_MONTH",
+                            "name": "Začiatok (mm/rrrr)",
+                            "tag": "zaciatok",
+                            "mandatory": true,
+                            "heading": "Začiatok<br />\n(mm/rrrr)",
+                            "config": {
+                                "years_back": 1,
+                                "years_forward": 4,
+                                "width": "130px"
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_MONTH",
+                            "name": "Koniec (mm/rrrr)",
+                            "tag": "koniec",
+                            "mandatory": true,
+                            "heading": "Koniec<br />\n(mm/rrrr)",
+                            "config": {
+                                "years_back": 1,
+                                "years_forward": 4,
+                                "width": "130px"
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Poznámka",
+                            "tag": "poznamka",
+                            "mandatory": true,
+                            "heading": "Poznámka",
+                            "config": {
+                                "size": 30,
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Publicita",
+            "tag": "publicita",
+            "mandatory": true,
+            "heading": "Publicita",
+            "config": {
+                "add_print_pagebreak": 0,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "TEXT",
+                    "name": "Publicita počas realizácie projektu (max. 1000 znakov)",
+                    "tag": "publicita_realizacia",
+                    "mandatory": true,
+                    "heading": "Publicita počas realizácie projektu&nbsp;",
+                    "hint": "Popíšte primerané spôsoby informovania o realizácii projektu a podpore z verejných zdrojov v súlade s manuálom publicity.",
+                    "config": {
+                        "max_chars": 1000,
+                        "rows": 5,
+                        "cols": 130,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Informovanie o výsledkoch projektu počas obdobia udržateľnosti (max. 1000 znakov)",
+                    "tag": "publicita_udrzatelnost",
+                    "mandatory": true,
+                    "heading": "Publicita počas obdobia udržateľnosti projektu&nbsp;",
+                    "hint": "Uveďte primerané komunikačné kanály alebo formy informovania o výsledkoch projektu po jeho ukončení.",
+                    "config": {
+                        "max_chars": 1000,
+                        "rows": 5,
+                        "cols": 130,
+                        "is_readonly": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Informácie pre posúdenie štátnej / minimálnej pomoci",
+            "tag": "statna_pomoc",
+            "description": "Žiadateľ, ktorý bude čerpať podporu v režime minimálnej pomoci, predkladá aj príslušné vyhlásenie podľa pravidiel uvedených v Príručke pre žiadateľa.",
+            "heading": "Informácie pre posúdenie štátnej / minimálnej pomoci",
+            "config": {
+                "add_print_pagebreak": 1
+            },
+            "children": [
+                {
+                    "type": "SELECT",
+                    "name": "Charakter podporovanej činnosti podľa žiadateľa",
+                    "tag": "charakter_cinnosti",
+                    "mandatory": true,
+                    "heading": "Charakter podporovanej činnosti podľa žiadateľa",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "hospodarska": "Hospodárska činnosť",
+                            "kombinovana": "Kombinovaná činnosť",
+                            "nehospodarska": "Nehospodárska činnosť"
+                        },
+                        "values_connected": {
+                            "hospodarska": "",
+                            "kombinovana": "",
+                            "nehospodarska": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Test štátnej pomoci priložený",
+                    "tag": "test_statnej_pomoci",
+                    "mandatory": true,
+                    "heading": "Test štátnej pomoci priložený",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Čestné vyhlásenie o nehospodárskom charaktere aktivít projektu (ak relevantné)",
+                    "tag": "vyhlasenie_nehospodarsky",
+                    "heading": "Čestné vyhlásenie o nehospodárskom charaktere aktivít projektu (ak relevantné)",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nerelevantne": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Test lokálneho charakteru hospodárskych činností (ak relevantné)",
+                    "tag": "test_lokalneho_charakteru",
+                    "heading": "Test lokálneho charakteru hospodárskych činností (ak relevantné)",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nerelevantne": "Nie je relevantné",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nerelevantne": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Bola žiadateľovi alebo podnikom tvoriacim s ním jediný podnik poskytnutá minimálna pomoc počas relevantného obdobia troch rokov?",
+                    "tag": "minimalna_pomoc",
+                    "heading": "Bola žiadateľovi alebo podnikom tvoriacim s ním jediný podnik poskytnutá minimálna pomoc počas relevantného obdobia troch rokov?",
+                    "config": {
+                        "add_empty_option": 1,
+                        "is_readonly": 0,
+                        "roller_source": "",
+                        "values": {
+                            "ano": "Áno",
+                            "nie": "Nie"
+                        },
+                        "values_connected": {
+                            "ano": "",
+                            "nie": ""
+                        }
+                    }
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Prehľad poskytnutej minimálnej pomoci",
+                    "tag": "minimalna_pomoc_prehlad",
+                    "mandatory": true,
+                    "description": "Ak je odpoveď „Áno“, uveďte jednotlivé prípady minimálnej pomoci. Celková výška minimálnej pomoci za relevantné obdobie sa sčíta automaticky pod tabuľkou. Údaje slúžia na posúdenie; konečné právne posúdenie uplatniteľného režimu vykoná KSK.",
+                    "heading": "Prehľad poskytnutej minimálnej pomoci",
+                    "config": {
+                        "add_label": "Pridať riadok",
+                        "add_rows": 1,
+                        "hide_header": 0,
+                        "initial_rows": "1",
+                        "max_rows": "8",
+                        "min_rows": "1",
+                        "separate_rows": 0
+                    },
+                    "view_condition": "eq(statna_pomoc.minimalna_pomoc,\"ano\")",
+                    "validate_condition": "eq(statna_pomoc.minimalna_pomoc,\"ano\")",
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_DATE",
+                            "name": "Dátum poskytnutia",
+                            "tag": "datum",
+                            "mandatory": true,
+                            "heading": "Dátum poskytnutia",
+                            "config": {
+                                "is_readonly": 0,
+                                "width": "120px"
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Poskytovateľ pomoci",
+                            "tag": "poskytovatel",
+                            "mandatory": true,
+                            "heading": "Poskytovateľ pomoci",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 25
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Názov opatrenia / pomoci",
+                            "tag": "nazov",
+                            "mandatory": true,
+                            "heading": "Názov opatrenia / pomoci",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 30
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_CURRENCY",
+                            "name": "Výška pomoci (€)",
+                            "tag": "vyska",
+                            "mandatory": true,
+                            "heading": "Výška pomoci (€)",
+                            "config": {
+                                "currency": "€",
+                                "is_readonly": 0,
+                                "min": 0,
+                                "places": 2,
+                                "show_summary": 1
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Režim / nariadenie",
+                            "tag": "rezim",
+                            "heading": "Režim / nariadenie",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 20
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Evidenčné číslo / poznámka",
+                            "tag": "poznamka",
+                            "heading": "Evidenčné číslo / poznámka",
+                            "config": {
+                                "is_readonly": 0,
+                                "size": 20
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Povinné prílohy k žiadosti",
+            "tag": "prilohy",
+            "description": "Rozpočet sa predkladá vo formáte XLS/XLSX; ostatné prílohy vo formáte PDF, ak Príručka pre žiadateľa neurčí inak. Maximálna veľkosť jedného súboru je 20 MB. Prílohy označené „ak relevantné“ priložte, ak sa na projekt vzťahujú.",
+            "heading": "Povinné prílohy k žiadosti",
+            "config": {
+                "add_print_pagebreak": 1
+            },
+            "children": [
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 1 – Podrobný rozpočet projektu vo formáte XLS/XLSX",
+                    "tag": "rozpocet",
+                    "mandatory": true,
+                    "heading": "Príloha č. 1 – Podrobný rozpočet projektu vo formáte XLS/XLSX",
+                    "hint": "Rozpočet sa predkladá vo formáte XLS/XLSX (Príloha 4 - Príručka pre žiadateľa)",
+                    "config": {
+                        "min_files": 1,
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 1,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 1,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 2 – Doklad preukazujúci právnu formu a právnu subjektivitu žiadateľa (ak údaje nie sú verejne overiteľné)",
+                    "tag": "pravna_forma",
+                    "heading": "Príloha č. 2 – Doklad preukazujúci právnu formu a právnu subjektivitu žiadateľa (ak údaje nie sú verejne overiteľné)",
+                    "config": {
+                        "min_files": 1,
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 1,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 1,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 3 – Doklad o zriadení alebo založení žiadateľa (ak relevantné)",
+                    "tag": "zriadenie",
+                    "heading": "Príloha č. 3 – Doklad o zriadení alebo založení žiadateľa (ak relevantné)",
+                    "config": {
+                        "min_files": 1,
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 1,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 1,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 4 – Doklad preukazujúci oprávnenie štatutárneho zástupcu / zástupcov konať za žiadateľa (ak relevantné)",
+                    "tag": "statutar",
+                    "heading": "Príloha č. 4 – Doklad preukazujúci oprávnenie štatutárneho zástupcu / zástupcov konať za žiadateľa (ak relevantné)",
+                    "config": {
+                        "disable_remove_on_reopen": 1,
+                        "hide_description_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "max_size": 20000000
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 5 – Doklad preukazujúci vlastnícke, užívacie alebo iné právo k nehnuteľnosti / územiu",
+                    "tag": "nehnutelnost",
+                    "mandatory": true,
+                    "heading": "Príloha č. 5 – Doklad preukazujúci vlastnícke, užívacie alebo iné právo k nehnuteľnosti / územiu",
+                    "hint": "Ak žiadateľ nie je vlastníkom, priložte doklad o právnom vzťahu a podľa jeho povahy aj súhlas vlastníka.",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 6 – Projektová dokumentácia alebo zjednodušená projektová dokumentácia / situačný nákres (podľa relevantnosti)",
+                    "tag": "dokumentacia",
+                    "heading": "Príloha č. 6 – Projektová dokumentácia alebo zjednodušená projektová dokumentácia / situačný nákres (podľa relevantnosti)",
+                    "hint": "Ak projektová dokumentácia nie je z povahy projektu nevyhnutná, predkladá sa minimálne situačný nákres s vysvetlením navrhovaného riešenia.",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 7 – Povolenie, ohlásenie alebo iný doklad oprávňujúci na realizáciu projektu (ak relevantné)",
+                    "tag": "povolenie",
+                    "heading": "Príloha č. 7 – Príslušné povolenie, ohlásenie alebo iný doklad oprávňujúci na realizáciu projektu, resp. doklad o začatí procesu (ak relevantné)",
+                    "config": {
+                        "disable_remove_on_reopen": 1,
+                        "hide_description_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "max_size": 20000000
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 8 – Stanoviská, vyjadrenia alebo súhlasy dotknutých orgánov / subjektov (ak relevantné)",
+                    "tag": "stanoviska",
+                    "heading": "Príloha č. 8 – Stanoviská, vyjadrenia alebo súhlasy dotknutých orgánov / subjektov (ak relevantné)",
+                    "config": {
+                        "disable_remove_on_reopen": 1,
+                        "hide_description_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "max_size": 20000000
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 9 – Východisková (baseline) fotodokumentácia miesta realizácie projektu",
+                    "tag": "fotodokumentacia",
+                    "mandatory": true,
+                    "heading": "Príloha č. 9 – Východisková (baseline) fotodokumentácia miesta realizácie projektu",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 1,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 1,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 10 – Čestné vyhlásenia žiadateľa",
+                    "tag": "cestne_vyhlasenia",
+                    "mandatory": true,
+                    "heading": "Príloha č. 10 – Čestné vyhlásenia žiadateľa",
+                    "hint": "Ostatné čestné vyhlásenia o splnení podmienok oprávnenosti, finančných vzťahoch, dvojitom financovaní, spolufinancovaní a ďalších skutočnostiach sa predkladajú podľa Príručky pre žiadateľa.&nbsp;(Príloha 5 - Príručka pre žiadateľa)",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 11 – Test štátnej pomoci",
+                    "tag": "test_statnej_pomoci",
+                    "mandatory": true,
+                    "heading": "Príloha č. 11 – Test štátnej pomoci",
+                    "hint": "Príloha 6 - Príručka pre žiadateľa",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 12 – Čestné vyhlásenie o nehospodárskom charaktere aktivít projektu (ak relevantné)",
+                    "tag": "vyhlasenie_nehospodarsky",
+                    "heading": "Príloha č. 12 – Čestné vyhlásenie o nehospodárskom charaktere aktivít projektu (ak relevantné)",
+                    "hint": "Príloha 7 - Príručka pre žiadateľa",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 13 – Test lokálneho charakteru hospodárskych činností (ak relevantné)",
+                    "tag": "test_lokalneho_charakteru",
+                    "heading": "Príloha č. 13 – Test lokálneho charakteru hospodárskych činností (ak relevantné)",
+                    "hint": "<p>Príloha 8 - Príručka pre žiadateľa.&nbsp;</p>\n\n<p>Vyberte, vyplňte a nahrajte iba tú verziu Prílohy 8 – Test lokálneho charakteru hospodárskych činností, ktorá zodpovedá prioritnej osi zvolenej v žiadosti:</p>\n\n<ul>\n\t<li style=\"text-align:justify\"><span style=\"color:#0f4761\">Voda v&nbsp;krajine, sucho a&nbsp;povodňová odolnosť</span></li>\n\t<li style=\"text-align:justify\"><span style=\"color:#0f4761\">Biodiverzita, ekosystémy a&nbsp;zelená infraštruktúra</span></li>\n\t<li style=\"text-align:justify\"><span style=\"color:#0f4761\">Pôda a&nbsp;odolnosť poľnohospodárskej krajiny</span></li>\n</ul>\n\n<p>Predkladá sa iba jedna verzia prílohy podľa zvolenej prioritnej osi projektu.</p>",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Príloha č. 14 – Georeferencovaný súbor / GIS vrstva (ak je k dispozícii)",
+                    "tag": "gis",
+                    "heading": "Príloha č. 14 – Georeferencovaný súbor / GIS vrstva miesta realizácie (ak je k dispozícii)",
+                    "hint": "Nahrajte georeferencovaný súbor s vyznačením územia projektu (napr. SHP v archíve ZIP, GPKG, KML/KMZ, GeoJSON alebo georeferencovaný PDF). Slúži na lokalizáciu projektu pri kontrolách a ex post verifikácii.",
+                    "config": {
+                        "max_size": 20000000,
+                        "disable_remove_on_reopen": 1,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Vyhlásenia žiadateľa",
+            "tag": "vyhlasenia",
+            "heading": "Vyhlásenia žiadateľa",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "CONSTANT_VALUE",
+                    "name": "Úvod k vyhláseniam",
+                    "tag": "uvod",
+                    "heading": "Ako štatutárny zástupca žiadateľa (alebo osoba oprávnená konať za žiadateľa) čestne vyhlasujem, že:"
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "1. Pravdivosť, úplnosť a aktuálnosť údajov",
+                    "tag": "pravdivost",
+                    "mandatory": true,
+                    "config": {
+                        "value": "informácie uvedené v žiadosti a jej prílohách sú úplné, pravdivé, správne a aktuálne."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "2. Oprávnenie konať za žiadateľa",
+                    "tag": "opravnenie_konat",
+                    "mandatory": true,
+                    "config": {
+                        "value": "osoba, ktorá žiadosť podáva, je oprávnená konať za žiadateľa."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "3. Splnenie podmienok oprávnenosti",
+                    "tag": "podmienky_opravnenosti",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľ spĺňa všetky podmienky oprávnenosti stanovené výzvou a Príručkou pre žiadateľa."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "4. Neexistencia dvojitého financovania",
+                    "tag": "dvojite_financovanie",
+                    "mandatory": true,
+                    "config": {
+                        "value": "na výdavky ani výsledky projektu nie je a nebude poskytnuté financovanie z iných verejných zdrojov (nedochádza k dvojitému financovaniu rovnakých výdavkov alebo výsledkov)."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "5. Poskytnutá minimálna / štátna pomoc",
+                    "tag": "minimalna_pomoc",
+                    "mandatory": true,
+                    "config": {
+                        "value": "údaje o minimálnej pomoci a štátnej pomoci poskytnutej žiadateľovi (a podnikom tvoriacim s ním jediný podnik) uvedené v žiadosti sú úplné a pravdivé."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "6. Konflikt záujmov",
+                    "tag": "konflikt_zaujmov",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľ nie je v konflikte záujmov a nemá personálne ani majetkové prepojenie s osobami, ktoré sa podieľajú na administratívnej kontrole, hodnotení alebo rozhodovaní o žiadosti."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "7. Právny vzťah k územiu",
+                    "tag": "pravny_vztah",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľ má k pozemkom a nehnuteľnostiam dotknutým projektom vlastnícke alebo iné právo, ktoré umožňuje realizáciu, prevádzku a zachovanie opatrenia počas celej doby udržateľnosti."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "8. Súhlasy vlastníkov",
+                    "tag": "suhlasy_vlastnikov",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľ má zabezpečené potrebné súhlasy vlastníkov dotknutých pozemkov a nehnuteľností, ak nie je ich vlastníkom, alebo ich zabezpečí najneskôr pred podpisom zmluvy."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "9. Pravidlá verejného obstarávania",
+                    "tag": "verejne_obstaravanie",
+                    "mandatory": true,
+                    "config": {
+                        "value": "pri obstarávaní tovarov, služieb a stavebných prác v rámci projektu bude žiadateľ postupovať v súlade s pravidlami verejného obstarávania, ak sa na neho vzťahujú."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "10. Neexistencia prekážok realizácie",
+                    "tag": "prekazky_realizacie",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľovi nie sú známe žiadne právne ani faktické prekážky, ktoré by bránili realizácii projektu."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "11. Záväzok zachovať výsledok projektu",
+                    "tag": "udrzatelnost",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľ sa zaväzuje zachovať výsledky projektu počas celého obdobia udržateľnosti určeného výzvou a zmluvou o poskytnutí dotácie."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "12. Súhlas s kontrolou a vstupom na miesto realizácie",
+                    "tag": "suhlas_kontrola",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľ súhlasí s kontrolou projektu a so vstupom oprávnených osôb (vrátane overovateľov / verifikátorov) na miesto realizácie projektu počas realizácie aj počas obdobia udržateľnosti."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "13. Súhlas so zverejnením informácií",
+                    "tag": "suhlas_zverejnenie",
+                    "mandatory": true,
+                    "config": {
+                        "value": "žiadateľ súhlasí so zverejnením informácií o žiadosti a projekte v rozsahu určenom zákonom alebo výzvou."
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "14. Súhlas s publicitou a dokumentovaním projektu",
+                    "tag": "suhlas_publicita",
+                    "mandatory": true,
+                    "config": {
+                        "value": "oboznámil (a) som sa a súhlasím s podmienkami informovania, publicity a dokumentovania projektu uvedenými v Manuáli pre informovanie a publicitu.\n"
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "15. Informácia o spracúvaní osobných údajov",
+                    "tag": "osobne_udaje",
+                    "mandatory": true,
+                    "description": "<p>Spôsob a za akým účelom spracúva Košický samosprávny kraj, sídlo: Úrad Košického samosprávneho kraja, Námestie Maratónu mieru 1, 042&nbsp;66&nbsp;Košice, ako prevádzkovateľ, Vaše osobné údaje si môžete <u><a href=\"https://www.kosickazupa.sk/uradna-tabula/povinne-informacie/gdpr\">prečítať pod týmto ODKAZOM</a></u>.&nbsp;<br />\n<br />\nPravidlá zahŕňajú aj Vaše práva na&nbsp;úseku ochrany osobných údajov.</p>\n\n<p>S akýmikoľvek otázkami alebo pri uplatňovaní Vašich práv v&nbsp;oblasti ochrany osobných údajov sa prosím obracajte priamo na&nbsp;našu zodpovednú osobu, a&nbsp;to prostredníctvom týchto kontaktov:&nbsp;</p>\n\n<p>Úrad Košického samosprávneho kraja<br />\nNámestie Maratónu mieru 1<br />\n042&nbsp;66&nbsp;Košice<br />\ntel: <a href=\"tel:+421557268111\" title=\"Vytočiť telefónne číslo +421557268111\">055&nbsp;7268111</a><br />\n<br />\nV&nbsp;súvislosti s&nbsp;akoukoľvek otázkou týkajúcou sa spracúvania Vašich osobných údajov prevádzkovateľom a&nbsp;uplatňovania Vašich práv na&nbsp;úseku ochrany osobných údajov, prosím neváhajte kontaktovať našu zodpovednú osobu, a&nbsp;to prostredníctvom týchto kontaktných údajov:</p>\n\n<p>Meno: PaedDr. Eva Štefanová<br />\nE-mail: <a href=\"mailto:zo@kosickazupa.sk\" title=\"Napísať email na zo@kosickazupa.sk\">zo@kosickazupa.sk</a><br />\nTelefón: <a href=\"tel:+421557268237\" title=\"Vytočiť telefónne číslo +421557268237\">055&nbsp;7268237</a><br />\nKorešp.adresa: Námestie Maratónu mieru 1, 042&nbsp;66&nbsp;Košice</p>\n\n<p>&nbsp;</p>",
+                    "config": {
+                        "value": "oboznámil(a) som sa s informáciou o spracúvaní osobných údajov zverejnenou KSK [https://portal.kosickazupa.sk/ochrana-osobnych-udajov]."
+                    }
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Poznámka k vyhláseniam",
+                    "tag": "ostatne_vyhlasenia",
+                    "description": "<p><strong>Upozornenie pre žiadateľa</strong></p>\n\n<p>Čestné vyhlásenia, potvrdenia a záväzky uvedené v tejto sekcii sa predkladajú aj v podpísanej podobe ako <strong>príloha č. 10 – Čestné vyhlásenia žiadateľa</strong>, v súlade s Príručkou pre žiadateľa.</p>\n\n<p>Prílohu podpisuje štatutárny zástupca žiadateľa alebo osoba oprávnená konať v jeho mene.</p>"
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Podpísaná žiadosť",
+                    "tag": "podpisana",
+                    "mandatory": true,
+                    "description": "<p><a href=\"https://kosickazupa.egrant.sk/application-print\">Žiadosť stiahnite TU</a>.<br />\nVytlačte.<br />\nŽiadosť je potrebné podpísať všetkými štatutárnymi zástupcami.<br />\nNahrajte kliknutím na tlačidlo <strong>Pridať súbor</strong>.&nbsp;</p>\n\n<p>Odošlite na adresu:<br />\n<br />\nOdbor Regionálneho rozvoja – Ref. ŽP<br />\n<br />\nÚrad Košického samosprávneho kraja<br />\nNámestie Maratónu mieru 1<br />\n042&nbsp;66&nbsp;Košice</p>\n<br />\n&nbsp;",
+                    "config": {
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0,
+                        "restricted_files": 0
+                    }
+                }
+            ]
+        }
+    ]
+}

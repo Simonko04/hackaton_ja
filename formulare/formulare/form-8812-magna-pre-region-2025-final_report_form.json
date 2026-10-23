@@ -1,0 +1,593 @@
+{
+    "type": "root",
+    "view_custom_template": null,
+    "diff_custom_template": null,
+    "diff_style": "default",
+    "children": [
+        {
+            "type": "SECTION",
+            "name": "Základné údaje",
+            "tag": "zakladne_udaje",
+            "mandatory": true,
+            "heading": "Základné údaje",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Názov organizácie",
+                    "tag": "nazov_org",
+                    "mandatory": true,
+                    "heading": "Názov organizácie",
+                    "source_tag": "predkladatel.pravnicka_osoba.ico.name",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Adresa sídla organizácie",
+                    "tag": "adresa",
+                    "mandatory": true,
+                    "heading": "Adresa sídla organizácie",
+                    "source_tag": "predkladatel.pravnicka_osoba.ico.formatted_address",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "EMAIL",
+                    "name": "Email organizácie",
+                    "tag": "email",
+                    "mandatory": true,
+                    "heading": "Email organizácie",
+                    "source_tag": "predkladatel.pravnicka_osoba.statutar[0].email",
+                    "config": {
+                        "notification_email": 0,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Telefónne číslo organizácie",
+                    "tag": "tel_cislo",
+                    "mandatory": true,
+                    "heading": "Telefónne číslo organizácie",
+                    "source_tag": "predkladatel.pravnicka_osoba.statutar[0].telefstat",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Meno štatutárneho zástupcu organizácie",
+                    "tag": "meno_statutara",
+                    "mandatory": true,
+                    "heading": "Meno štatutárneho zástupcu organizácie",
+                    "source_tag": "predkladatel.pravnicka_osoba.statutar[0].meno",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Názov projektu",
+                    "tag": "nazov_projektu",
+                    "mandatory": true,
+                    "heading": "Názov projektu",
+                    "source_tag": "projekt.nazov",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Meno koordinátora projektu",
+                    "tag": "meno_koordinatora",
+                    "mandatory": true,
+                    "heading": "Meno koordinátora projektu",
+                    "source_tag": "predkladatel.pravnicka_osoba.kontaktna[0].meno",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "EMAIL",
+                    "name": "Emailová adresa koordinátora projektu",
+                    "tag": "email_koordinatora",
+                    "mandatory": true,
+                    "heading": "Emailová adresa koordinátora projektu",
+                    "source_tag": "predkladatel.pravnicka_osoba.kontaktna[0].email",
+                    "config": {
+                        "notification_email": 0,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Telefónne číslo koordinátora projektu",
+                    "tag": "tel_c_koordinatora",
+                    "mandatory": true,
+                    "heading": "Telefónne číslo koordinátora projektu",
+                    "source_tag": "predkladatel.pravnicka_osoba.kontaktna[0].telefstat",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Priebeh projektu",
+            "tag": "priebeh_projektu",
+            "mandatory": true,
+            "heading": "Priebeh projektu",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "TEXT",
+                    "name": "Prečo ste sa rozhodli realizovať projekt?",
+                    "tag": "preach_projekt",
+                    "mandatory": true,
+                    "description": "Opíšte dôvody realizácie projektu. Popíšte východiskovú situáciu.",
+                    "heading": "Prečo ste sa rozhodli realizovať projekt?",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Ciele projektu",
+                    "tag": "ciel_projektu",
+                    "mandatory": true,
+                    "heading": "Ciele projektu",
+                    "source_tag": "projekt.ciele",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Aktivity projektu",
+                    "tag": "aktivity",
+                    "mandatory": true,
+                    "description": "Uveďte aktivity, ktorými dosiahnete cieľ (ciele) projektu. Ku každej aktivite priraďte čiastkový cieľ, ktorý realizovaním aktivity dosiahnete. Dosiahnutím čiastkových cieľov musíte<br />\ndosiahnuť celkový cieľ (ciele) projektu. Uveďte predpokladaný termín realizácie aktivity. Aktivity majú na seba logicky, vecne a časovo nadväzovať.",
+                    "heading": "<p>Aktivity projektu</p>",
+                    "source_tag": "projekt.aktivity",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_ROW_NUMBER",
+                            "name": "Číslo riadku",
+                            "tag": "cislo_riadku",
+                            "mandatory": true,
+                            "config": {
+                                "size": 10
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Predpokladaný termín realizácie",
+                            "tag": "termin_realizacie",
+                            "mandatory": true,
+                            "heading": "Predpokladaný termín realizácie",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Aktivita projektu",
+                            "tag": "aktivita",
+                            "mandatory": true,
+                            "heading": "Názov aktivity",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Čiastkový cieľ",
+                            "tag": "ciastkovy_ciel",
+                            "mandatory": true,
+                            "heading": "Čiastkový cieľ",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Opis aktivity",
+                            "tag": "opis_aktivity",
+                            "mandatory": true,
+                            "heading": "Opis aktivity",
+                            "hint": "Opis aktivity, ktorou dosiahnete stanovený čiastkový cieľ projektu",
+                            "config": {
+                                "rows": 4,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TEXT",
+                    "name": "Čo sa projektom zmenilo?",
+                    "tag": "co_sa_zmenilo",
+                    "mandatory": true,
+                    "description": "Opíšte, komu projekt pomohol, aké priniesol výsledky cieľovej skupine, popíšte zmenu dosiahnutú realizáciou projektu.",
+                    "heading": "Čo sa projektom zmenilo?",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Udržatelnosť výsledkov projektu",
+                    "tag": "udrzatelnost_vysledkov",
+                    "mandatory": true,
+                    "heading": "Udržatelnosť výsledkov projektu",
+                    "source_tag": "projekt.udrzatelnost_vysledkov",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Zabezpećenie udržatelnosti",
+                            "tag": "zabezpecenie_udrzatelnosti",
+                            "mandatory": true,
+                            "heading": "Popíšte ako zabezpečíte udržateľnosť výsledkov<br />\nvášho projektu a ich využitie po ukončení financovania projektu.",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_TEXT",
+                            "name": "Aktivity po skončení projektu",
+                            "tag": "akcie_po_projekte",
+                            "mandatory": true,
+                            "heading": "Opíšte, aké ďalšie aktivity plánujete po ukončení realizácie projektu.",
+                            "config": {
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Kvantitatívne ukazovatele",
+            "tag": "kavntitativne_ukazovatele",
+            "mandatory": true,
+            "heading": "Kvantitatívne ukazovatele",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "NUMBER",
+                    "name": "Počet zrealizovaných aktivít",
+                    "tag": "pocet_zrealizovanych_aktivit",
+                    "mandatory": true,
+                    "heading": "Počet zrealizovaných aktivít",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Počet inovácií",
+                    "tag": "pocket_inovacii",
+                    "heading": "Počet inovácií t.j. nových služieb, nástrojov, objektov, podujatí, metód, techník, ktoré ste vďaka<br />\ngrantu dosiahli (ak je to relevantné)",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Počet zapojených dobrovolníkov",
+                    "tag": "pocet_dobrovolnikov",
+                    "mandatory": true,
+                    "heading": "Počet dobrovoľníkov zapojených vo všetkých aktivitách projektu spolu.",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Počet odpracovaných dobrovoľníckych hodín.",
+                    "tag": "pocet_dobrovolnickych_hodin",
+                    "mandatory": true,
+                    "heading": "Počet odpracovaných dobrovoľníckych hodín.",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Počet ľudí zapojených do aktivít projektu ",
+                    "tag": "pocet_zapojenych_ludi",
+                    "mandatory": true,
+                    "heading": "Počet ľudí zapojených do aktivít projektu (klientov, návštevníkov apod.)",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Počet ľudí užívajúcich výsledky projektu",
+                    "tag": "pocet_ludi_uzivajucich_vysledky",
+                    "mandatory": true,
+                    "heading": "Počet ľudí užívajúcich výsledky projektu (klienti, návštevníci, diváci)",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Počet detí vo veku 0–18 rokov z celkového počtu",
+                    "tag": "pocet_deti",
+                    "heading": "Počet detí vo veku 0–18 rokov z celkového počtu ľudí zapojených do aktivít projektu, prípadne<br />\nužívajúcich výsledky projektu (klienti, návštevníci, diváci) - ak je to relevantné",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "CURRENCY",
+                    "name": "Výška finančnej podpory projektu ziných zdrojov",
+                    "tag": "finance_podpora_z_ine_zdroje",
+                    "mandatory": true,
+                    "heading": "Výška finančnej podpory projektu ziných zdrojov",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "CURRENCY",
+                    "name": "Vyčíslite nefinančnú podporu projektu",
+                    "tag": "nefinancna_podpora",
+                    "mandatory": true,
+                    "heading": "Vyčíslite nefinančnú podporu projektu",
+                    "config": {
+                        "currency": "eur",
+                        "is_readonly": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Finančná správa",
+            "tag": "finance_sprava",
+            "mandatory": true,
+            "heading": "Finančná správa",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "FILE_LIST",
+                    "name": "finančnú správu vo forme excelu",
+                    "tag": "financna_sprava",
+                    "mandatory": true,
+                    "description": "Šablóna finančnej správy Vám bola spolu s pokynmi k jej vyplneniu zaslaná emailom po podpise zmluvy o poskytnutí grantu. S vyúčtovaním grantu je potrebné<br />\npredložiť čitateľné fotokópie (scany) všetkých príslušných účtovných dokladov, dokladujúcich čerpanie grantu ako aj vlastného vkladu organizácie.",
+                    "heading": "Vložte prosím finančnú správu vo forme excelu",
+                    "config": {
+                        "max_files": 1,
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0
+                    }
+                },
+                {
+                    "type": "MULTIVALUE_SINGLE",
+                    "name": "Moja finančná správa obsahuje personálne náklady",
+                    "tag": "personalne_naklady",
+                    "mandatory": true,
+                    "heading": "Moja finančná správa obsahuje personálne náklady",
+                    "config": {
+                        "values": {
+                            "áno": "áno",
+                            "nie": "nie"
+                        },
+                        "display_as_row": 0,
+                        "roller_source": "",
+                        "add_roller_code": 0
+                    }
+                },
+                {
+                    "type": "MULTIVALUE_SINGLE",
+                    "name": "Moja finančná správa obsahuje cestovné náklady",
+                    "tag": "cestovne_naklady",
+                    "mandatory": true,
+                    "heading": "Moja finančná správa obsahuje cestovné náklady",
+                    "config": {
+                        "values": {
+                            "áno": "áno",
+                            "nie": "nie"
+                        },
+                        "display_as_row": 0,
+                        "roller_source": "",
+                        "add_roller_code": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Prehľad masmediálnych aktivít o projekte",
+            "tag": "prehlad_masmed_aktivit",
+            "mandatory": true,
+            "heading": "Prehľad masmediálnych aktivít o projekte",
+            "config": {
+                "add_print_pagebreak": 0
+            },
+            "children": [
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Propagácia projektu",
+                    "tag": "propagacia",
+                    "mandatory": true,
+                    "heading": "Spôsoby informovania o projekte v tlači, televízii, na internete, atď.",
+                    "config": {
+                        "add_rows": 1,
+                        "disable_remove_on_resubmit": 1,
+                        "hide_header": 0,
+                        "separate_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Typ propagačního materiálu",
+                            "tag": "typ_materialu",
+                            "mandatory": true,
+                            "placeholder": "príspevok/ video/ článok..",
+                            "heading": "Typ propagačného materiálu",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Spôsob zverejnenia",
+                            "tag": "mist_zverejnenia",
+                            "mandatory": true,
+                            "placeholder": "TV/ Facebook/ Rozhlas/ Tlač",
+                            "heading": "Miesto zverejnenia propagačného materiálu",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Cieľová skupina",
+                            "tag": "cielovka",
+                            "mandatory": true,
+                            "heading": "Cieľová skupina",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Internetový odkaz",
+                            "tag": "odkaz",
+                            "heading": "Internetový odkaz",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_FILE_LIST",
+                            "name": "Foto",
+                            "tag": "foto",
+                            "heading": "Fotodokumentácia<br />\npropagácie",
+                            "config": {
+                                "max_files": 2,
+                                "disable_remove_on_reopen": 0,
+                                "hide_thumbnail_for_print": 0,
+                                "hide_name_for_print": 0,
+                                "hide_description_for_print": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Fotografie",
+                    "tag": "foto",
+                    "mandatory": true,
+                    "heading": "Nahrajte aspoň 15 fotografií z vášho projektu",
+                    "config": {
+                        "min_files": 15,
+                        "max_files": 15,
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Projekt ako príbeh",
+                    "tag": "projekt_pribeh",
+                    "description": "Svoj príbeh prosím vložte vo forme Word dokumentu.",
+                    "heading": "Pokiaľ si trúfate, popíšte Váš projekt ajeho realizáciu ako príbeh/blog – max. na 1 stranu. Radi ho<br />\nspolu sfotografiami zverejníme adáme tak vedieť všetkým oVašich aktivitách. Pomôže Vám to pri<br />\nbudovaní dobrého mena, získavaní podporovateľov adobrovoľníkov.",
+                    "config": {
+                        "min_files": 1,
+                        "max_files": 1,
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "Čestné prehlásenie",
+                    "tag": "prehlasenie",
+                    "mandatory": true,
+                    "heading": "Čestné prehlásenie",
+                    "config": {
+                        "value": "Týmto čestne prehlasujem, že všetky poskytnuté údaje uvedené v tejto obsahovej a finančnej správe o projekte a jej prílohách sú úplné, pravdivé a zodpovedajú skutočnosti."
+                    }
+                }
+            ]
+        }
+    ]
+}

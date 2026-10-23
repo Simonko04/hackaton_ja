@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { Field, FormFieldType } from '../App';
+// FormCanvas is currently not used directly - App.tsx is self-contained
 import {
   DndContext,
   closestCenter,

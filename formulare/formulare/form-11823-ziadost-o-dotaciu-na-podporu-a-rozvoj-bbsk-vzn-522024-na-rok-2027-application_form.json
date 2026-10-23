@@ -1,0 +1,1428 @@
+{
+    "type": "root",
+    "view_custom_template": null,
+    "diff_custom_template": null,
+    "diff_style": "default",
+    "children": [
+        {
+            "type": "SECTION",
+            "name": "Žiadateľ ",
+            "tag": "ziadatel",
+            "mandatory": true,
+            "heading": "Žiadateľ",
+            "config": {
+                "add_print_pagebreak": 0,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Názov výzvy",
+                    "tag": "program",
+                    "mandatory": true,
+                    "description": "<p style=\"text-align:center\"><img alt=\"\" src=\"/upload/84/files/BBSK_logo-horizontal.png\" style=\"height:52px; width:200px\" /></p>\n\n<p style=\"text-align:center\">Námestie SNP 23, <img alt=\"\" src=\"https://www.bbsk.sk/farebne-horizontalne-logo-bbsk\" />974 01 Banská Bystrica</p>",
+                    "heading": "<p style=\"text-align:center\"><span style=\"color:#003399\"><strong>ŽIADOSŤ O POSKYTNUTIE DOTÁCIE podľa VZN č.52/2024</strong></span></p>\n\n<p style=\"text-align:center\"><span style=\"color:#003399\">v súlade so Všeobecne záväzným nariadením samosprávneho kraja o poskytovaní dotácií z vlastných&nbsp;príjmov BBSK určených na podporu a rozvoj BBSK</span></p>"
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Typ dotácie",
+                    "tag": "typ",
+                    "mandatory": true,
+                    "heading": "Typ dotácie",
+                    "config": {
+                        "values": {
+                            "1": "poslanecká dotácia"
+                        },
+                        "values_hint": {
+                            "1": null
+                        },
+                        "values_connected": {
+                            "1": ""
+                        },
+                        "roller_source": "",
+                        "add_roller_code": 0,
+                        "load_connected_values_dynamically": 0,
+                        "hide_when_no_connected_values": 0,
+                        "add_empty_option": 1,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Oprávnená právna forma žiadateľa",
+                    "tag": "forma",
+                    "mandatory": true,
+                    "heading": "Oprávnená právna forma žiadateľa",
+                    "config": {
+                        "values": {
+                            "1": "mesto a obec na území BBSK alebo ich združenia",
+                            "2": "záujmové združenie právnických osôb",
+                            "3": "občianske združenie",
+                            "4": "nezisková organizácia poskytujúca všeobecne prospešné služby",
+                            "5": "rozpočtová a príspevková organizácia",
+                            "6": "registrovaná cirkev alebo náboženská spoločnosť",
+                            "7": "vysoká škola",
+                            "8": "škola a školské zariadenie",
+                            "9": "nadácia",
+                            "10": "Matica slovenská a jej miestne odbory",
+                            "11": "oblastná organizácia cestovného ruchu",
+                            "12": "organizačná jednotka niektorého z oprávnených žiadateľov uvedených vyššie"
+                        },
+                        "values_hint": {
+                            "1": null,
+                            "2": null,
+                            "3": null,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": null,
+                            "8": null,
+                            "9": null,
+                            "10": null,
+                            "11": null,
+                            "12": null
+                        },
+                        "values_connected": {
+                            "1": "",
+                            "2": "",
+                            "3": "",
+                            "4": "",
+                            "5": "",
+                            "6": "",
+                            "7": "",
+                            "8": "",
+                            "9": "",
+                            "10": "",
+                            "11": "",
+                            "12": ""
+                        },
+                        "roller_source": "",
+                        "add_roller_code": 0,
+                        "load_connected_values_dynamically": 0,
+                        "hide_when_no_connected_values": 0,
+                        "add_empty_option": 1,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "VALIDATION_ITEM",
+                    "name": "Validácia - Právna forma",
+                    "tag": "pravna",
+                    "mandatory": true,
+                    "config": {
+                        "error_text": "Oprávnení žiadatelia sú: \nmesto a obec na území BBSK alebo ich združenia\nzáujmové združenie právnických osôb\nobčianske združenie\nnezisková organizácia poskytujúca všeobecne prospešné služby\nrozpočtová a príspevková organizácia\nregistrovaná cirkev alebo náboženská spoločnosť\nvysoká škola\nškola a školské zariadenie\nnadácia\nMatica slovenská a jej miestne odbory\noblastná organizácia cestovného ruchu\norganizačná jednotka niektorého z oprávnených žiadateľov uvedených vyššie",
+                        "evaluate_error_text_dynamically": 0,
+                        "use_blur_event": 0,
+                        "show_error_text_also_in_original_location": 0,
+                        "execute_validation_only_on_backend": 0,
+                        "allow_submit_when_invalid": 0
+                    }
+                },
+                {
+                    "type": "COMPANY_SEARCH",
+                    "name": "IČO",
+                    "tag": "ico",
+                    "mandatory": true,
+                    "description": "<p><strong>Uveďte 8-miestne IČO, v prípade organizačnej jednotky uveďte IČO vašej zriaďovateľskej organizácie.</strong><br />\nPokračujte vo vypĺňaní formulára.<br />\nSystém automaticky načíta údaje o vašej organizácii z centrálneho registra.</p>\n\n<p>Skontrolujte správnosť údajov.<br />\nV prípade nezrovnalostí nás kontaktujte na dotacie@bbsk.sk</p>",
+                    "heading": "IČO",
+                    "hint": "Organizácia so sídlom mimo nášho kraja je povinná spĺňať podmienku VZN a to, že musí pôsobiť alebo vykonávať činnosť na území BBSK a súčasne poskytovať služby obyvateľom nášho kraja.",
+                    "config": {
+                        "country": "sk",
+                        "visible_ico": 1,
+                        "editable_ico": 0,
+                        "visible_name": 1,
+                        "editable_name": 1,
+                        "visible_street": 0,
+                        "editable_street": 0,
+                        "visible_street_number": 0,
+                        "editable_street_number": 0,
+                        "visible_formatted_street": 1,
+                        "editable_formatted_street": 1,
+                        "visible_reg_number": 0,
+                        "editable_reg_number": 0,
+                        "visible_building_number": 0,
+                        "editable_building_number": 0,
+                        "visible_municipality": 1,
+                        "editable_municipality": 1,
+                        "visible_postal_code": 1,
+                        "editable_postal_code": 1,
+                        "visible_district": 1,
+                        "editable_district": 1,
+                        "visible_region": 1,
+                        "editable_region": 1,
+                        "visible_country": 0,
+                        "editable_country": 0,
+                        "visible_formatted_address": 1,
+                        "editable_formatted_address": 1,
+                        "visible_cin": 1,
+                        "editable_cin": 0,
+                        "visible_vatin": 1,
+                        "editable_vatin": 0,
+                        "visible_tin": 1,
+                        "editable_tin": 0,
+                        "visible_legal_form": 1,
+                        "editable_legal_form": 1,
+                        "visible_registration_number": 1,
+                        "editable_registration_number": 0,
+                        "visible_registration_office": 1,
+                        "editable_registration_office": 0,
+                        "visible_established_on": 1,
+                        "editable_established_on": 0,
+                        "visible_statutory_first_name": 0,
+                        "editable_statutory_first_name": 0,
+                        "visible_statutory_last_name": 0,
+                        "editable_statutory_last_name": 0,
+                        "visible_statutory_full_name": 1,
+                        "editable_statutory_full_name": 1,
+                        "visible_statutory_street": 0,
+                        "editable_statutory_street": 0,
+                        "visible_statutory_building_number": 0,
+                        "editable_statutory_building_number": 0,
+                        "visible_statutory_reg_number": 0,
+                        "editable_statutory_reg_number": 0,
+                        "visible_statutory_postal_code": 0,
+                        "editable_statutory_postal_code": 0,
+                        "visible_statutory_municipality": 0,
+                        "editable_statutory_municipality": 0,
+                        "visible_statutory_type": 0,
+                        "editable_statutory_type": 0,
+                        "force_search_on_load": 0,
+                        "show_search_button": 0,
+                        "use_input_ico": 0,
+                        "is_readonly": 0,
+                        "custom_companies": [
+                            {
+                                "ico": null,
+                                "name": null,
+                                "street": null,
+                                "street_number": null,
+                                "formatted_street": null,
+                                "reg_number": null,
+                                "building_number": null,
+                                "municipality": null,
+                                "postal_code": null,
+                                "district": null,
+                                "region": null,
+                                "country": null,
+                                "formatted_address": null,
+                                "cin": null,
+                                "vatin": null,
+                                "tin": null,
+                                "legal_form": null,
+                                "registration_number": null,
+                                "registration_office": null,
+                                "established_on": null,
+                                "statutory_first_name": null,
+                                "statutory_last_name": null,
+                                "statutory_full_name": null,
+                                "statutory_street": null,
+                                "statutory_building_number": null,
+                                "statutory_reg_number": null,
+                                "statutory_postal_code": null,
+                                "statutory_municipality": null,
+                                "statutory_type": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "SIGNPOST",
+                    "name": "IČO org.jednotky",
+                    "tag": "ico_org_jednotka",
+                    "heading": "Potreba uviesť IČO organizačnej jednotky",
+                    "config": {
+                        "validateAlsoUnselectedSections": 0,
+                        "showAllSectionsInOutput": 0,
+                        "add_empty_option": 1,
+                        "showSubsectionHeading": 0,
+                        "show_selected_subsection_in_diff": 0
+                    },
+                    "children": [
+                        {
+                            "type": "SIGNPOST_ITEM",
+                            "name": "ÁNO",
+                            "tag": "ano",
+                            "heading": "áno",
+                            "config": {
+                                "name": "áno"
+                            },
+                            "children": [
+                                {
+                                    "type": "COMPANY_SEARCH",
+                                    "name": "IČO",
+                                    "tag": "ico_org_jednotka",
+                                    "heading": "IČO organizačnej jednotky",
+                                    "config": {
+                                        "country": "sk",
+                                        "visible_ico": 0,
+                                        "editable_ico": 0,
+                                        "visible_name": 1,
+                                        "editable_name": 1,
+                                        "visible_street": 0,
+                                        "editable_street": 0,
+                                        "visible_street_number": 0,
+                                        "editable_street_number": 0,
+                                        "visible_formatted_street": 1,
+                                        "editable_formatted_street": 1,
+                                        "visible_reg_number": 1,
+                                        "editable_reg_number": 1,
+                                        "visible_building_number": 0,
+                                        "editable_building_number": 0,
+                                        "visible_municipality": 1,
+                                        "editable_municipality": 1,
+                                        "visible_postal_code": 1,
+                                        "editable_postal_code": 1,
+                                        "visible_district": 1,
+                                        "editable_district": 1,
+                                        "visible_region": 1,
+                                        "editable_region": 1,
+                                        "visible_country": 0,
+                                        "editable_country": 0,
+                                        "visible_formatted_address": 0,
+                                        "editable_formatted_address": 0,
+                                        "visible_cin": 1,
+                                        "editable_cin": 0,
+                                        "visible_vatin": 0,
+                                        "editable_vatin": 0,
+                                        "visible_tin": 1,
+                                        "editable_tin": 0,
+                                        "visible_legal_form": 1,
+                                        "editable_legal_form": 0,
+                                        "visible_registration_number": 1,
+                                        "editable_registration_number": 0,
+                                        "visible_registration_office": 1,
+                                        "editable_registration_office": 0,
+                                        "visible_established_on": 1,
+                                        "editable_established_on": 0,
+                                        "visible_statutory_first_name": 1,
+                                        "editable_statutory_first_name": 1,
+                                        "visible_statutory_last_name": 1,
+                                        "editable_statutory_last_name": 1,
+                                        "visible_statutory_full_name": 0,
+                                        "editable_statutory_full_name": 0,
+                                        "visible_statutory_street": 0,
+                                        "editable_statutory_street": 0,
+                                        "visible_statutory_building_number": 0,
+                                        "editable_statutory_building_number": 0,
+                                        "visible_statutory_reg_number": 0,
+                                        "editable_statutory_reg_number": 0,
+                                        "visible_statutory_postal_code": 0,
+                                        "editable_statutory_postal_code": 0,
+                                        "visible_statutory_municipality": 0,
+                                        "editable_statutory_municipality": 0,
+                                        "visible_statutory_type": 0,
+                                        "editable_statutory_type": 0,
+                                        "force_search_on_load": 0,
+                                        "show_search_button": 0,
+                                        "use_input_ico": 0,
+                                        "is_readonly": 0,
+                                        "custom_companies": [
+                                            {
+                                                "ico": null,
+                                                "name": null,
+                                                "street": null,
+                                                "street_number": null,
+                                                "formatted_street": null,
+                                                "reg_number": null,
+                                                "building_number": null,
+                                                "municipality": null,
+                                                "postal_code": null,
+                                                "district": null,
+                                                "region": null,
+                                                "country": null,
+                                                "formatted_address": null,
+                                                "cin": null,
+                                                "vatin": null,
+                                                "tin": null,
+                                                "legal_form": null,
+                                                "registration_number": null,
+                                                "registration_office": null,
+                                                "established_on": null,
+                                                "statutory_first_name": null,
+                                                "statutory_last_name": null,
+                                                "statutory_full_name": null,
+                                                "statutory_street": null,
+                                                "statutory_building_number": null,
+                                                "statutory_reg_number": null,
+                                                "statutory_postal_code": null,
+                                                "statutory_municipality": null,
+                                                "statutory_type": null
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "SIGNPOST_ITEM",
+                            "name": "NIE",
+                            "tag": "nie",
+                            "mandatory": true,
+                            "heading": "nie",
+                            "config": {
+                                "name": "nie"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "TABLE_LIST",
+                    "name": "Štatutár",
+                    "tag": "statutar",
+                    "mandatory": true,
+                    "description": "<p>Uveďte meno štatutárneho zástupcu prípadne štatutárnych zástupcov, ktorí budú v&nbsp;prípade podpory podpisovať zmluvu.</p>",
+                    "heading": "Štaturárny orgán",
+                    "config": {
+                        "add_rows": 1,
+                        "copy_rows": 0,
+                        "disable_remove_on_resubmit": 1,
+                        "add_label": "pridať štatutárneho zástupcu",
+                        "hide_header": 0,
+                        "separate_rows": 0,
+                        "omit_unchanged_diff_rows": 0,
+                        "omit_unchanged_static_diff_rows": 0
+                    },
+                    "children": [
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Meno štatutár",
+                            "tag": "meno",
+                            "mandatory": true,
+                            "heading": "Meno a priezvisko vrátane titulov",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_STRING",
+                            "name": "Telefón štatutár",
+                            "tag": "telefon",
+                            "mandatory": true,
+                            "placeholder": "+421 000 000 000",
+                            "heading": "Telefónne číslo",
+                            "config": {
+                                "is_readonly": 0,
+                                "fixed_values": [
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    },
+                                    {
+                                        "value": "",
+                                        "readonly": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "TABLE_ITEM_EMAIL",
+                            "name": "Email štatutár",
+                            "tag": "email",
+                            "mandatory": true,
+                            "heading": "E-mail",
+                            "config": {
+                                "notification_email": 0,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Kontaktná osoba",
+                    "tag": "kontakt",
+                    "mandatory": true,
+                    "description": "Osoba zodpovedná za realizáciu projektu",
+                    "heading": "Kontaktná osoba",
+                    "children": [
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Meno zodpovednej osoby za projekt",
+                            "tag": "meno",
+                            "mandatory": true,
+                            "heading": "Meno a priezvisko vrátane titulov",
+                            "config": {
+                                "size": 76,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Telefón zodpovednej osoby za projekt",
+                            "tag": "telefon",
+                            "mandatory": true,
+                            "placeholder": "+421 000 000 000",
+                            "heading": "Telefónne číslo",
+                            "config": {
+                                "size": 60,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "EMAIL",
+                            "name": "E-mail zodpovednej osoby",
+                            "tag": "email",
+                            "mandatory": true,
+                            "heading": "E-mail&nbsp;",
+                            "config": {
+                                "notification_email": 1,
+                                "size": 40,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Web stranka",
+                    "tag": "web",
+                    "heading": "<p>Web stránka predkladateľa</p>",
+                    "config": {
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Bankové spojenie",
+                    "tag": "banka",
+                    "mandatory": true,
+                    "heading": "Bankové spojenie",
+                    "children": [
+                        {
+                            "type": "SELECT",
+                            "name": "Banka",
+                            "tag": "banka",
+                            "mandatory": true,
+                            "heading": "Banka",
+                            "config": {
+                                "values": {
+                                    "8420 - BKS Bank AG, pobočka zahraničnej banky v SR": "8420 - BKS Bank AG, pobočka zahraničnej banky v SR",
+                                    "8440 - BNP PARIBAS PERSONAL FINANCE SA, pobočka zahraničnej banky": "8440 - BNP PARIBAS PERSONAL FINANCE SA, pobočka zahraničnej banky",
+                                    "8130 - Citibank Europe plc, pobočka zahraničnej banky": "8130 - Citibank Europe plc, pobočka zahraničnej banky",
+                                    "8400 - COFIDIS SA, pobočka zahraničnej banky": "8400 - COFIDIS SA, pobočka zahraničnej banky",
+                                    "8050 - COMMERZBANK Aktiengesellschaft, pobočka zahraničnej banky, Bratislava": "8050 - COMMERZBANK Aktiengesellschaft, pobočka zahraničnej banky, Bratislava",
+                                    "7500 - Československá obchodná banka, a.s.": "7500 - Československá obchodná banka, a.s.",
+                                    "8390 - Československé úvěrní družstvo, pobočka Slovensko": "8390 - Československé úvěrní družstvo, pobočka Slovensko",
+                                    "8170 - ČSOB stavebná sporiteľňa, a.s.": "8170 - ČSOB stavebná sporiteľňa, a.s.",
+                                    "8330 - Fio banka, a. s., pobočka zahraničnej banky": "8330 - Fio banka, a. s., pobočka zahraničnej banky",
+                                    "7300 - ING Bank N. V., pobočka zahraničnej banky": "7300 - ING Bank N. V., pobočka zahraničnej banky",
+                                    "8320 - J&T BANKA, a. s., pobočka zahraničnej banky": "8320 - J&T BANKA, a. s., pobočka zahraničnej banky",
+                                    "8430 - KDB Bank Europe Ltd., pobočka zahraničnej banky": "8430 - KDB Bank Europe Ltd., pobočka zahraničnej banky",
+                                    "8100 - Komerční banka, a.s., pobočka zahraničnej banky": "8100 - Komerční banka, a.s., pobočka zahraničnej banky",
+                                    "8360 - mBank S.A., pobočka zahraničnej banky": "8360 - mBank S.A., pobočka zahraničnej banky",
+                                    "0720 - Národná banka Slovenska": "0720 - Národná banka Slovenska",
+                                    "8370 - Oberbank AG pobočka zahraničnej banky v Slovenskej republike": "8370 - Oberbank AG pobočka zahraničnej banky v Slovenskej republike",
+                                    "5200 - OTP Banka Slovensko, a.s.": "5200 - OTP Banka Slovensko, a.s.",
+                                    "8450 - PKO BP S.A., pobočka zahraničnej banky": "8450 - PKO BP S.A., pobočka zahraničnej banky",
+                                    "6500 - Poštová banka, a.s.": "6500 - Poštová banka, a.s.",
+                                    "5600 - Prima banka Slovensko, a.s.": "5600 - Prima banka Slovensko, a.s.",
+                                    "8120 - Privatbanka, a.s.": "8120 - Privatbanka, a.s.",
+                                    "5900 - Prvá stavebná sporiteľňa, a. s.": "5900 - Prvá stavebná sporiteľňa, a. s.",
+                                    "0900 - Slovenská sporiteľňa, a.s.": "0900 - Slovenská sporiteľňa, a.s.",
+                                    "3000 - Slovenská záručná a rozvojová banka, a. s.": "3000 - Slovenská záručná a rozvojová banka, a. s.",
+                                    "8180 - Štátna pokladnica": "8180 - Štátna pokladnica",
+                                    "1100 - Tatra banka, a.s.": "1100 - Tatra banka, a.s.",
+                                    "1111 - UniCredit Bank Czech Republic and Slovakia, a.s., pobočka zahraničnej banky": "1111 - UniCredit Bank Czech Republic and Slovakia, a.s., pobočka zahraničnej banky",
+                                    "0200 - Všeobecná úverová banka, a.s.": "0200 - Všeobecná úverová banka, a.s.",
+                                    "7930 - Wüstenrot stavebná sporiteľňa, a.s.": "7930 - Wüstenrot stavebná sporiteľňa, a.s.",
+                                    "iné": "iné"
+                                },
+                                "values_hint": {
+                                    "8420 - BKS Bank AG, pobočka zahraničnej banky v SR": null,
+                                    "8440 - BNP PARIBAS PERSONAL FINANCE SA, pobočka zahraničnej banky": null,
+                                    "8130 - Citibank Europe plc, pobočka zahraničnej banky": null,
+                                    "8400 - COFIDIS SA, pobočka zahraničnej banky": null,
+                                    "8050 - COMMERZBANK Aktiengesellschaft, pobočka zahraničnej banky, Bratislava": null,
+                                    "7500 - Československá obchodná banka, a.s.": null,
+                                    "8390 - Československé úvěrní družstvo, pobočka Slovensko": null,
+                                    "8170 - ČSOB stavebná sporiteľňa, a.s.": null,
+                                    "8330 - Fio banka, a. s., pobočka zahraničnej banky": null,
+                                    "7300 - ING Bank N. V., pobočka zahraničnej banky": null,
+                                    "8320 - J&T BANKA, a. s., pobočka zahraničnej banky": null,
+                                    "8430 - KDB Bank Europe Ltd., pobočka zahraničnej banky": null,
+                                    "8100 - Komerční banka, a.s., pobočka zahraničnej banky": null,
+                                    "8360 - mBank S.A., pobočka zahraničnej banky": null,
+                                    "0720 - Národná banka Slovenska": null,
+                                    "8370 - Oberbank AG pobočka zahraničnej banky v Slovenskej republike": null,
+                                    "5200 - OTP Banka Slovensko, a.s.": null,
+                                    "8450 - PKO BP S.A., pobočka zahraničnej banky": null,
+                                    "6500 - Poštová banka, a.s.": null,
+                                    "5600 - Prima banka Slovensko, a.s.": null,
+                                    "8120 - Privatbanka, a.s.": null,
+                                    "5900 - Prvá stavebná sporiteľňa, a. s.": null,
+                                    "0900 - Slovenská sporiteľňa, a.s.": null,
+                                    "3000 - Slovenská záručná a rozvojová banka, a. s.": null,
+                                    "8180 - Štátna pokladnica": null,
+                                    "1100 - Tatra banka, a.s.": null,
+                                    "1111 - UniCredit Bank Czech Republic and Slovakia, a.s., pobočka zahraničnej banky": null,
+                                    "0200 - Všeobecná úverová banka, a.s.": null,
+                                    "7930 - Wüstenrot stavebná sporiteľňa, a.s.": null,
+                                    "iné": null
+                                },
+                                "values_connected": {
+                                    "8420 - BKS Bank AG, pobočka zahraničnej banky v SR": "",
+                                    "8440 - BNP PARIBAS PERSONAL FINANCE SA, pobočka zahraničnej banky": "",
+                                    "8130 - Citibank Europe plc, pobočka zahraničnej banky": "",
+                                    "8400 - COFIDIS SA, pobočka zahraničnej banky": "",
+                                    "8050 - COMMERZBANK Aktiengesellschaft, pobočka zahraničnej banky, Bratislava": "",
+                                    "7500 - Československá obchodná banka, a.s.": "",
+                                    "8390 - Československé úvěrní družstvo, pobočka Slovensko": "",
+                                    "8170 - ČSOB stavebná sporiteľňa, a.s.": "",
+                                    "8330 - Fio banka, a. s., pobočka zahraničnej banky": "",
+                                    "7300 - ING Bank N. V., pobočka zahraničnej banky": "",
+                                    "8320 - J&T BANKA, a. s., pobočka zahraničnej banky": "",
+                                    "8430 - KDB Bank Europe Ltd., pobočka zahraničnej banky": "",
+                                    "8100 - Komerční banka, a.s., pobočka zahraničnej banky": "",
+                                    "8360 - mBank S.A., pobočka zahraničnej banky": "",
+                                    "0720 - Národná banka Slovenska": "",
+                                    "8370 - Oberbank AG pobočka zahraničnej banky v Slovenskej republike": "",
+                                    "5200 - OTP Banka Slovensko, a.s.": "",
+                                    "8450 - PKO BP S.A., pobočka zahraničnej banky": "",
+                                    "6500 - Poštová banka, a.s.": "",
+                                    "5600 - Prima banka Slovensko, a.s.": "",
+                                    "8120 - Privatbanka, a.s.": "",
+                                    "5900 - Prvá stavebná sporiteľňa, a. s.": "",
+                                    "0900 - Slovenská sporiteľňa, a.s.": "",
+                                    "3000 - Slovenská záručná a rozvojová banka, a. s.": "",
+                                    "8180 - Štátna pokladnica": "",
+                                    "1100 - Tatra banka, a.s.": "",
+                                    "1111 - UniCredit Bank Czech Republic and Slovakia, a.s., pobočka zahraničnej banky": "",
+                                    "0200 - Všeobecná úverová banka, a.s.": "",
+                                    "7930 - Wüstenrot stavebná sporiteľňa, a.s.": "",
+                                    "iné": ""
+                                },
+                                "roller_source": "",
+                                "add_roller_code": 0,
+                                "load_connected_values_dynamically": 0,
+                                "hide_when_no_connected_values": 0,
+                                "add_empty_option": 1,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "IBAN",
+                            "name": "IBAN",
+                            "tag": "iban",
+                            "mandatory": true,
+                            "placeholder": "SK00 0000 0000 0000 0000 0000",
+                            "heading": "Číslo účtu v tvare IBAN",
+                            "config": {
+                                "size": 40,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Korešpondenčná adresa",
+                    "tag": "korespondencna",
+                    "description": "Uveďte poštovú adresu predkladateľa, ak je odlišná od oficiálnej adresy.",
+                    "heading": "Korešpondenčná adresa iná ako adresa sídla",
+                    "children": [
+                        {
+                            "type": "SIGNPOST",
+                            "name": "Adresa",
+                            "tag": "adresa",
+                            "heading": "Potrebujete uviesť inú adresu?",
+                            "config": {
+                                "validateAlsoUnselectedSections": 0,
+                                "showAllSectionsInOutput": 0,
+                                "add_empty_option": 1,
+                                "showSubsectionHeading": 0,
+                                "show_selected_subsection_in_diff": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "SIGNPOST_ITEM",
+                                    "name": "nie",
+                                    "tag": "nie",
+                                    "heading": "nie",
+                                    "config": {
+                                        "name": "nie"
+                                    }
+                                },
+                                {
+                                    "type": "SIGNPOST_ITEM",
+                                    "name": "áno",
+                                    "tag": "ano",
+                                    "heading": "áno",
+                                    "config": {
+                                        "name": "áno"
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "SIMPLE_STRING",
+                                            "name": "Ulica",
+                                            "tag": "ulica",
+                                            "heading": "Ulica a číslo",
+                                            "config": {
+                                                "size": 80,
+                                                "is_readonly": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "SIMPLE_STRING",
+                                            "name": "Mesto",
+                                            "tag": "mesto",
+                                            "heading": "Mesto",
+                                            "config": {
+                                                "is_readonly": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "SIMPLE_STRING",
+                                            "name": "PSC",
+                                            "tag": "psc",
+                                            "heading": "PSČ",
+                                            "config": {
+                                                "is_readonly": 0
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Projekt",
+            "tag": "projekt",
+            "mandatory": true,
+            "heading": "Projekt",
+            "config": {
+                "add_print_pagebreak": 1,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "SIMPLE_STRING",
+                    "name": "Názov projektu",
+                    "tag": "nazov",
+                    "mandatory": true,
+                    "heading": "Názov projektu",
+                    "config": {
+                        "size": 123,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SIGNPOST",
+                    "name": "typ projektu",
+                    "tag": "typ",
+                    "mandatory": true,
+                    "heading": "Typ projektu",
+                    "config": {
+                        "validateAlsoUnselectedSections": 0,
+                        "showAllSectionsInOutput": 0,
+                        "add_empty_option": 1,
+                        "showSubsectionHeading": 0,
+                        "show_selected_subsection_in_diff": 0
+                    },
+                    "children": [
+                        {
+                            "type": "SIGNPOST_ITEM",
+                            "name": "Podujatie",
+                            "tag": "podujatie",
+                            "mandatory": true,
+                            "heading": "Podujatie",
+                            "config": {
+                                "name": "Podujatie"
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_LIST",
+                                    "name": "Harmonogram aktivít",
+                                    "tag": "aktivity",
+                                    "description": "Uveďte v prípade ak v projekte plánujete uskutočniť podujatie/ia (napr. organizovanie viacerých podujatí/školení/prednášok v rámci predkladaného projektu)",
+                                    "heading": "Harmonogram plánovaných aktivít",
+                                    "config": {
+                                        "add_rows": 1,
+                                        "copy_rows": 0,
+                                        "disable_remove_on_resubmit": 1,
+                                        "add_label": "Pridať aktivitu",
+                                        "hide_header": 0,
+                                        "separate_rows": 0,
+                                        "render_mode": "classic",
+                                        "omit_unchanged_diff_rows": 0,
+                                        "diff_row_order_matters": 0,
+                                        "omit_unchanged_static_diff_rows": 0
+                                    },
+                                    "children": [
+                                        {
+                                            "type": "TABLE_ITEM_DATE",
+                                            "name": "Od",
+                                            "tag": "od",
+                                            "mandatory": true,
+                                            "heading": "Od",
+                                            "config": {
+                                                "size": 20,
+                                                "min": "2026-12-31T23:00:00.000Z",
+                                                "max": "2027-12-30T23:00:00.000Z",
+                                                "is_readonly": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_DATE",
+                                            "name": "Do",
+                                            "tag": "do",
+                                            "mandatory": true,
+                                            "heading": "Do",
+                                            "config": {
+                                                "size": 20,
+                                                "min": "2026-12-31T23:00:00.000Z",
+                                                "max": "2027-12-30T23:00:00.000Z",
+                                                "is_readonly": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Aktivita",
+                                            "tag": "aktivita",
+                                            "heading": "Aktivita",
+                                            "config": {
+                                                "size": 70,
+                                                "is_readonly": 0,
+                                                "width": "100px",
+                                                "fixed_values": [
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    },
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    },
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    },
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    },
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_SELECT",
+                                            "name": "Cieľová skupina",
+                                            "tag": "cielova",
+                                            "heading": "Cieľová skupina",
+                                            "hint": "<ol>\n\t<li><strong>Deti a mládež do 19 rokov</strong><br />\n\tProjekt je primárne určený deťom a mladým ľuďom vo veku do 19 rokov.</li>\n\t<li><strong>Dospelí</strong><br />\n\tProjekt je primárne určený dospelým osobám, ktoré nepatria do niektorej z osobitne uvedených cieľových skupín.</li>\n\t<li><strong>Seniori</strong><br />\n\tProjekt je primárne určený seniorom alebo je zameraný na podporu ich aktívneho, spoločenského, kultúrneho či komunitného života.</li>\n\t<li><strong>Osoby so zdravotným znevýhodnením</strong><br />\n\tProjekt je primárne určený osobám so zdravotným postihnutím, dlhodobým zdravotným obmedzením alebo iným zdravotným znevýhodnením.</li>\n\t<li><strong>Osoby v nepriaznivej sociálnej situácii a iné zraniteľné skupiny</strong><br />\n\tProjekt je primárne určený osobám alebo skupinám, ktoré sa nachádzajú v nepriaznivej sociálnej, ekonomickej alebo životnej situácii alebo sú ohrozené sociálnym vylúčením.</li>\n\t<li><strong>Rodiny s deťmi</strong><br />\n\tProjekt je primárne určený rodinám s deťmi alebo je zameraný na spoločné aktivity detí a ich rodičov či iných členov rodiny.</li>\n\t<li><strong>Široká verejnosť</strong><br />\n\tProjekt je určený verejnosti bez obmedzenia na konkrétnu vekovú, sociálnu alebo inú špecifickú cieľovú skupinu.</li>\n\t<li><strong>Iné</strong><br />\n\tProjekt je primárne určený cieľovej skupine, ktorú nemožno zaradiť do žiadnej z vyššie uvedených možností. <strong>Uveďte konkrétnu cieľovú skupinu.</strong></li>\n</ol>",
+                                            "config": {
+                                                "values": {
+                                                    "1": "Deti a mládež",
+                                                    "2": "Dospelí",
+                                                    "3": "Seniori",
+                                                    "4": "Osoby so zdravotným znevýhodnením",
+                                                    "5": "Osoby v nepriaznivej sociálnej situácii a iné zraniteľné skupiny",
+                                                    "6": "Rodiny s deťmi",
+                                                    "7": "Široká verejnosť",
+                                                    "8": "Iné"
+                                                },
+                                                "values_hint": {
+                                                    "1": null,
+                                                    "2": null,
+                                                    "3": null,
+                                                    "4": null,
+                                                    "5": null,
+                                                    "6": null,
+                                                    "7": null,
+                                                    "8": null
+                                                },
+                                                "values_connected": {
+                                                    "1": "",
+                                                    "2": "",
+                                                    "3": "",
+                                                    "4": "",
+                                                    "5": "",
+                                                    "6": "",
+                                                    "7": "",
+                                                    "8": ""
+                                                },
+                                                "roller_source": "",
+                                                "add_roller_code": 0,
+                                                "load_connected_values_dynamically": 0,
+                                                "add_empty_option": 1,
+                                                "is_readonly": 0,
+                                                "allow_only_unique_values": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "TABLE_ITEM_STRING",
+                                            "name": "Špecifikácia",
+                                            "tag": "specifikacia",
+                                            "placeholder": "vyplňte ak máte skupinu iné",
+                                            "heading": "Špecifikácia",
+                                            "config": {
+                                                "is_readonly": 0,
+                                                "fixed_values": [
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    },
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    },
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    },
+                                                    {
+                                                        "value": "",
+                                                        "readonly": "0"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "SIGNPOST_ITEM",
+                            "name": "Iné",
+                            "tag": "ine",
+                            "heading": "Iné",
+                            "config": {
+                                "name": "Iné"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "SELECT",
+                    "name": "Oblasť podpory",
+                    "tag": "oblast",
+                    "mandatory": true,
+                    "heading": "Oblasť podpory",
+                    "config": {
+                        "values": {
+                            "1": "Kultúra",
+                            "2": "Šport",
+                            "3": "Vzdelávanie a školstvo",
+                            "4": "Sociálna oblasť",
+                            "5": "Zdravie, prevencia, bezpečnosť, ochrana a podpora zdravia",
+                            "6": "Rozvoj obcí a miest",
+                            "7": "Kultúrne dedičstvo",
+                            "8": "Životné prostredie",
+                            "9": "Podpora znevýhodnených a zraniteľných skupín",
+                            "10": "Dobrovoľníctvo a občianska angažovanosť",
+                            "11": "Iná oblasť podpory a rozvoja BBSK"
+                        },
+                        "values_hint": {
+                            "1": null,
+                            "2": null,
+                            "3": null,
+                            "4": null,
+                            "5": null,
+                            "6": null,
+                            "7": null,
+                            "8": null,
+                            "9": null,
+                            "10": null,
+                            "11": null
+                        },
+                        "values_connected": {
+                            "1": "",
+                            "2": "",
+                            "3": "",
+                            "4": "",
+                            "5": "",
+                            "6": "",
+                            "7": "",
+                            "8": "",
+                            "9": "",
+                            "10": "",
+                            "11": ""
+                        },
+                        "roller_source": "",
+                        "add_roller_code": 0,
+                        "load_connected_values_dynamically": 0,
+                        "hide_when_no_connected_values": 0,
+                        "add_empty_option": 1,
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "WYSIWYG",
+                    "name": "Podrobný opis, účel projektu",
+                    "tag": "opis",
+                    "mandatory": true,
+                    "heading": "Podrobný opis, účel projektu",
+                    "hint": "<p>Uveďte, čo je predmetom projektu, aké aktivity plánujete realizovať, pre koho je projekt určený a aký je jeho účel. Stručne opíšte spôsob realizácie projektu, jeho hlavné aktivity a ich význam.</p>\n\n<p>Z popisu by malo byť zrejmé, čo konkrétne bude v rámci projektu realizované a na čo bude poskytnutá dotácia použitá.</p>",
+                    "config": {
+                        "toolbar": "Full",
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "WYSIWYG",
+                    "name": "Cieľ",
+                    "tag": "ciel",
+                    "mandatory": true,
+                    "heading": "Cieľ projektu",
+                    "hint": "Uveďte, čo chcete realizáciou projektu dosiahnuť a aký konkrétny výsledok alebo prínos má projekt priniesť.",
+                    "config": {
+                        "toolbar": "Full",
+                        "is_readonly": 0
+                    }
+                },
+                {
+                    "type": "SUB_SECTION",
+                    "name": "Miesto realizácie projektu",
+                    "tag": "miesto",
+                    "mandatory": true,
+                    "heading": "Realizácia projektu",
+                    "children": [
+                        {
+                            "type": "SELECT",
+                            "name": "Okres",
+                            "tag": "okres",
+                            "mandatory": true,
+                            "description": "<p>Vyberte okres v ktorom sa bude realizovať projekt.</p>\n\n<p>&nbsp;</p>",
+                            "heading": "Okres",
+                            "hint": "V prípade realizácie projektu mimo nášho kraja, resp. aj mimo SR, je potrebné uvádzať okres, v ktorom vaša organizácia sídli.",
+                            "config": {
+                                "values": {
+                                    "Banská Bystrica": "Banská Bystrica",
+                                    "Banská Štiavnica": "Banská Štiavnica",
+                                    "Brezno": "Brezno",
+                                    "Detva": "Detva",
+                                    "Krupina": "Krupina",
+                                    "Lučenec": "Lučenec",
+                                    "Poltár": "Poltár",
+                                    "Revúca": "Revúca",
+                                    "Rimavská Sobota": "Rimavská Sobota",
+                                    "Veľký Krtíš": "Veľký Krtíš",
+                                    "Zvolen": "Zvolen",
+                                    "Žarnovica": "Žarnovica",
+                                    "Žiar nad Hronom": "Žiar nad Hronom"
+                                },
+                                "values_hint": {
+                                    "Banská Bystrica": null,
+                                    "Banská Štiavnica": null,
+                                    "Brezno": null,
+                                    "Detva": null,
+                                    "Krupina": null,
+                                    "Lučenec": null,
+                                    "Poltár": null,
+                                    "Revúca": null,
+                                    "Rimavská Sobota": null,
+                                    "Veľký Krtíš": null,
+                                    "Zvolen": null,
+                                    "Žarnovica": null,
+                                    "Žiar nad Hronom": null
+                                },
+                                "values_connected": {
+                                    "Banská Bystrica": "",
+                                    "Banská Štiavnica": "",
+                                    "Brezno": "",
+                                    "Detva": "",
+                                    "Krupina": "",
+                                    "Lučenec": "",
+                                    "Poltár": "",
+                                    "Revúca": "",
+                                    "Rimavská Sobota": "",
+                                    "Veľký Krtíš": "",
+                                    "Zvolen": "",
+                                    "Žarnovica": "",
+                                    "Žiar nad Hronom": ""
+                                },
+                                "roller_source": "",
+                                "add_roller_code": 0,
+                                "load_connected_values_dynamically": 0,
+                                "hide_when_no_connected_values": 0,
+                                "add_empty_option": 1,
+                                "is_readonly": 0
+                            }
+                        },
+                        {
+                            "type": "SIMPLE_STRING",
+                            "name": "Adresa",
+                            "tag": "adresa",
+                            "description": "Údaj vyplňte iba v prípade, ak je v čase podania žiadosti známa presná adresa miesta realizácie projektu.",
+                            "placeholder": "Ulica a číslo, PSČ, mesto/obec",
+                            "heading": "Ulica a číslo, PSČ, mesto/obec",
+                            "config": {
+                                "size": 70,
+                                "is_readonly": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "DATE_RANGE",
+                    "name": "Dátum začatia a ukončenia",
+                    "tag": "datum",
+                    "mandatory": true,
+                    "description": "Uveďte plánovaný dátum začatia a ukončenia realizácie projektu. Ak presný termín ešte nie je známy, postačuje orientačný údaj",
+                    "heading": "Dátum začatia a ukončenia projektu",
+                    "hint": "Ukončením realizácie projektu sa v prípade podujatia rozumie posledný deň uskutočnenia podujatia. V ostatných prípadoch je to deň poslednej úhrady za oprávnené výdavky, alebo dátum na doklade preukazujúcom prevzatie tovaru alebo služby, pričom sa berie do úvahy tá skutočnosť, ktorá nastane neskôr.",
+                    "config": {
+                        "size": 20,
+                        "start_min": "2026-12-31T23:00:00.000Z",
+                        "start_max": "2027-12-30T23:00:00.000Z",
+                        "end_min": "2026-12-31T23:00:00.000Z",
+                        "end_max": "2027-12-30T23:00:00.000Z",
+                        "month_edges_only": 0,
+                        "is_readonly": 0
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Rozpočet",
+            "tag": "rozpocet",
+            "mandatory": true,
+            "description": "<p><span style=\"color:#c0392b\"><strong>V jednotlivých riadkoch&nbsp;uvádzajte <u>výlučne oprávnené výdavky</u>.</strong></span></p>\n\n<p><strong><span style=\"color:#c0392b\">Oprávnenými výdavkami sú výlučne bežné výdavky, ktoré nemajú charakter kapitálových (investičných) výdavkov. Ide najmä o výdavky na nákup materiálu, tovarov a služieb a na obstaranie majetku, ktorý sa nepovažuje za dlhodobý majetok. Pri hmotnom majetku nesmie vstupná cena jednotlivého majetku presiahnuť 1 700 EUR a pri nehmotnom majetku 2 400 EUR, pri zohľadnení doby použiteľnosti a ostatných podmienok podľa príslušných právnych predpisov. Zároveň sa tieto výdavky&nbsp;</span></strong><span style=\"color:#c0392b\"><strong>nesmú navzájom prekrývať s výdavkami, ktoré sa refundujú z iných zdrojov</strong></span><strong><span style=\"color:#c0392b\">.</span></strong></p>\n\n<p style=\"text-align:justify\">&nbsp;</p>",
+            "heading": "Rozpočet",
+            "hint": "<p>Za neoprávnené výdavky sa považujú výdavky na:</p>\n\n<p>a) úhradu nákladov, ktoré sa nedajú preukázať účtovnými dokladmi,</p>\n\n<p>b) daň z pridanej hodnoty (ďalej len ako „DPH“), ak je žiadateľ alebo prijímateľ platiteľom DPH podľa osobitných predpisov a zároveň mu vzniká nárok na odpočítanie DPH, c) správne, súdne, miestne a iné poplatky, d) splácanie úverov a úrokov z poskytnutých úverov, VZN BBSK č. 52/2024 o poskytovaní dotácií z vlastných príjmov BBSK účelovo určených na podporu a rozvoj BBSK (úplné znenie) 6 e) honoráre, odmeny, mzdy, platy, služobné príjmy a ich náhrady, alebo iné formy príjmu zamestnancov, štatutárnych orgánov, alebo členov prijímateľa, f) školenia a workshopy pre zamestnancov, členov štatutárnych orgánov či členov prijímateľa, g) zákonné odvody z honorárov, odmien, miezd, platov, alebo iných príjmov, ktoré sú odvádzané prijímateľom dotácie, h) odmeny za poskytnutie licencie, autorské odmeny uhrádzané Slovenskému ochrannému zväzu autorskému, i) nákup športového: vybavenia, oblečenia, náradia a náčinia s výnimkou projektov zameraných na podujatia organizované priamo prijímateľom, j) stravovanie, občerstvenie a potraviny, k) zájazdy, výlety, rekreačné a ozdravné pobyty, sústredenia, vstupné, terapie a procedúry, l) prevádzkové výdavky a režijné náklady spojené s pravidelne sa opakujúcimi bežnými aktivitami žiadateľa/prijímateľa (najmä celoročná doprava, celoročný prenájom priestorov, kancelárske potreby, poistné, poplatky za telekomunikačné služby, vodné, stočné, energie, odvoz a likvidácia odpadov, kosenie a iné), m) verejnú hromadnú dopravu a individuálnu dopravu (napr. taxislužba, zdieľaná doprava) n) nákup pohonných hmôt a prenájom osobného vozidla, o) zhodnotenie majetku vo vlastníctve BBSK, p) kapitálové výdavky v zmysle Metodického usmernenia Ministerstva financií Slovenskej republiky k ekonomickej klasifikácii rozpočtovej klasifikácie, q) výdavky na obstaranie dlhodobého hmotného majetku s obstarávacou cenou nad 1 700 EUR a dlhodobého nehmotného majetku s obstarávacou cenou nad 2 400 EUR, vrátane výdavkov súvisiacich s obstaraním tohto majetku v zmysle zákona č. 595/2003 Z. z. o dani z príjmov, r) úhradu iných nákladov, ktoré vecne nesúvisia s realizáciou projektu.</p>",
+            "config": {
+                "add_print_pagebreak": 0,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "BUDGET",
+                    "name": "Rozpočet",
+                    "tag": "rozpocet",
+                    "mandatory": true,
+                    "heading": "Rozpočet",
+                    "hint": "<p>Za neoprávnené výdavky sa považujú výdavky na:</p>\n\n<p>a) úhradu nákladov, ktoré sa nedajú preukázať účtovnými dokladmi,</p>\n\n<p>b) daň z pridanej hodnoty (ďalej len ako „DPH“), ak je žiadateľ alebo prijímateľ platiteľom DPH podľa osobitných predpisov a zároveň mu vzniká nárok na odpočítanie DPH,</p>\n\n<p>c) správne, súdne, miestne a iné poplatky,</p>\n\n<p>d) splácanie úverov a úrokov z poskytnutých úverov, VZN BBSK č. 52/2024 o poskytovaní dotácií z vlastných príjmov BBSK účelovo určených na podporu a rozvoj BBSK (úplné znenie)&nbsp;</p>\n\n<p>e) honoráre, odmeny, mzdy, platy, služobné príjmy a ich náhrady, alebo iné formy príjmu zamestnancov, štatutárnych orgánov, alebo členov prijímateľa,</p>\n\n<p>f) školenia a workshopy pre zamestnancov, členov štatutárnych orgánov či členov prijímateľa,</p>\n\n<p>g) zákonné odvody z honorárov, odmien, miezd, platov, alebo iných príjmov, ktoré sú odvádzané prijímateľom dotácie,</p>\n\n<p>h) odmeny za poskytnutie licencie, autorské odmeny uhrádzané Slovenskému ochrannému zväzu autorskému,</p>\n\n<p>i) nákup športového: vybavenia, oblečenia, náradia a náčinia s výnimkou projektov zameraných na podujatia organizované priamo prijímateľom,</p>\n\n<p>j) stravovanie, občerstvenie a potraviny,</p>\n\n<p>k) zájazdy, výlety, rekreačné a ozdravné pobyty, sústredenia, vstupné, terapie a procedúry,</p>\n\n<p>l) prevádzkové výdavky a režijné náklady spojené s pravidelne sa opakujúcimi bežnými aktivitami žiadateľa/prijímateľa (najmä celoročná doprava, celoročný prenájom priestorov, kancelárske potreby, poistné, poplatky za telekomunikačné služby, vodné, stočné, energie, odvoz a likvidácia odpadov, kosenie a iné),</p>\n\n<p>m) verejnú hromadnú dopravu a individuálnu dopravu (napr. taxislužba, zdieľaná doprava)</p>\n\n<p>n) nákup pohonných hmôt a prenájom osobného vozidla,</p>\n\n<p>o) zhodnotenie majetku vo vlastníctve BBSK,</p>\n\n<p>p) kapitálové výdavky v zmysle Metodického usmernenia Ministerstva financií Slovenskej republiky k ekonomickej klasifikácii rozpočtovej klasifikácie,</p>\n\n<p>q) výdavky na obstaranie dlhodobého hmotného majetku s obstarávacou cenou nad 1 700 EUR a dlhodobého nehmotného majetku s obstarávacou cenou nad 2 400 EUR, vrátane výdavkov súvisiacich s obstaraním tohto majetku v zmysle zákona č. 595/2003 Z. z. o dani z príjmov,</p>\n\n<p>r) úhradu iných nákladov, ktoré vecne nesúvisia s realizáciou projektu.</p>",
+                    "config": {
+                        "item_label": "Položky",
+                        "requested_sum_label": "Celková suma žiadaná z BBSK",
+                        "own_sum_label": "Celkové iné zdroje",
+                        "total_sum_label": "Celková suma projektu",
+                        "currency": "€",
+                        "minimum_own_percent": 10,
+                        "minimum_own_percent_error": "Vlastné zdroje musia predstavovať aspoň 10% z celkovej sumy žiadanej z BBSK",
+                        "show_own_sum_percent": 0,
+                        "hide_own_sum": 0,
+                        "hide_total_sum": 0,
+                        "hide_requested_sum": 0,
+                        "hide_own_sum_only_budget": 0,
+                        "hide_total_sum_only_budget": 0,
+                        "hide_requested_sum_only_budget": 0,
+                        "hide_own_sum_only_sections": 0,
+                        "hide_total_sum_only_sections": 0,
+                        "hide_requested_sum_only_sections": 0,
+                        "hide_subsection_label": 0,
+                        "hide_subsection_sum_labels": 0
+                    },
+                    "children": [
+                        {
+                            "type": "BUDGET_SECTION",
+                            "name": "Výdavky",
+                            "tag": "vydavky",
+                            "mandatory": true,
+                            "heading": "Výdavky",
+                            "config": {
+                                "total_sum_tag": "spolu",
+                                "requested_sum_tag": "ziadana",
+                                "own_sum_tag": "ine",
+                                "hide_section_header": 0,
+                                "min_rows": "0",
+                                "initial_rows": "1",
+                                "add_rows": 1,
+                                "copy_rows": 0,
+                                "disable_remove_on_resubmit": 1,
+                                "hide_header": 0,
+                                "separate_rows": 0,
+                                "render_mode": "classic",
+                                "omit_unchanged_diff_rows": 0,
+                                "diff_row_order_matters": 0,
+                                "omit_unchanged_static_diff_rows": 0
+                            },
+                            "children": [
+                                {
+                                    "type": "TABLE_ITEM_STRING",
+                                    "name": "Názov položky",
+                                    "tag": "nazov",
+                                    "mandatory": true,
+                                    "heading": "Názov položky",
+                                    "config": {
+                                        "size": 35,
+                                        "is_readonly": 0,
+                                        "fixed_values": [
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            },
+                                            {
+                                                "value": "",
+                                                "readonly": "0"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_TEXT",
+                                    "name": "Popis položky",
+                                    "tag": "popis",
+                                    "mandatory": true,
+                                    "placeholder": "v prípade nákupu tovaru alebo materiálu uveďte aj predpokladaný počet kusov",
+                                    "heading": "Popis položky",
+                                    "config": {
+                                        "rows": 3,
+                                        "cols": 40,
+                                        "is_readonly": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_CURRENCY",
+                                    "name": "Suma žiadaná z BBSK",
+                                    "tag": "ziadana",
+                                    "mandatory": true,
+                                    "heading": "Suma žiadaná<br />\nz BBSK",
+                                    "config": {
+                                        "places": 0,
+                                        "size": 20,
+                                        "currency": "€",
+                                        "is_readonly": 0,
+                                        "show_summary": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_CURRENCY",
+                                    "name": "Iné zdroje",
+                                    "tag": "ine",
+                                    "heading": "Iné zdroje",
+                                    "hint": "<em>Iné zdroje = vlastné zdroje + ostatné zdroje financovania okrem prostriedkov poskytnutých z rozpočtu BBSK</em>",
+                                    "config": {
+                                        "size": 20,
+                                        "currency": "EUR",
+                                        "is_readonly": 0,
+                                        "show_summary": 0
+                                    }
+                                },
+                                {
+                                    "type": "TABLE_ITEM_SUM",
+                                    "name": "Spolu za položku",
+                                    "tag": "spolu",
+                                    "heading": "Spolu za položku",
+                                    "config": {
+                                        "tags": "ziadana,ine",
+                                        "width": "150px",
+                                        "no_currency": 0,
+                                        "show_summary": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Prílohy",
+            "tag": "prilohy",
+            "description": "<span style=\"color:#c0392b\"><strong>Pred nahratím príloh si skontrolujte, či je potrebné ich podpísať. Ak sa pri prílohe vyžaduje podpis, nahrajte ju už podpísanú.<br />\nPodpisom žiadosti sa automaticky nepodpisujú aj prílohy. Každú prílohu, pri ktorej sa vyžaduje podpis, preto podpíšte samostatne ešte pred jej nahratím. Akceptuje sa scan ako aj el. podpis.<br />\nPrílohy, pri ktorých sa podpis nevyžaduje, nie je potrebné podpisovať.</strong></span>",
+            "heading": "Prílohy",
+            "hint": "Podpísanie dokumentu môžete vykonať napr. cez&nbsp;https://qesportal.sk/Portal/sk",
+            "config": {
+                "add_print_pagebreak": 0,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "FILE_LIST",
+                    "name": "Doklad preukazujúci oprávnenie osoby",
+                    "tag": "opravnenieosoby",
+                    "description": "Doklad preukazujúci oprávnenie osoby (ktorá podala žiadosť), podať žiadosť za žiadateľa, ak nie je oprávnenie preukázané z verejne dostupných registrov (osvedčenie, menovací dekrét, zápisnica o zvolení/vymenovaní štatutárneho orgánu, plnomocenstvo, poverenie, alebo iný doklad.",
+                    "heading": "Doklad preukazujúci oprávnenie osoby podať žiadosť za žiadateľa.",
+                    "config": {
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Doklad z banky",
+                    "tag": "banka",
+                    "mandatory": true,
+                    "description": "Doklad z banky o zriadení/vedení bankového účtu žiadateľa, na ktorý má byť poukázaná dotácia (napríklad: (i) zmluva o založení účtu, (ii) potvrdenie o vedení účtu, (iii) respektíve výpis z bankového účtu). Predložený doklad nesmie byť starší ako 3 mesiace ku dňu podania žiadosti (s výnimkou zmluvy o založení účtu). Na doklade musí byť ako vlastník účtu uvedený žiadateľ a číslo účtu musí byť uvedené v tvare IBAN.",
+                    "heading": "Doklad z banky o zriadení/vedení bankového účtu",
+                    "config": {
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 1,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 1,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Zakladateľský dokument",
+                    "tag": "zakladatelsky",
+                    "description": "Zakladateľský dokument žiadateľa v znení účinnom ku dňu podania žiadosti (zriaďovacia listina, stanovy a pod.). Túto prílohu nie je povinný predkladať žiadateľ, ktorým je obec, mesto alebo registrovaná cirkev a náboženská spoločnosť.",
+                    "heading": "Zakladateľský dokument",
+                    "config": {
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Register partnerov verejného sektora",
+                    "tag": "rpvs",
+                    "description": "<p>Doklad preukazujúci zápis žiadateľa do registra partnerov verejného sektora, ak sa na žiadateľa vzťahuje povinnosť zápisu do registra podľa zákona č. 315/2016 Z. z. o registri partnerov verejného sektora a o zmene a doplnení niektorých zákonov. V prípade, že sa táto povinnosť nevzťahuje na žiadateľa, predloží čestné vyhlásenie. Toto čestné vyhlásenie nie je povinný predkladať žiadateľ, ktorým je obec alebo mesto.</p>\n\n<p><strong><a href=\"/upload/84/files/%C4%8Cestn%C3%A9%20prehl%C3%A1senie%20RPVS.docx\"><span style=\"color:#27ae60\">Vzor čestného prehlásenia stiahnete TU.</span></a></strong></p>",
+                    "heading": "Doklad preukazujúci zápis žiadateľa/čestné prehlásenie RPVS",
+                    "config": {
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0,
+                        "show_created_time": 0,
+                        "reject_encrypted_files": 0
+                    }
+                },
+                {
+                    "type": "FILE_LIST",
+                    "name": "Iné",
+                    "tag": "ine",
+                    "heading": "Iné",
+                    "config": {
+                        "disable_remove_on_reopen": 0,
+                        "hide_thumbnail_for_print": 0,
+                        "hide_name_for_print": 0,
+                        "hide_description_for_print": 0
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "Potvrdenie o nahratí príloh",
+                    "tag": "potvrdzujem",
+                    "mandatory": true,
+                    "config": {
+                        "value": "potvrdzujem nahratie podpísaných príloh"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "SECTION",
+            "name": "Čestné vyhlásenia",
+            "tag": "vyhlasenia",
+            "mandatory": true,
+            "heading": "Čestné vyhlásenia",
+            "config": {
+                "add_print_pagebreak": 0,
+                "validate_when_unsaved": 0,
+                "show_complete_when_unsaved": 0,
+                "show_diff_side_labels": 0
+            },
+            "children": [
+                {
+                    "type": "MULTIVALUE_SINGLE",
+                    "name": "Platca DPH",
+                    "tag": "platcadph",
+                    "mandatory": true,
+                    "heading": "Čestné vyhlásenie žiadateľa, či je / nie je platcom DPH",
+                    "config": {
+                        "values": {
+                            "je platca DPH": "je platca DPH",
+                            "nie je platca DPH": "nie je platca DPH"
+                        },
+                        "display_as_row": 0
+                    }
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "Čestne vyhlásenie",
+                    "tag": "cestne",
+                    "mandatory": true,
+                    "heading": "<p>Čestné vyhlásenie žiadateľa</p>\n\n<p>Ako osoba oprávnená konať v mene žiadateľa čestne vyhlasujem, že právny subjekt, v mene ktorého konám:</p>\n\n<ul>\n\t<li>má vysporiadané záväzky voči Banskobystrickému samosprávnemu kraju s výnimkou realizovaných projektov v roku, v ktorom sa podáva žiadosť o dotáciu;</li>\n\t<li>má vysporiadané záväzky voči štátu a nie je v likvidácii ani v konkurznom konaní;</li>\n\t<li>má splnené všetky povinnosti voči registru mimovládnych neziskových organizácií podľa zákona č. 346/2018 Z. z., prípadne sa naň táto povinnosť nevzťahuje;</li>\n\t<li>nemá právoplatne uložený trest zákazu prijímať dotácie alebo subvencie;</li>\n\t<li>má zabezpečené krytie výdavkov z vlastných alebo iných zdrojov a bude sa podieľať na spolufinancovaní projektu v zmysle príslušného VZN alebo výzvy.</li>\n</ul>",
+                    "config": {
+                        "value": "\n"
+                    }
+                },
+                {
+                    "type": "CONSTANT_VALUE",
+                    "name": "Poučenie o právach",
+                    "tag": "poucenie",
+                    "mandatory": true,
+                    "heading": "<p>Poučenie o právach dotknutých osôb a informácie o spracúvaní osobných údajov</p>\n\n<p>Banskobystrický samosprávny kraj spracúva poskytnuté osobné údaje v súlade s Nariadením Európskeho parlamentu a Rady (EÚ) 2016/679 o ochrane fyzických osôb pri spracúvaní osobných údajov a o voľnom pohybe takýchto údajov, ktorým sa zrušuje smernica 95/46/ES (všeobecné nariadenie o ochrane údajov), na základe zákonného právneho základu. Údaje budú uchovávané po dobu stanovenú zákonom o archívoch a registratúrach a po uplynutí príslušných lehôt budú zlikvidované. Pre bližšie oboznámenie sa s Vašimi právami a našimi povinnosťami nájdete informácie na webovom sídle Banskobystrického samosprávneho kraja v časti Ochrana osobných údajov alebo môžete kontaktovať zodpovednú osobu prevádzkovateľa e-mailom na zodpovedna.osoba@bbsk.sk.</p>"
+                },
+                {
+                    "type": "REQUIRED_AGREEMENT",
+                    "name": "Čestné vyhlásenie 2",
+                    "tag": "cestne2",
+                    "mandatory": true,
+                    "heading": "Všetky údaje uvedené v žiadosti a jej prílohách sú presné, pravdivé a úplné a zároveň som si vedomý/vedomá právnych následkov, ktoré môžu vzniknúť v prípade uvedenia nepravdivých alebo neúplných údajov."
+                }
+            ]
+        }
+    ]
+}
